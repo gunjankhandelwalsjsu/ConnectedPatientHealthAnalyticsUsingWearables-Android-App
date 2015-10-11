@@ -36,6 +36,8 @@
     <string name="cancel_button">Cancel</string>
 
     <string name="title_activity_login">Barcode Generate</string>
+    <string name="title_activity_bluetooth">Bluetooth Generation</string>
+
 
 
     <string-array name="helloactivity_language_list">

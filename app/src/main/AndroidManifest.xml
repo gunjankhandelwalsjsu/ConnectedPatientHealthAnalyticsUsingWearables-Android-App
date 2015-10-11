@@ -9,6 +9,10 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+       <uses-feature android:name="android.hardware.bluetooth_le"
+                     android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -51,9 +55,13 @@
         <activity
             android:name=".activity.ViewForScannerActivity"
             android:label="@string/title_activity_view_for_scanner"
-            android:parentActivityName="activity.MainActivity"
+            android:parentActivityName="activity.MainActivity">
+        </activity>
 
-            >
+        <activity
+            android:name=".activity.BluetoothActivity"
+            android:label="@string/title_activity_bluetooth"
+            android:parentActivityName="activity.LoginActivity">
         </activity>
     </application>
 
