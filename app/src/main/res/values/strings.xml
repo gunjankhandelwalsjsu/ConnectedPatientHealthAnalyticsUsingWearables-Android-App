@@ -1,0 +1,166 @@
+<resources>
+    <string name="app_name">Glucosio</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_feedback">Send feedback</string>
+    <string name="tab_overview">Overview</string>
+    <string name="tab_history">History</string>
+    <string name="tab_scan">Scan Food</string>
+
+    <string name="title_activity_hello">Login</string>
+    <string name="helloactivity_headline">Login</string>
+    <string name="helloactivity_terms">Terms of usage.</string>
+    <string name="helloactivity_terms_accept">I\'ve read and accept the terms of usage</string>
+    <string name="helloactivity_terms_full">The contents of the Glucosio website and apps, such as text, graphics, images, and other material (“Content”) are for informational purposes only. The content is not intended to be a substitute for professional medical advice, diagnosis, or treatment. We encourage Glucosio users to always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read on the Glucosio website or in our apps. The Glucosio Website, Blog, Wiki and other web browser accessible content (“Website”) should be used only for the purpose described above.\n Reliance on any information provided by Glucosio, Glucosio team members, volunteers and others appearing on the Website or in our apps is solely at your own risk.  The Site and the Content are provided on an “as is” basis.</string>
+    <string name="helloactivity_subhead">Please enter your Login credentials.</string>
+    <string name="helloactivity_username">Username</string>
+
+
+
+    <string name="scanner_activity">Full Activity</string>
+    <string name="scanner_fragment_activity">Scanner - Full Fragment Activity</string>
+    <string name="simple_scanner_activity">Scanner - Simple Activity</string>
+    <string name="simple_scanner_fragment_activity">Scanner - Simple Fragment Activity</string>
+    <string name="simple_activity_sample">Simple Activity Sample</string>
+    <string name="simple_fragment_sample">Simple Fragment Sample</string>
+    <string name="activity_sample">Eat Food</string>
+    <string name="fragment_sample">Full Fragment Sample</string>
+    <string name="toggle_flash">Flash</string>
+    <string name="flash_on">Flash [ON]</string>
+    <string name="flash_off">Flash [OFF]</string>
+    <string name="auto_focus_on">Auto Focus [ON]</string>
+    <string name="auto_focus_off">Auto Focus [OFF]</string>
+    <string name="formats">Formats</string>
+    <string name="choose_formats">Choose Formats</string>
+    <string name="select_camera">Select a Camera</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Cancel</string>
+
+    <string name="title_activity_login">Barcode Generate</string>
+
+
+    <string-array name="helloactivity_language_list">
+        <item>English (US)</item>
+        <item>Spanish</item>
+        <item>German</item>
+        <item>French</item>
+        <item>Italian</item>
+        <item>Hindi</item>
+        <item>Albanian</item>
+        <item>Romanian</item>
+    </string-array>
+    <string name="helloactivity_password">Password</string>
+    <string name="helloactivity_password_invalid">Please enter a valid age.</string>
+
+    <string name="helloactivity_gender">Gender</string>
+    <string name="helloactivity_gender_list_1">Male</string>
+    <string name="helloactivity_gender_list_2">Female</string>
+    <string name="helloactivity_gender_list_3">Other</string>
+
+    <string-array name="helloactivity_gender_list">
+        <item>@string/helloactivity_gender_list_1</item>
+        <item>@string/helloactivity_gender_list_2</item>
+        <item>@string/helloactivity_gender_list_3</item>
+    </string-array>
+
+    <string name="helloactivity_spinner_diabetes_type">Diabetes type</string>
+    <string name="helloactivity_spinner_diabetes_type_1">Type 1</string>
+    <string name="helloactivity_spinner_diabetes_type_2">Type 2</string>
+
+    <string-array name="helloactivity_diabetes_type">
+        <item>@string/helloactivity_spinner_diabetes_type_1</item>
+        <item>@string/helloactivity_spinner_diabetes_type_2</item>
+    </string-array>
+
+    <string name="helloactivity_spinner_preferred_unit">Preferred unit</string>
+    <string name="helloactivity_spinner_preferred_unit_1">mg/dL</string>
+    <string name="helloactivity_spinner_preferred_unit_2">mmol/L</string>
+
+    <string-array name="helloactivity_preferred_unit">
+        <item>@string/helloactivity_spinner_preferred_unit_1</item>
+        <item>@string/helloactivity_spinner_preferred_unit_2</item>
+    </string-array>
+
+    <string name="helloactivity_share_data">Share anonymous data for research.</string>
+    <string name="helloactivity_hint_settings">You can change these in settings later.</string>
+    <string name="helloactivity_button_next_login">Login</string>
+    <string name="helloactivity_button_start">GET STARTED</string>
+
+    <string name="fragment_empty_text">No info available yet. \n Add your first reading here.</string>
+    <string name="dialog_add_title">Add Blood Glucose Level</string>
+    <string name="dialog_add_concentration">Concentration</string>
+    <string name="dialog_add_concentration_um" translatable="false">mg/dL</string>
+    <string name="dialog_add_date">Date</string>
+    <string name="dialog_add_time">Time</string>
+    <string name="dialog_add_measured">Measured</string>
+
+    <string name="dialog_add_type_1">Before breakfast</string>
+    <string name="dialog_add_type_2">After breakfast</string>
+    <string name="dialog_add_type_3">Before lunch</string>
+    <string name="dialog_add_type_4">After lunch</string>
+    <string name="dialog_add_type_5">Before dinner</string>
+    <string name="dialog_add_type_6">After dinner</string>
+    <string name="dialog_add_type_7">General</string>
+    <string name="dialog_add_type_8">Recheck</string>
+    <string name="dialog_add_type_9">Night</string>
+
+
+    <string-array name="dialog_add_measured_list" translatable="false">
+        <item>@string/dialog_add_type_1</item>
+        <item>@string/dialog_add_type_2</item>
+        <item>@string/dialog_add_type_3</item>
+        <item>@string/dialog_add_type_4</item>
+        <item>@string/dialog_add_type_5</item>
+        <item>@string/dialog_add_type_6</item>
+        <item>@string/dialog_add_type_7</item>
+        <item>@string/dialog_add_type_8</item>
+        <item>@string/dialog_add_type_9</item>
+    </string-array>
+    <string name="dialog_add_cancel">CANCEL</string>
+    <string name="dialog_add_add">ADD</string>
+    <string name="dialog_error">Please fill all the fields.</string>
+    <string name="dialog_delete">Delete</string>
+    <string name="dialog_edit">Edit</string>
+
+    <string name="hello_blank_fragment" translatable="false">Fragment here.</string>
+    <string name="fragment_history_snackbar_text">1 reading deleted</string>
+    <string name="fragment_history_snackbar_action">UNDO</string>
+
+    <string name="fragment_overview_last_reading">Last check:</string>
+    <string name="fragment_overview_trend">Trend over past month:</string>
+    <string name="fragment_overview_trend_positive">in range and healthy</string>
+    <string name="fragment_overview_tip">Tip</string>
+    <string name="tip_example" translatable="false">Use less cheese in your recipes and meals. Fresh mozzarella packed in water and Swiss cheese are usually lower in sodium.</string>
+
+
+
+
+    <string-array name="tips_all">
+        <item>Eat more fresh, unprocessed foods to help reduce carbohydrate and sugar intake.</item>
+        <item>Read the nutritional label on packaged foods and beverages to control sugar and carbohydrate intake.</item>
+        <item>When eating out, ask for fish or meat broiled with no extra butter or oil.</item>
+        <item>When eating out, ask if they have low sodium dishes.</item>
+        <item>When eating out, eat the same portion sizes you would at home and take the leftovers to go.</item>
+        <item>When eating out ask for low-calorie items, such as salad dressings, even if they\'re not on the menu.</item>
+        <item>When eating out ask for substitutions. Instead of French fries, request a double order of a vegetable like salad, green beans or broccoli.</item>
+        <item>When eating out, order foods that are not breaded or fried.</item>
+        <item>When eating out ask for sauces, gravy and salad dressings "on the side."</item>
+        <item>Sugar free doesn’t really mean sugar free. It means 0.5 grams (g) of sugar per serving, so be careful to not indulge in too many sugar free items.</item>
+        <item>Moving toward a healthy weight helps control blood sugars. Your doctor, a dietitian, and a fitness trainer can get you started on a plan that will work for you.</item>
+        <item>Checking your blood level and tracking it in an app like Glucosio twice a day will help you be aware of outcomes from food and lifestyle choices.</item>
+        <item>Get A1c blood tests to find out your average blood sugar for the past 2 to 3 months. Your doctor should tell you how frequently this test will be needed to be performed.</item>
+        <item>Tracking how many carbohydrates you consume can be just as important as checking blood levels since carbohydrates influence blood glucose levels. Talk to your doctor or a dietician about carbohydrate intake.</item>
+        <item>Controlling blood pressure, cholesterol, and triglyceride levels is important since diabetics are susceptible to heart disease.</item>
+        <item>There are several diet approaches you can take to eating healthier and helping improve your diabetes outcomes. Seek advice from a dietician on what will work best for you and your budget.</item>
+        <item>Working on getting regular exercise is especially important for those with diabetes and can help you maintain a healthy weight. Talk to your doctor about exercises that will be appropriate for you.</item>
+        <item>Being sleep-deprived can make you eat more especially things like junk food and as a result can negatively impact your health. Be sure to get a good night sleep and consult a sleep specialist if you are having difficulty.</item>
+        <item>Stress can have a negative impact on diabetes talk to your doctor or other health care professional about coping with stress.</item>
+        <item>Visiting your doctor once a year and having regular communication throughout the year is important for diabetics to prevent any sudden onset of associated health problems.</item>
+        <item>Take your medicine as prescribed by your doctor even small lapses in your medicine can impact your blood glucose level and cause other side effects. If having difficulty remembering ask your doctor about medication management and reminder options.</item>
+    </string-array>
+    <string-array name="tips_all_age_plus_40">
+        <item>Older diabetics may be at higher risk for health issues associated with diabetes. Talk to your doctor about how your age plays a role in your diabetes and what to watch for.</item>
+        <item>Limit the amount of salt you use to cook food and that you add to meals after it has been cooked.</item>
+    </string-array>
+    <string name="title_activity_scanner">ScannerActivity</string>
+    <string name="title_activity_view_for_scanner">ViewForScannerActivity</string>
+</resources>
