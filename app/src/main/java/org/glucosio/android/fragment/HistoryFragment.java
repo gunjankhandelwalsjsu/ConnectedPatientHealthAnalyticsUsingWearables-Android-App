@@ -18,6 +18,7 @@ import org.glucosio.android.R;
 import org.glucosio.android.activity.MainActivity;
 import org.glucosio.android.adapter.HistoryAdapter;
 import org.glucosio.android.db.GlucoseReading;
+import org.glucosio.android.db.TemperatureReading;
 import org.glucosio.android.listener.RecyclerItemClickListener;
 import org.glucosio.android.presenter.HistoryPresenter;
 
@@ -26,7 +27,7 @@ public class HistoryFragment extends Fragment {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView.Adapter mAdapter;
-    GlucoseReading readingToRestore;
+    TemperatureReading readingToRestore;
     HistoryPresenter presenter;
 
     public static HistoryFragment newInstance() {
@@ -89,12 +90,10 @@ public class HistoryFragment extends Fragment {
                                 // EDIT
                                 TextView idTextView = (TextView) mRecyclerView.getChildAt(position).findViewById(R.id.item_history_id);
                                 final int idToEdit = Integer.parseInt(idTextView.getText().toString());
-                                ((MainActivity)getActivity()).showEditDialog(idToEdit);
                             } else {
                                 // DELETE
                                 TextView idTextView = (TextView) mRecyclerView.getChildAt(position).findViewById(R.id.item_history_id);
-                                final int idToDelete = Integer.parseInt(idTextView.getText().toString());
-                                presenter.onDeleteClicked(idToDelete);
+
                                 Snackbar.make(((MainActivity)getActivity()).getFabView(), R.string.fragment_history_snackbar_text, Snackbar.LENGTH_LONG).setCallback(new Snackbar.Callback() {
                                     @Override
                                     public void onDismissed(Snackbar snackbar, int event) {
@@ -102,9 +101,7 @@ public class HistoryFragment extends Fragment {
                                             case Snackbar.Callback.DISMISS_EVENT_ACTION:
                                                 // Do nothing, see Undo onClickListener
                                                 break;
-                                            case Snackbar.Callback.DISMISS_EVENT_TIMEOUT:
-                                                presenter.deleteReading(idToDelete);
-                                                break;
+
                                         }
                                     }
 

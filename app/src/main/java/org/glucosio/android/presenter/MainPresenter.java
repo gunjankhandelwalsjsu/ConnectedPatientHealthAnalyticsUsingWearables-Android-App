@@ -1,15 +1,20 @@
 package org.glucosio.android.presenter;
 
+import android.util.Log;
+
 import org.glucosio.android.activity.MainActivity;
 import org.glucosio.android.db.DatabaseHandler;
 import org.glucosio.android.db.GlucoseReading;
+import org.glucosio.android.db.TemperatureReading;
 import org.glucosio.android.db.User;
 import org.glucosio.android.tools.ReadingTools;
 import org.glucosio.android.tools.SplitDateTime;
+import org.glucosio.android.tools.TemperatureTools;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainPresenter {
 
@@ -17,8 +22,7 @@ public class MainPresenter {
 
     DatabaseHandler dB;
     User user;
-    ReadingTools rTools;
-    int age;
+    TemperatureTools rTools;
 
     private String readingYear;
     private String readingMonth;
@@ -29,24 +33,18 @@ public class MainPresenter {
     public MainPresenter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         dB = new DatabaseHandler(mainActivity);
-        if (dB.getUser(1) == null){
-            mainActivity.startHelloActivity();
-        } else {
-            user = dB.getUser(1);
-            age = user.get_age();
-            rTools = new ReadingTools();
+        rTools = new TemperatureTools();
 
-        }
+
     }
 
-    public void updateSpinnerTypeTime() {
-        getCurrentTime();
-        mainActivity.updateSpinnerTypeTime(timeToSpinnerType());
-    }
+
 
     public void getCurrentTime(){
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String formatted = inputFormat.format(Calendar.getInstance().getTime());
+        Date dateobj = new Date();
+
+        String formatted = inputFormat.format(dateobj);
         SplitDateTime addSplitDateTime = new SplitDateTime(formatted, inputFormat);
 
         this.readingYear = addSplitDateTime.getYear();
@@ -83,17 +81,16 @@ public class MainPresenter {
         return rTools.hourToSpinnerType(hour);
     }
 
-    public String getGlucoseReadingReadingById(int id){
-        return dB.getGlucoseReadingById(id).get_reading() + "";
+    public String getTemperatureReadingReadingById(int id){
+        return dB.getTemperatureReadingById(id).get_reading() + "";
     }
 
-    public int getGlucoseReadingTypeById(int id){
-        return dB.getGlucoseReadingById(id).get_reading_type();
-    }
 
-    public void getGlucoseReadingTimeById(int id){
+    public void getTemperatureReadingTimeById(int id){
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        SplitDateTime splitDateTime = new SplitDateTime(dB.getGlucoseReadingById(id).get_created(), inputFormat);
+        Log.d("timeR",dB.getTemperatureReadingById(id).get_created());
+
+        SplitDateTime splitDateTime = new SplitDateTime(dB.getTemperatureReadingById(id).get_created(), inputFormat);
         this.readingYear = splitDateTime.getYear();
         this.readingMonth = splitDateTime.getMonth();
         this.readingDay = splitDateTime.getDay();
@@ -101,31 +98,31 @@ public class MainPresenter {
         this.readingMinute = splitDateTime.getMinute();
     }
 
-    public void dialogOnAddButtonPressed(String time, String date, String reading, int type){
-        if (validateDate(date) && validateTime(time) && validateReading(reading)) {
-            int finalReading = Integer.parseInt(reading);
+    public void addValueTodb(String time,String reading){
+        if(validateTime(time) && validateReading(reading)) {
+            double finalReading = Double.parseDouble(reading);
+            getCurrentTime();
             String finalDateTime = readingYear + "-" + readingMonth + "-" + readingDay + " " + readingHour + ":" + readingMinute;
-
-            GlucoseReading gReading = new GlucoseReading(finalReading, type, finalDateTime);
-            dB.addGlucoseReading(gReading);
-            mainActivity.dismissAddDialog();
+            Log.d("time",reading);
+            if(finalReading>30) {
+                TemperatureReading gReading = new TemperatureReading(finalReading, finalDateTime);
+                dB.addTemperatureReading(gReading);
+            }
+          //  mainActivity.dismissAddDialog();
         } else {
             mainActivity.showErrorMessage();
         }
     }
 
-    public void dialogOnEditButtonPressed(String time, String date, String reading, int type, int id){
+    public void dialogOnEditButtonPressed(String time, String date, String reading){
         if (validateDate(date) && validateTime(time) && validateReading(reading)) {
-            int finalReading = Integer.parseInt(reading);
+            double finalReading = Double.parseDouble(reading);
             String finalDateTime = readingYear + "-" + readingMonth + "-" + readingDay + " " + readingHour + ":" + readingMinute;
 
-            GlucoseReading gReadingToDelete = dB.getGlucoseReadingById(id);
-            GlucoseReading gReading = new GlucoseReading(finalReading, type, finalDateTime);
+           TemperatureReading gReading = new TemperatureReading(finalReading, finalDateTime);
 
-            dB.deleteGlucoseReadings(gReadingToDelete);
-            dB.addGlucoseReading(gReading);
+            dB.addTemperatureReading(gReading);
 
-            mainActivity.dismissAddDialog();
         } else {
             mainActivity.showErrorMessage();
         }

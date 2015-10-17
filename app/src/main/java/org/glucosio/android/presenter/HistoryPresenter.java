@@ -10,10 +10,9 @@ public class HistoryPresenter {
 
     DatabaseHandler dB;
     private ArrayList<Integer> id;
-    private ArrayList<Integer> reading;
+    private ArrayList<Double> reading;
     private ArrayList <Integer> type;
     private ArrayList<String> datetime;
-    GlucoseReading readingToRestore;
     HistoryFragment fragment;
 
     public HistoryPresenter(HistoryFragment historyFragment) {
@@ -22,14 +21,13 @@ public class HistoryPresenter {
     }
 
     public boolean isdbEmpty(){
-        return dB.getGlucoseReadings().size() == 0;
+        return dB.getTemperatureReadings().size() == 0;
     }
 
     public void loadDatabase(){
-        this.id = dB.getGlucoseIdAsArray();
-        this.reading = dB.getGlucoseReadingAsArray();
-        this.type = dB.getGlucoseTypeAsArray();
-        this.datetime = dB.getGlucoseDateTimeAsArray();
+        this.id = dB.getTemperatureIdAsArray();
+        this.reading = dB.getTemperatureReadingAsArray();
+        this.datetime = dB.getTemperatureDateTimeAsArray();
     }
 
 
@@ -38,34 +36,19 @@ public class HistoryPresenter {
         return rTools.convertDate(date);
     }
 
-    public void onDeleteClicked(int idToDelete){
-        readingToRestore = dB.getGlucoseReadingById(idToDelete);
-        removeReadingFromDb(dB.getGlucoseReadingById(idToDelete));
-        fragment.notifyAdapter();
-        dB.addGlucoseReading(readingToRestore);
-    }
-
-    public void deleteReading(int idToDelete) {
-        removeReadingFromDb(dB.getGlucoseReadingById(idToDelete));
-        fragment.notifyAdapter();
-    }
 
     public void onUndoClicked(){
         fragment.notifyAdapter();
     }
 
-    private void removeReadingFromDb(GlucoseReading gReading) {
-        dB.deleteGlucoseReadings(gReading);
-        fragment.reloadFragmentAdapter();
-        loadDatabase();
-    }
+
 
     // Getters
     public ArrayList<Integer> getId() {
         return id;
     }
 
-    public ArrayList<Integer> getReading() {
+    public ArrayList<Double> getReading() {
         return reading;
     }
 

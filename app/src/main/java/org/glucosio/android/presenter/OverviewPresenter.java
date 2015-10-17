@@ -1,9 +1,13 @@
 package org.glucosio.android.presenter;
 
+import android.util.Log;
+
 import org.glucosio.android.db.DatabaseHandler;
+import org.glucosio.android.db.TemperatureReading;
 import org.glucosio.android.fragment.HistoryFragment;
 import org.glucosio.android.fragment.OverviewFragment;
 import org.glucosio.android.tools.ReadingTools;
+import org.glucosio.android.tools.TemperatureTools;
 import org.glucosio.android.tools.TipsManager;
 
 import java.util.ArrayList;
@@ -15,7 +19,7 @@ import java.util.Random;
 public class OverviewPresenter {
 
     DatabaseHandler dB;
-    private ArrayList<Integer> reading;
+    private ArrayList<Double> reading;
     private ArrayList <Integer> type;
     private ArrayList<String> datetime;
 
@@ -24,22 +28,21 @@ public class OverviewPresenter {
     }
 
     public boolean isdbEmpty(){
-        return dB.getGlucoseReadings().size() == 0;
+        return dB.getTemperatureReadings().size() == 0;
     }
 
     public void loadDatabase(){
-        this.reading = dB.getGlucoseReadingAsArray();
-        this.type = dB.getGlucoseTypeAsArray();
-        this.datetime = dB.getGlucoseDateTimeAsArray();
+        this.reading = dB.getTemperatureReadingAsArray();
+        this.datetime = dB.getTemperatureDateTimeAsArray();
     }
 
     public String convertDate(String date) {
-        ReadingTools rTools = new ReadingTools();
+        TemperatureTools rTools = new TemperatureTools();
         return rTools.convertDate(date);
     }
 
     public int getGlucoseTrend(){
-        return dB.getAverageGlucoseReadingForLastMonth();
+        return dB.getAverageTemperatureReadingForLastMonth();
     }
 
     public String getLastReading(){
@@ -54,11 +57,8 @@ public class OverviewPresenter {
         return tips.get(randomNumber);
     }
 
-    public int getUserAge(){
-        return dB.getUser(1).get_age();
-    }
 
-    public ArrayList<Integer> getReading() {
+    public ArrayList<Double> getReading() {
         return reading;
     }
 
@@ -67,6 +67,8 @@ public class OverviewPresenter {
     }
 
     public ArrayList<String> getDatetime() {
+        Log.i("datetimearray", datetime.get(0));
         return datetime;
+
     }
 }

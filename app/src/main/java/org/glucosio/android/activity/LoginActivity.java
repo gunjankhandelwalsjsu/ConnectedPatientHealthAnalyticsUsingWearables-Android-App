@@ -8,6 +8,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -60,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         presenter = new LoginPresenter(this);
         presenter.loadDatabase();
 
@@ -164,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void closeHelloActivity(){
 
-        Intent intent = new Intent(this, BluetoothActivity.class);
+        Intent intent = new Intent(this, SensorTagActivity.class);
         startActivity(intent);
         finish();
     }

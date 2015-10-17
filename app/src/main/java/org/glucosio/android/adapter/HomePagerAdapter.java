@@ -32,7 +32,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new OverviewFragment();
+              // return new OverviewFragment();
             case 1:
                 return new HistoryFragment();
             default:

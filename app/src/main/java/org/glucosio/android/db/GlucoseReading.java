@@ -61,7 +61,7 @@ public class GlucoseReading {
     }
     public void set_created(String created)
     {
-       this._created=created;
+        this._created=created;
     }
     public String get_type()
     {

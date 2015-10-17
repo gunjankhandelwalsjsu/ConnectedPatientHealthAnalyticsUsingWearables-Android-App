@@ -66,7 +66,6 @@ public class OverviewFragment extends Fragment {
 
             Collections.reverse(presenter.getReading());
             Collections.reverse(presenter.getDatetime());
-            Collections.reverse(presenter.getType());
 
             readingTextView = (TextView) mFragmentView.findViewById(R.id.item_history_reading);
             trendTextView = (TextView) mFragmentView.findViewById(R.id.item_history_trend);
@@ -188,7 +187,7 @@ public class OverviewFragment extends Fragment {
     }
 
     private void loadRandomTip(){
-        TipsManager tipsManager = new TipsManager(getActivity().getApplicationContext(), presenter.getUserAge());
+        TipsManager tipsManager = new TipsManager(getActivity().getApplicationContext());
         tipTextView.setText(presenter.getRandomTip(tipsManager));
     }
 }

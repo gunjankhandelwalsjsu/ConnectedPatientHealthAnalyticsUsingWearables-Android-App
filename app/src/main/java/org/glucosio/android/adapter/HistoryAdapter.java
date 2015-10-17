@@ -42,7 +42,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     // Create new views (invoked by the layout manager)
     @Override
     public HistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+                                                        int viewType) {
 
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
@@ -79,7 +79,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     }
 
     public String typeToString(int typeInt){
-       //TODO refactor this ugly mess
+        //TODO refactor this ugly mess
         String typeString = "";
         if (typeInt == 0) {
             typeString = mContext.getString(R.string.dialog_add_type_1);

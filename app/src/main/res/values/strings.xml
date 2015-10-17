@@ -165,4 +165,8 @@
     </string-array>
     <string name="title_activity_scanner">ScannerActivity</string>
     <string name="title_activity_view_for_scanner">ViewForScannerActivity</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
+    <string name="title_activity_licence">LicenceActivity</string>
+    <string name="title_activity_assistant_adapter">AssistantAdapter</string>
+    <string name="title_activity_sensor_tag">SensorTagActivity</string>
 </resources>

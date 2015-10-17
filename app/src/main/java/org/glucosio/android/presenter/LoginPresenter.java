@@ -53,7 +53,7 @@ public class LoginPresenter {
     }
 
     public void saveToDatabase(){
-        dB.addUser(new User(id, name, language, country, age, gender));
+
         loginActivity.closeHelloActivity();
     }
 }
