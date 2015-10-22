@@ -2,7 +2,7 @@ package org.glucosio.android.presenter;
 
 import android.util.Log;
 
-import org.glucosio.android.db.DatabaseHandler;
+import org.glucosio.android.db.DatabaseNewHandler;
 import org.glucosio.android.db.TemperatureReading;
 import org.glucosio.android.fragment.HistoryFragment;
 import org.glucosio.android.fragment.OverviewFragment;
@@ -18,13 +18,13 @@ import java.util.Random;
  */
 public class OverviewPresenter {
 
-    DatabaseHandler dB;
+    DatabaseNewHandler dB;
     private ArrayList<Double> reading;
     private ArrayList <Integer> type;
     private ArrayList<String> datetime;
 
     public OverviewPresenter(OverviewFragment overviewFragment) {
-        dB = new DatabaseHandler(overviewFragment.getActivity());
+        dB = new DatabaseNewHandler(overviewFragment.getActivity());
     }
 
     public boolean isdbEmpty(){
@@ -33,7 +33,7 @@ public class OverviewPresenter {
 
     public void loadDatabase(){
         this.reading = dB.getTemperatureReadingAsArray();
-        this.datetime = dB.getTemperatureDateTimeAsArray();
+       // this.datetime = dB.getTemperatureDateTimeAsArray();
     }
 
     public String convertDate(String date) {
@@ -41,10 +41,10 @@ public class OverviewPresenter {
         return rTools.convertDate(date);
     }
 
-    public int getGlucoseTrend(){
+   /* public int getGlucoseTrend(){
         return dB.getAverageTemperatureReadingForLastMonth();
     }
-
+*/
     public String getLastReading(){
         return getReading().get(getReading().size() - 1) + "";
     }

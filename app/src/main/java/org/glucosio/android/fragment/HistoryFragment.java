@@ -2,6 +2,7 @@ package org.glucosio.android.fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -12,10 +13,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.glucosio.android.R;
 import org.glucosio.android.activity.MainActivity;
+import org.glucosio.android.activity.SensorTagActivity;
 import org.glucosio.android.adapter.HistoryAdapter;
 import org.glucosio.android.db.GlucoseReading;
 import org.glucosio.android.db.TemperatureReading;
@@ -29,6 +32,7 @@ public class HistoryFragment extends Fragment {
     RecyclerView.Adapter mAdapter;
     TemperatureReading readingToRestore;
     HistoryPresenter presenter;
+    Button scanButton;
 
     public static HistoryFragment newInstance() {
         HistoryFragment fragment = new HistoryFragment();
@@ -124,7 +128,20 @@ public class HistoryFragment extends Fragment {
 
         } else {
             mFragmentView = inflater.inflate(R.layout.fragment_empty, container, false);
+            scanButton = (Button)mFragmentView.findViewById(R.id.scan_button);
+            scanButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(getContext(), SensorTagActivity.class);
+                    startActivity(intent);
+                }
+
+            });
         }
+
+
+
 
         return mFragmentView;
     }

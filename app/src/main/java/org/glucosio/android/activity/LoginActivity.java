@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void closeHelloActivity(){
 
-        Intent intent = new Intent(this, SensorTagActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

@@ -1,15 +1,14 @@
 package org.glucosio.android.presenter;
 
-import org.glucosio.android.db.DatabaseHandler;
-import org.glucosio.android.db.GlucoseReading;
+import org.glucosio.android.db.DatabaseNewHandler;
 import org.glucosio.android.fragment.HistoryFragment;
 import org.glucosio.android.tools.ReadingTools;
 import java.util.ArrayList;
 
 public class HistoryPresenter {
 
-    DatabaseHandler dB;
-    private ArrayList<Integer> id;
+    DatabaseNewHandler dB;
+    private ArrayList<Long> id;
     private ArrayList<Double> reading;
     private ArrayList <Integer> type;
     private ArrayList<String> datetime;
@@ -17,7 +16,7 @@ public class HistoryPresenter {
 
     public HistoryPresenter(HistoryFragment historyFragment) {
         this.fragment = historyFragment;
-        dB = new DatabaseHandler(historyFragment.getActivity());
+        dB = new DatabaseNewHandler(historyFragment.getActivity());
     }
 
     public boolean isdbEmpty(){
@@ -27,7 +26,7 @@ public class HistoryPresenter {
     public void loadDatabase(){
         this.id = dB.getTemperatureIdAsArray();
         this.reading = dB.getTemperatureReadingAsArray();
-        this.datetime = dB.getTemperatureDateTimeAsArray();
+     //   this.datetime = dB.getTemperatureDateTimeAsArray();
     }
 
 
@@ -44,7 +43,7 @@ public class HistoryPresenter {
 
 
     // Getters
-    public ArrayList<Integer> getId() {
+    public ArrayList<Long> getId() {
         return id;
     }
 

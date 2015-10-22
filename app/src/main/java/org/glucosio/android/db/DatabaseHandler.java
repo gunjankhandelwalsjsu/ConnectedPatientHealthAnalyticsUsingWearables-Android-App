@@ -1,4 +1,4 @@
-package org.glucosio.android.db;
+/*package org.glucosio.android.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,17 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Calendar;
 
-/**
- * Created by ahmar on 10/8/15.
- */
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION=1;
@@ -48,11 +44,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void createTable(SQLiteDatabase db)
     {
         String CREATE_USER_TABLE="CREATE TABLE "+TABLE_USER+" ("
-                +KEY_ID+" INTEGER PRIMARY KEY,"+KEY_NAME+" TEXT)";
+                                                         +KEY_ID+" INTEGER PRIMARY KEY,"
+                                                         +KEY_NAME+" TEXT);";
         String CREATE_TEMPERATURE_READING_TABLE="CREATE TABLE "+TABLE_TEMPERATURE_READING+" ("
-                +KEY_ID+" INTEGER PRIMARY KEY,"+KEY_READING+" TEXT, "+
-                KEY_CREATED_AT+" TIMESTAMP DEFAULT (datetime('now','localtime') ),"
-                +KEY_USER_ID+" INTEGER DEFAULT 1 )";
+                +KEY_ID+" INTEGER PRIMARY KEY,"
+                +KEY_READING+" TEXT,"
+                +KEY_CREATED_AT+" TIMESTAMP DEFAULT (datetime('now','localtime') ),"
+                +KEY_USER_ID+" INTEGER DEFAULT 1 );";
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_TEMPERATURE_READING_TABLE);
     }
@@ -82,9 +80,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values=new ContentValues();
 
-        values.put(KEY_READING,reading.get_reading());
+        values.put(KEY_READING,reading.getReading());
         Log.d("putting","temp");
-        values.put(KEY_CREATED_AT, reading.get_created());
+        values.put(KEY_CREATED_AT, reading.getCreated());
         db.insert(TABLE_TEMPERATURE_READING, null, values);
     }
 
@@ -100,14 +98,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put(KEY_READING,reading.get_reading());
-        values.put(KEY_CREATED_AT, reading.get_created());
-        return db.update(TABLE_TEMPERATURE_READING,values,KEY_ID+" =? ",new String[]{ String.valueOf(reading.get_id()) });
+        values.put(KEY_READING,reading.getReading());
+        values.put(KEY_CREATED_AT, reading.getCreated());
+        return db.update(TABLE_TEMPERATURE_READING,values,KEY_ID+" =? ",new String[]{ String.valueOf(reading.getId()) });
     }
     public void deleteTemperatureReadings(TemperatureReading reading)
     {
         SQLiteDatabase db=this.getWritableDatabase();
-        db.delete(TABLE_TEMPERATURE_READING, KEY_ID + " =? ", new String[]{String.valueOf(reading.get_id())});
+        db.delete(TABLE_TEMPERATURE_READING, KEY_ID + " =? ", new String[]{String.valueOf(reading.getId())});
     }
     public List<TemperatureReading> getTemperatureReadings()
     {
@@ -127,23 +125,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do{
                 TemperatureReading reading=new TemperatureReading();
-                reading.set_id(Integer.parseInt(cursor.getString(0)));
-                reading.set_reading(Double.parseDouble(cursor.getString(1)));
-                reading.set_created(cursor.getString(3));
+                reading.setId(Integer.parseInt(cursor.getString(0)));
+                reading.setReading(Double.parseDouble(cursor.getString(1)));
+                reading.setCreated(cursor.getString(3));
                 readings.add(reading);
             }while(cursor.moveToNext());
         }
         return readings;
     }
-    public ArrayList<Integer> getTemperatureIdAsArray(){
+    public ArrayList<Long> getTemperatureIdAsArray(){
         List<TemperatureReading> temperatureReading = getTemperatureReadings();
-        ArrayList<Integer> idArray = new ArrayList<Integer>();
+        ArrayList<Long> idArray = new ArrayList<>();
         int i;
 
         for (i = 0; i < temperatureReading.size(); i++){
-            int id;
+            long id;
             TemperatureReading singleReading= temperatureReading.get(i);
-            id = singleReading.get_id();
+            id = singleReading.getId();
             idArray.add(id);
         }
 
@@ -158,7 +156,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         for (i = 0; i < temperatureReading.size(); i++){
             double reading;
             TemperatureReading singleReading= temperatureReading.get(i);
-            reading = singleReading.get_reading();
+            reading = singleReading.getReading();
             readingArray.add(reading);
         }
 
@@ -174,7 +172,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         for (i = 0; i < temperatureReading.size(); i++){
             String reading;
             TemperatureReading singleReading= temperatureReading.get(i);
-            reading = singleReading.get_created();
+            reading = singleReading.getCreated();
             Log.d("readingssss",reading);
             datetimeArray.add(reading);
         }
@@ -227,4 +225,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-}
+}*/

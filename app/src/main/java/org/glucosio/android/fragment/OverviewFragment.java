@@ -18,7 +18,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import org.glucosio.android.R;
 import org.glucosio.android.activity.MainActivity;
-import org.glucosio.android.db.DatabaseHandler;
+import org.glucosio.android.db.DatabaseNewHandler;
 import org.glucosio.android.presenter.OverviewPresenter;
 import org.glucosio.android.tools.ReadingTools;
 import org.glucosio.android.tools.TipsManager;
@@ -121,7 +121,7 @@ public class OverviewFragment extends Fragment {
             legend.setEnabled(false);
 
             loadLastReading();
-            loadGlucoseTrend();
+            //loadGlucoseTrend();
             loadRandomTip();
 
         } else {
@@ -180,12 +180,12 @@ public class OverviewFragment extends Fragment {
         }
     }
 
-    private void loadGlucoseTrend(){
+  /*  private void loadGlucoseTrend(){
         if (!presenter.isdbEmpty()) {
             trendTextView.setText(presenter.getGlucoseTrend() + "");
         }
     }
-
+*/
     private void loadRandomTip(){
         TipsManager tipsManager = new TipsManager(getActivity().getApplicationContext());
         tipTextView.setText(presenter.getRandomTip(tipsManager));

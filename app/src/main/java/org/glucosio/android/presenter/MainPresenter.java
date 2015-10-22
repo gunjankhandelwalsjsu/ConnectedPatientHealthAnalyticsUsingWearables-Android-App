@@ -3,7 +3,7 @@ package org.glucosio.android.presenter;
 import android.util.Log;
 
 import org.glucosio.android.activity.MainActivity;
-import org.glucosio.android.db.DatabaseHandler;
+import org.glucosio.android.db.DatabaseNewHandler;
 import org.glucosio.android.db.GlucoseReading;
 import org.glucosio.android.db.TemperatureReading;
 import org.glucosio.android.db.User;
@@ -20,7 +20,7 @@ public class MainPresenter {
 
     MainActivity mainActivity;
 
-    DatabaseHandler dB;
+    DatabaseNewHandler dB;
     User user;
     TemperatureTools rTools;
 
@@ -32,13 +32,16 @@ public class MainPresenter {
 
     public MainPresenter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        dB = new DatabaseHandler(mainActivity);
+        dB = new DatabaseNewHandler(mainActivity);
         rTools = new TemperatureTools();
 
 
     }
 
 
+    public boolean isdbEmpty(){
+        return dB.getTemperatureReadings().size() == 0;
+    }
 
     public void getCurrentTime(){
         DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -81,22 +84,7 @@ public class MainPresenter {
         return rTools.hourToSpinnerType(hour);
     }
 
-    public String getTemperatureReadingReadingById(int id){
-        return dB.getTemperatureReadingById(id).get_reading() + "";
-    }
 
-
-    public void getTemperatureReadingTimeById(int id){
-        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Log.d("timeR",dB.getTemperatureReadingById(id).get_created());
-
-        SplitDateTime splitDateTime = new SplitDateTime(dB.getTemperatureReadingById(id).get_created(), inputFormat);
-        this.readingYear = splitDateTime.getYear();
-        this.readingMonth = splitDateTime.getMonth();
-        this.readingDay = splitDateTime.getDay();
-        this.readingHour = splitDateTime.getHour();
-        this.readingMinute = splitDateTime.getMinute();
-    }
 
     public void addValueTodb(String time,String reading){
         if(validateTime(time) && validateReading(reading)) {
@@ -105,7 +93,7 @@ public class MainPresenter {
             String finalDateTime = readingYear + "-" + readingMonth + "-" + readingDay + " " + readingHour + ":" + readingMinute;
             Log.d("time",reading);
             if(finalReading>30) {
-                TemperatureReading gReading = new TemperatureReading(finalReading, finalDateTime);
+                TemperatureReading gReading = new TemperatureReading(finalReading);
                 dB.addTemperatureReading(gReading);
             }
           //  mainActivity.dismissAddDialog();
@@ -114,19 +102,7 @@ public class MainPresenter {
         }
     }
 
-    public void dialogOnEditButtonPressed(String time, String date, String reading){
-        if (validateDate(date) && validateTime(time) && validateReading(reading)) {
-            double finalReading = Double.parseDouble(reading);
-            String finalDateTime = readingYear + "-" + readingMonth + "-" + readingDay + " " + readingHour + ":" + readingMinute;
 
-           TemperatureReading gReading = new TemperatureReading(finalReading, finalDateTime);
-
-            dB.addTemperatureReading(gReading);
-
-        } else {
-            mainActivity.showErrorMessage();
-        }
-    }
 
     public void startGittyReporter(){
 

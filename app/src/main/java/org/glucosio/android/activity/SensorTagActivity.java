@@ -16,6 +16,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Menu;
@@ -35,8 +38,13 @@ import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
 
 import org.glucosio.android.R;
+import org.glucosio.android.presenter.MainPresenter;
+import org.glucosio.android.presenter.SensorPresenter;
 import org.glucosio.android.tools.SensorTagData;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.UUID;
 
 /**
@@ -44,7 +52,7 @@ import java.util.UUID;
  * Double Encore, Inc.
  * MainActivity
  */
-public class SensorTagActivity extends Activity implements BluetoothAdapter.LeScanCallback {
+public class SensorTagActivity extends ActionBarActivity implements BluetoothAdapter.LeScanCallback {
     private static final String TAG = "BluetoothGattActivity";
 
     private static final String DEVICE_NAME = "SensorTag";
@@ -79,14 +87,21 @@ public class SensorTagActivity extends Activity implements BluetoothAdapter.LeSc
     private CheckBox hwAcceleratedCb;
     private CheckBox showFpsCb;
     private SimpleXYSeries patientHistorySeries = null;
+    private static int i=0;
+     SensorPresenter presenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor_tag);
         setProgressBarIndeterminate(true);
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        //.setElevation(0);
+
 
         /*
          * We are going to display the results in some text fields
@@ -112,7 +127,7 @@ public class SensorTagActivity extends Activity implements BluetoothAdapter.LeSc
 
         aprHistoryPlot = (XYPlot) findViewById(R.id.aprHistoryPlot);
 
-        patientHistorySeries = new SimpleXYSeries("Azimuth");
+        patientHistorySeries = new SimpleXYSeries("Time");
         patientHistorySeries.useImplicitXVals();
         aprHistoryPlot.setRangeBoundaries(28,32, BoundaryMode.FIXED);
         aprHistoryPlot.setDomainBoundaries(0, 30, BoundaryMode.FIXED);
@@ -124,14 +139,14 @@ public class SensorTagActivity extends Activity implements BluetoothAdapter.LeSc
         aprHistoryPlot.setRangeLabel("Temperature(deg C)");
         aprHistoryPlot.getRangeLabelWidget().pack();
         // setup checkboxes:
-        hwAcceleratedCb = (CheckBox) findViewById(R.id.hwAccelerationCb);
+       // hwAcceleratedCb = (CheckBox) findViewById(R.id.hwAccelerationCb);
         final PlotStatistics histStats = new PlotStatistics(1000, false);
 
         aprHistoryPlot.addListener(histStats);
-        hwAcceleratedCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+     /*   hwAcceleratedCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {
+                if (b) {
                     aprHistoryPlot.setLayerType(View.LAYER_TYPE_NONE, null);
                 } else {
                     aprHistoryPlot.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -139,7 +154,7 @@ public class SensorTagActivity extends Activity implements BluetoothAdapter.LeSc
             }
         });
 
-        showFpsCb = (CheckBox) findViewById(R.id.showFpsCb);
+        //showFpsCb = (CheckBox) findViewById(R.id.showFpsCb);
         showFpsCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -147,9 +162,9 @@ public class SensorTagActivity extends Activity implements BluetoothAdapter.LeSc
             }
         });
 
+*/
 
-
-
+       presenter =new SensorPresenter(this);
 
 
     }
@@ -219,6 +234,9 @@ public class SensorTagActivity extends Activity implements BluetoothAdapter.LeSc
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
             case R.id.action_scan:
                 mDevices.clear();
                 startScan();
@@ -572,6 +590,12 @@ public class SensorTagActivity extends Activity implements BluetoothAdapter.LeSc
         if (mPressureCals == null) return;
         double pressure = SensorTagData.extractBarometer(characteristic, mPressureCals);
         double temp = SensorTagData.extractBarTemperature(characteristic, mPressureCals);
+        if(i==0){
+             Log.d("report", Double.toString(temp));
+             presenter.addValueTodb(temp);
+
+        }
+        i++;
         // get rid the oldest sample in history:
         if (patientHistorySeries.size() > HISTORY_SIZE) {
 
@@ -586,4 +610,8 @@ public class SensorTagActivity extends Activity implements BluetoothAdapter.LeSc
         aprHistoryPlot.redraw();
 
     }
+    public void showErrorMessage() {
+        Toast.makeText(getApplicationContext(), getString(R.string.dialog_error), Toast.LENGTH_SHORT).show();
+    }
+
 }

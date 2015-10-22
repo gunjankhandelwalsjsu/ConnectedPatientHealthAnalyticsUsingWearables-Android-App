@@ -11,12 +11,12 @@ import org.glucosio.android.FirstPageFragmentListener;
 import org.glucosio.android.R;
 import org.glucosio.android.adapter.CameraAdapter;
 import org.glucosio.android.adapter.HomePagerAdapter;
-import org.glucosio.android.db.DatabaseHandler;
+import org.glucosio.android.db.DatabaseNewHandler;
 import org.glucosio.android.tools.TipsManager;
 
 public class AntherFragment extends Fragment {
 
-    private DatabaseHandler dB;
+    private DatabaseNewHandler dB;
     private TipsManager tipsManager;
     private RecyclerView tipsRecycler;
     private CameraAdapter adapter;

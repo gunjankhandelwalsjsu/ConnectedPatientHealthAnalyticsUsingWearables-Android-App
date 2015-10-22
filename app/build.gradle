@@ -46,7 +46,7 @@ dependencies {
     compile 'com.github.paolorotolo:gitty_reporter:1.1.1'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.wnafee:vector-compat:1.0.5'
-    compile 'io.realm:realm-android:0.83.0'
+    compile 'io.realm:realm-android:0.83.1'
     compile 'net.danlew:android.joda:2.8.2'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'me.dm7.barcodescanner:zbar:1.8.2'

@@ -1,7 +1,6 @@
 package org.glucosio.android.adapter;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.glucosio.android.R;
-import org.glucosio.android.activity.MainActivity;
-import org.glucosio.android.db.DatabaseHandler;
 import org.glucosio.android.presenter.HistoryPresenter;
-import org.glucosio.android.tools.ReadingTools;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
@@ -48,7 +43,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_history_item, parent, false);
 
-        loadDatabase();
+        //loadDatabase();
 
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -74,8 +69,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         idTextView.setText(presenter.getId().get(position).toString());
         readingTextView.setText(presenter.getReading().get(position).toString());
-        datetimeTextView.setText(presenter.convertDate(presenter.getDatetime().get(position)));
-        typeTextView.setText(typeToString(presenter.getType().get(position)));
+//        datetimeTextView.setText(presenter.convertDate(presenter.getDatetime().get(position)));
+     //   typeTextView.setText(typeToString(presenter.getType().get(position)));
     }
 
     public String typeToString(int typeInt){
@@ -102,11 +97,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         }
         return typeString;
     }
-
+/*
     private void loadDatabase(){
         // Get database from MainActivity
         presenter.loadDatabase();
-    }
+    }*/
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

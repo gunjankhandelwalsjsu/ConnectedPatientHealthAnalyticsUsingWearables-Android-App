@@ -4,12 +4,12 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import org.glucosio.android.activity.LoginActivity;
-import org.glucosio.android.db.DatabaseHandler;
+import org.glucosio.android.db.DatabaseNewHandler;
 import org.glucosio.android.db.User;
 
 
 public class LoginPresenter {
-    DatabaseHandler dB;
+    DatabaseNewHandler dB;
     LoginActivity loginActivity;
     int id;
     int age;
@@ -20,7 +20,7 @@ public class LoginPresenter {
 
     public LoginPresenter(LoginActivity loginActivity) {
         this.loginActivity = loginActivity;
-        dB = new DatabaseHandler(loginActivity);
+        dB = new DatabaseNewHandler(loginActivity);
     }
 
     public void loadDatabase(){

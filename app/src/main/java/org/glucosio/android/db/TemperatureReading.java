@@ -1,59 +1,59 @@
 package org.glucosio.android.db;
 
-import android.util.Log;
+import java.util.Date;
+import java.util.UUID;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-/**
- * Created by rajeshkhandelwal on 10/15/15.
- */
-public class TemperatureReading {
-    double _reading;
-    int _id;
-    int _user_id;
-    String _created;
+public class TemperatureReading extends RealmObject {
 
-    public TemperatureReading()
-    {
+    @PrimaryKey
+    private long id;
 
-    }
+    private double reading;
 
-    public TemperatureReading(double reading,String created)
-    {
-        this._reading=reading;
-        this._created=created;
-    }
-    public int get_user_id()
-    {
-        return this._user_id;
-    }
-    public void set_user_id(int user_id)
-    {
-        this._user_id=user_id;
-    }
-    public int get_id()
-    {
-        return this._id;
-    }
-    public void set_id(int id)
-    {
-        this._id=id;
-    }
-    public void set_reading(double reading)
-    {
-        this._reading=reading;
+    private int user_id;
+    private Date created;
+
+    public TemperatureReading() {
     }
 
-    public double get_reading()
-    {
-        return this._reading;
-    }
-    public String get_created()
-    {
-        Log.d("Getted", get_created());
-        return _created;
-    }
-    public void set_created(String created)
-    {
-        this._created=created;
+    public TemperatureReading(double reading) {
+        this.reading=reading;
+      //  this.created=created;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public double getReading() {
+        return reading;
+    }
+
+    public void setReading(double reading) {
+        this.reading = reading;
+    }
+
+
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 }

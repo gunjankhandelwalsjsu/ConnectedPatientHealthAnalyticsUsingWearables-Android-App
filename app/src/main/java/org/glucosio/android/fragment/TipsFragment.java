@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import org.glucosio.android.R;
 import org.glucosio.android.activity.MainActivity;
 import org.glucosio.android.adapter.TipsAdapter;
-import org.glucosio.android.db.DatabaseHandler;
+import org.glucosio.android.db.DatabaseNewHandler;
 import org.glucosio.android.tools.DividerItemDecoration;
 import org.glucosio.android.tools.TipsManager;
 
 public class TipsFragment extends Fragment {
 
-    private DatabaseHandler dB;
+    private DatabaseNewHandler dB;
     private TipsManager tipsManager;
     private RecyclerView tipsRecycler;
     private TipsAdapter adapter;
