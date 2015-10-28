@@ -129,7 +129,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
         patientHistorySeries = new SimpleXYSeries("Time");
         patientHistorySeries.useImplicitXVals();
-        aprHistoryPlot.setRangeBoundaries(28,32, BoundaryMode.FIXED);
+        aprHistoryPlot.setRangeBoundaries(23,32, BoundaryMode.FIXED);
         aprHistoryPlot.setDomainBoundaries(0, 30, BoundaryMode.FIXED);
         aprHistoryPlot.addSeries(patientHistorySeries, new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null));
         aprHistoryPlot.setDomainStepValue(5);
@@ -593,6 +593,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         if(i==0){
              Log.d("report", Double.toString(temp));
              presenter.addValueTodb(temp);
+     //       presenter.updateSpinnerTypeTime();
 
         }
         i++;
@@ -610,6 +611,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         aprHistoryPlot.redraw();
 
     }
+
     public void showErrorMessage() {
         Toast.makeText(getApplicationContext(), getString(R.string.dialog_error), Toast.LENGTH_SHORT).show();
     }

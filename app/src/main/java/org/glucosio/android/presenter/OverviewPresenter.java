@@ -11,6 +11,7 @@ import org.glucosio.android.tools.TemperatureTools;
 import org.glucosio.android.tools.TipsManager;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -20,7 +21,11 @@ public class OverviewPresenter {
 
     DatabaseNewHandler dB;
     private ArrayList<Double> reading;
-    private ArrayList <Integer> type;
+    private List<Integer> readingsWeek;
+    private List<Integer> readingsMonth;
+    private List<String> datetimeWeek;
+    private List<String> datetimeMonth;
+    private OverviewFragment fragment;
     private ArrayList<String> datetime;
 
     public OverviewPresenter(OverviewFragment overviewFragment) {
@@ -33,7 +38,11 @@ public class OverviewPresenter {
 
     public void loadDatabase(){
         this.reading = dB.getTemperatureReadingAsArray();
-       // this.datetime = dB.getTemperatureDateTimeAsArray();
+        this.datetime = dB.getTemperatureDateTimeAsArray();
+        this.readingsMonth = dB.getAverageTemperatureReadingsByMonth();
+        this.readingsWeek = dB.getAverageTemperatureReadingsByWeek();
+        this.datetimeWeek = dB.getTemperatureDatetimesByWeek();
+        this.datetimeMonth = dB.getTemperatureDatetimesByMonth();
     }
 
     public String convertDate(String date) {
@@ -62,13 +71,24 @@ public class OverviewPresenter {
         return reading;
     }
 
-    public ArrayList<Integer> getType() {
-        return type;
-    }
 
     public ArrayList<String> getDatetime() {
-        Log.i("datetimearray", datetime.get(0));
         return datetime;
+    }
 
+    public List<Integer> getReadingsWeek() {
+        return readingsWeek;
+    }
+
+    public List<Integer> getReadingsMonth() {
+        return readingsMonth;
+    }
+
+    public List<String> getDatetimeWeek() {
+        return datetimeWeek;
+    }
+
+    public List<String> getDatetimeMonth() {
+        return datetimeMonth;
     }
 }

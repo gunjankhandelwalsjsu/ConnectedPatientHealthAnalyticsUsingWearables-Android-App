@@ -18,9 +18,9 @@ public class TemperatureReading extends RealmObject {
     public TemperatureReading() {
     }
 
-    public TemperatureReading(double reading) {
+    public TemperatureReading(double reading,Date created) {
         this.reading=reading;
-      //  this.created=created;
+        this.created=created;
     }
 
     public long getId() {

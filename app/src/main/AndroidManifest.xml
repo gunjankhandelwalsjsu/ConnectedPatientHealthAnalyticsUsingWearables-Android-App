@@ -53,7 +53,8 @@
         <activity
             android:name=".activity.ViewForScannerActivity"
             android:label="@string/title_activity_view_for_scanner"
-            android:parentActivityName="activity.MainActivity" >
+            android:parentActivityName="activity.MainActivity"
+            android:theme="@style/GlucosioSettings">
         </activity>
 
         <activity

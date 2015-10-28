@@ -43,42 +43,6 @@ public class MainPresenter {
         return dB.getTemperatureReadings().size() == 0;
     }
 
-    public void getCurrentTime(){
-        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date dateobj = new Date();
-
-        String formatted = inputFormat.format(dateobj);
-        SplitDateTime addSplitDateTime = new SplitDateTime(formatted, inputFormat);
-
-        this.readingYear = addSplitDateTime.getYear();
-        this.readingMonth = addSplitDateTime.getMonth();
-        this.readingDay = addSplitDateTime.getDay();
-        this.readingHour = addSplitDateTime.getHour();
-        this.readingMinute = addSplitDateTime.getMinute();
-    }
-
-    public int timeToSpinnerType() {
-        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String formatted = inputFormat.format(Calendar.getInstance().getTime());
-        SplitDateTime addSplitDateTime = new SplitDateTime(formatted, inputFormat);
-        int hour = Integer.parseInt(addSplitDateTime.getHour());
-
-        if (hour > 4 && hour <= 7 ){
-            return 0;
-        } else if (hour > 7 && hour <= 11){
-            return 1;
-        } else if (hour > 11 && hour <= 13) {
-            return 2;
-        } else if (hour > 13 && hour <= 17) {
-            return 3;
-        } else if (hour > 17 && hour <= 20) {
-            return 4;
-        } else if (hour > 20 && hour <= 4) {
-            return 5;
-        } else {
-            return 0;
-        }
-    }
 
     public int hourToSpinnerType(int hour){
         return rTools.hourToSpinnerType(hour);
@@ -89,11 +53,14 @@ public class MainPresenter {
     public void addValueTodb(String time,String reading){
         if(validateTime(time) && validateReading(reading)) {
             double finalReading = Double.parseDouble(reading);
-            getCurrentTime();
+       /*     getCurrentTime();
             String finalDateTime = readingYear + "-" + readingMonth + "-" + readingDay + " " + readingHour + ":" + readingMinute;
-            Log.d("time",reading);
+            Log.d("time",reading);*/
+            Calendar cal = Calendar.getInstance();
+            cal.set(Integer.parseInt(readingYear),Integer.parseInt(readingMonth)-1,Integer.parseInt(readingDay),Integer.parseInt(readingHour),Integer.parseInt(readingMinute));
+            Date finalDateTime = cal.getTime();
             if(finalReading>30) {
-                TemperatureReading gReading = new TemperatureReading(finalReading);
+                TemperatureReading gReading = new TemperatureReading(finalReading,finalDateTime);
                 dB.addTemperatureReading(gReading);
             }
           //  mainActivity.dismissAddDialog();
