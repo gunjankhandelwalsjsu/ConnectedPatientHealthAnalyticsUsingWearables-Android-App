@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dip"
+        android:weightSum="1">
+
+        <!-- View Title Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:text="@string/register_title"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+        <!-- FirstName Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fname" />
+        <!-- FirstName TextField -->
+
+
+
+        <EditText
+            android:id="@+id/registerfName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:hint="Enter your First Name"/>
+
+
+
+        <!-- Name Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lname" />
+        <!-- FirstName TextField -->
+
+
+
+        <EditText
+            android:id="@+id/registerlName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:hint="Enter your Last Name"/>
+
+
+        <!-- Email Label -->
+
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email" />
+        <!-- Email TextField -->
+
+        <EditText
+            android:id="@+id/registerEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your Email ID"
+            android:inputType="textEmailAddress" />
+
+        <!-- Password Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/pwd" />
+        <!-- Password TextField -->
+
+        <EditText
+            android:id="@+id/registerPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Password"
+            android:inputType="textPassword" />
+
+
+
+        <!-- Phone Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/phone" />
+        <!-- Phone TextField -->
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Phone number"
+            android:inputType="phone" />
+
+        <!-- Street address Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/streetAddress" />
+        <!-- Street address  TextField -->
+
+        <EditText
+            android:id="@+id/streetAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Street Address"
+            />
+        <!-- State Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/state" />
+        <!-- state  TextField -->
+
+        <EditText
+            android:id="@+id/state"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your state"
+            />
+        <!-- City Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/city" />
+        <!-- City TextField -->
+
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your city"
+            />
+        <!-- Zipcode Label -->
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/zipcode" />
+        <!-- Zipcode TextField -->
+
+        <EditText
+            android:id="@+id/zipcode"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your zipcode"
+            />
+
+
+
+        <!-- Error message -->
+
+        <TextView
+            android:id="@+id/register_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dip"
+            android:textColor="#e30000"
+            android:textStyle="bold" />
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.44">
+
+            <CheckBox android:id="@+id/soyabean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/soyabean"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/milk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/milk"
+                android:onClick="onCheckboxClicked"
+                android:checked="false" />
+
+            <CheckBox android:id="@+id/gluten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gluten"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/egg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/egg"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/mustard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mustard"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/peanuts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/peanuts"
+                android:onClick="onCheckboxClicked"/>
+
+            <CheckBox android:id="@+id/fish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fish"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/nuts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nuts"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/coconut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/coconut"
+                android:onClick="onCheckboxClicked"/>
+
+            <CheckBox android:id="@+id/seasmeSeeds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seasmeSeeds"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/corn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/corn"
+                android:onClick="onCheckboxClicked"/>
+
+            <CheckBox android:id="@+id/flour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/flour"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/wheyPowder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wheyPowder"
+                android:onClick="onCheckboxClicked"/>
+
+            <CheckBox android:id="@+id/cornStarch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cornStarch"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/celery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/celery"
+                android:onClick="onCheckboxClicked"/>
+            <CheckBox android:id="@+id/candelnut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/candelnut"
+                android:onClick="onCheckboxClicked"/>
+
+        </GridLayout>
+
+
+            <CheckBox android:id="@+id/diabetes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diabetes"
+                android:onClick="onDiseaseCheckboxClicked"/>
+            <CheckBox android:id="@+id/BloodPressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bloodPressure"
+                android:onClick="onDiseaseCheckboxClicked"/>
+
+
+
+
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="#ff6347"
+            android:onClick="registerUser"
+            android:text="@string/btnRegister"
+            android:textColor="#fff" />
+
+        <!-- Link to Login Screen -->
+
+        <Button
+            android:id="@+id/btnLinkToLoginScreen"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="@null"
+            android:onClick="navigatetoLoginActivity"
+            android:text="Login"
+            android:textColor="#228b22"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</ScrollView>

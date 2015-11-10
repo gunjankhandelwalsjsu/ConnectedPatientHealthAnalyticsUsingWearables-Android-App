@@ -1,5 +1,6 @@
 package org.glucosio.android.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -35,17 +36,27 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import org.glucosio.android.R;
 import org.glucosio.android.presenter.LoginPresenter;
 import org.glucosio.android.tools.LabelledSpinner;
+import org.glucosio.android.tools.Utility;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button b1,b2;
+    Button b1,b2,b3;
     EditText ed1,ed2;
 
     TextView tx1;
+
     int counter = 3;
     /***********/
 
@@ -56,6 +67,15 @@ public class LoginActivity extends AppCompatActivity {
     Button startButton;
     TextView termsTextView;
     LoginPresenter presenter;
+
+    // Progress Dialog Object
+    ProgressDialog prgDialog;
+    // Error Msg TextView Object
+    TextView errorMsg;
+    // Email Edit View Object
+    EditText emailET;
+    // Passwprd Edit View Object
+    EditText pwdET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +90,24 @@ public class LoginActivity extends AppCompatActivity {
         EULAView = (ScrollView) findViewById(R.id.helloactivity_eulaframe);
         EULACheckbox = (CheckBox) findViewById(R.id.helloactivity_checkbox_eula);
         b1=(Button)findViewById(R.id.helloactivity_nextlogin);
-        ed1=(EditText)findViewById(R.id.editText_username);
-        ed2=(EditText)findViewById(R.id.editText_password);
+        b3=(Button)findViewById(R.id.helloactivity_register);
+
         startButton = (Button) findViewById(R.id.helloactivity_start);
 
         b2=(Button)findViewById(R.id.button_cancel);
-        tx1=(TextView)findViewById(R.id.textView3);
-        tx1.setVisibility(View.GONE);
-        termsTextView = (TextView) findViewById(R.id.helloactivity_textview_terms);
+
+        errorMsg = (TextView)findViewById(R.id.login_error);
+        // Find Email Edit View control by ID
+        ed1 = (EditText)findViewById(R.id.editText_username);
+        // Find Password Edit View control by ID
+        ed2 = (EditText)findViewById(R.id.editText_password);
+        // Instantiate Progress Dialog object
+        prgDialog = new ProgressDialog(this);
+        // Set Progress Dialog Text
+        prgDialog.setMessage("Please wait...");
+        // Set Cancelable as False
+        prgDialog.setCancelable(false);
+
       /*  final Drawable greyArrow = getApplicationContext().getResources().getDrawable(R.drawable.ic_navigate_next_grey_24px);
         greyArrow.setBounds(0, 0, 60, 60);
         final Drawable pinkArrow = getApplicationContext().getResources().getDrawable(R.drawable.ic_navigate_next_pink_24px);
@@ -125,6 +155,15 @@ public class LoginActivity extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+            }
+        });
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -202,6 +241,109 @@ public class LoginActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+/********************************************************************************/
+public void loginUser(View view){
+    // Get Email Edit View Value
+    String userName = ed1.getText().toString();
+    // Get Password Edit View Value
+    String password = ed2.getText().toString();
+    // Instantiate Http Request Param Object
+    RequestParams params = new RequestParams();
+    // When Email Edit View and Password Edit View have values other than Null
+    if(Utility.isNotNull(userName) && Utility.isNotNull(password)){
+        // When Email entered is Valid
+        if(Utility.validate(userName)){
+            // Put Http parameter username with value of Email Edit View control
+            params.put("username", userName);
+            // Put Http parameter password with value of Password Edit Value control
+            params.put("password", password);
+            // Invoke RESTful Web Service with Http parameters
+            invokeWS(params);
+        }
+        // When Email is invalid
+        else{
+            Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_LONG).show();
+        }
+    }
+    // When any of the Edit View control left blank
+    else{
+        Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
+    }
+
+}
+
+    /**
+     * Method that performs RESTful webservice invocations
+     *
+     * @param params
+     */
+    public void invokeWS(RequestParams params){
+        // Show Progress Dialog
+        prgDialog.show();
+        // Make RESTful webservice call using AsyncHttpClient object
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get("http://192.168.43.17:9999/useraccount/login/dologin",params ,new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                prgDialog.hide();
+                try {
+                    // JSON Object
+                    JSONObject obj = new JSONObject(String.valueOf(responseBody));
+                    // When the JSON response has status boolean value assigned with true
+                    if(obj.getBoolean("status")){
+                        Toast.makeText(getApplicationContext(), "You are successfully logged in!", Toast.LENGTH_LONG).show();
+                        // Navigate to Home screen
+                        navigatetoHomeActivity();
+                    }
+                    // Else display error message
+                    else{
+                        errorMsg.setText(obj.getString("error_msg"));
+                        Toast.makeText(getApplicationContext(), obj.getString("error_msg"), Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                prgDialog.hide();
+                // When Http response code is '404'
+                if(statusCode == 404){
+                    Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                }
+                // When Http response code is '500'
+                else if(statusCode == 500){
+                    Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                }
+                // When Http response code other than 404, 500
+                else{
+                    Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        });
+    }
+    public void navigatetoHomeActivity(){
+        Intent homeIntent = new Intent(getApplicationContext(),MainActivity.class);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
+    }
+    /**
+     * Method gets triggered when Register button is clicked
+     *
+     * @param view
+     */
+    public void navigatetoRegisterActivity(View view){
+        Intent loginIntent = new Intent(getApplicationContext(),RegistrationActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+    }
 
 
 

@@ -20,23 +20,20 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        >
+        android:supportsRtl="true" >
         <activity
-            android:name=".activity.MainActivity"
-            android:parentActivityName="activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/GlucosioTheme"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:theme="@style/GlucosioTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/title_activity_hello"
-            android:parentActivityName="activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" >
         </activity>
@@ -54,19 +51,26 @@
             android:name=".activity.ViewForScannerActivity"
             android:label="@string/title_activity_view_for_scanner"
             android:parentActivityName="activity.MainActivity"
-            android:theme="@style/GlucosioSettings">
+            android:theme="@style/GlucosioSettings" >
         </activity>
-
         <activity
             android:name=".activity.SensorTagActivity"
             android:label="@string/title_activity_sensor_tag"
+            android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName="org.glucosio.android.activity.MainActivity"
-            android:theme="@style/GlucosioSettings"
+            android:theme="@style/GlucosioSettings" >
+        </activity>
+        <activity
+            android:name=".activity.RegistrationActivity"
+            android:theme="@style/GlucosioTheme" >
+        </activity>
+        <activity android:name=".activity.ProfileActivity"
+            android:theme="@style/GlucosioTheme" >
             >
-
-
-
+        </activity>
+        <activity android:name=".activity.EditProfileActivity"
+            android:theme="@style/GlucosioTheme" >
+            >
         </activity>
     </application>
 

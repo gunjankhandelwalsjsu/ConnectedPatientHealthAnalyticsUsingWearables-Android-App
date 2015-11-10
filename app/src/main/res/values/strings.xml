@@ -16,6 +16,59 @@
 
 
 
+
+    <string name="action_contacts">My Contacts</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="post_title">Cloud Address Book</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="Email">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="hint_fname">first name</string>
+    <string name="hint_last_name">last name</string>
+    <string name="contacts">My Contacts</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="register_title">Register</string>
+    <string name="login_title">Login</string>
+    <string name="fname">First Name</string>
+    <string name="lname">Last Name</string>
+
+    <string name="email">Email</string>
+    <string name="pwd">Password</string>
+    <string name="phone">Phone </string>
+    <string name="streetAddress">Street Address </string>
+    <string name="state">State </string>
+    <string name="city">City </string>
+    <string name="zipcode">zipcode </string>
+
+    <string name="btnRegister">Register</string>
+
+
+    <string name="soyabean">Soyabean</string>
+    <string name="milk">Milk</string>
+    <string name="gluten">Gluten </string>
+    <string name="egg">Egg </string>
+    <string name="mustard">Mustard </string>
+    <string name="peanuts">Peanuts </string>
+    <string name="fish">Fish </string>
+    <string name="nuts">Nuts</string>
+    <string name="coconut">Coconut</string>
+    <string name="seasmeSeeds">Seasme Seeds </string>
+    <string name="corn">Corn </string>
+    <string name="flour">Flour </string>
+    <string name="wheyPowder">Whey Powder </string>
+    <string name="cornStarch">Corn Starch </string>
+
+    <string name="celery">Celery </string>
+    <string name="candelnut">candelnut </string>
+    <string name="diabetes">Diabetes</string>
+    <string name="bloodPressure">Blood Pressure</string>
+
+
+
+
+
+
     <string name="scanner_activity">Full Activity</string>
     <string name="scanner_fragment_activity">Scanner - Full Fragment Activity</string>
     <string name="simple_scanner_activity">Scanner - Simple Activity</string>
