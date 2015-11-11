@@ -28,6 +28,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.glucosio.android.FirstPageFragmentListener;
 import org.glucosio.android.R;
 import org.glucosio.android.activity.ViewForScannerActivity;
+import org.glucosio.android.db.DatabaseNewHandler;
+import org.glucosio.android.presenter.HistoryPresenter;
+import org.glucosio.android.presenter.ScannerPresenter;
+import org.glucosio.android.presenter.SensorPresenter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,9 +54,17 @@ public class PreScannerFragment extends Fragment {
     TextView etResponse;
     Button button;
     Button button1;
+    DatabaseNewHandler dB;
+    String email;
+    ScannerPresenter presenter;
+
+
+
 
     public static PreScannerFragment newInstance(FirstPageFragmentListener listener) {
         PreScannerFragment f = new PreScannerFragment();
+
+//        Log.d("email",f.gEmail);
         return f;
     }
     @Override
@@ -60,15 +72,25 @@ public class PreScannerFragment extends Fragment {
 
 
         View root = inflater.inflate(R.layout.fragment_pre_scanner, container, false);
+        Bundle bundle = this.getArguments();
+        email = bundle.getString("email");
+
         button = (Button) root.findViewById(R.id.button);
-       button.setOnClickListener(new View.OnClickListener() {
+                    button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("email", email );
                 FragmentTransaction trans = getFragmentManager().beginTransaction();
-                trans.replace(R.id.first_fragment_root_id, ScannerFragment.newInstance());
+                ScannerFragment f=ScannerFragment.newInstance();
+                f.setArguments(bundle);
+                trans.replace(R.id.first_fragment_root_id, f);
                 trans.addToBackStack(null);
                 trans.commit();
+           /*     trans.replace(R.id.first_fragment_root_id, ScannerFragment.newInstance());
+                trans.addToBackStack(null);
+                trans.commit();*/
 
             }
 

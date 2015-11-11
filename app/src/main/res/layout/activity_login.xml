@@ -33,8 +33,8 @@
                 android:textColor="@color/glucosio_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/helloactivity_username"
-                android:id="@+id/textView_username"
+                android:text="@string/helloactivity_email"
+                android:id="@+id/textView_email"
                 android:layout_centerHorizontal="true"
                 />
 
@@ -42,9 +42,9 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Name"
+                android:hint="Enter Email"
                 android:focusable="true"
-                android:id="@+id/editText_username"
+                android:id="@+id/editText_email"
 
                 />
 

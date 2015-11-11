@@ -86,12 +86,15 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
     private boolean mAutoFocus;
     private ArrayList<Integer> mSelectedIndices;
     private int mCameraId = -1;
+    String barcode;
     static final String RESULT_KEY = "RESULT_KEY";
     TextView tvResult;
     private static final int Simple_Scanner_Activity = 1;
     private static final int Scanner_Activity = 2;
     TextView etResponse;
     Button button;
+    String email;
+
 
     public static ScannerFragment newInstance() {
         ScannerFragment f = new ScannerFragment();
@@ -113,9 +116,11 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
             mCameraId = -1;
         }
         setupFormats();
+        email=getArguments().getString("email");
 
 
-       return mScannerView;
+        return mScannerView;
+
     }
 
 
@@ -212,11 +217,18 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
             Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), notification);
             r.play();
-        } catch (Exception e) {}
-       // showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
+        } catch (Exception e) {
+        }
+        showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
         Log.i("Contentsssssss =", rawResult.getContents());
+        barcode=rawResult.getContents();
+        Intent intent = new Intent(getActivity(), ViewForScannerActivity.class);
+//        Log.d("email",email);
+        intent.putExtra("barcode", barcode);
+        intent.putExtra("email",email);
+        startActivity(intent);
 
-        new HttpAsyncTask().execute("http://world.openfoodfacts.org/api/v0/product/"+rawResult.getContents()+".json");
+       // new HttpAsyncTask().execute("http://world.openfoodfacts.org/api/v0/product/"+rawResult.getContents()+".json");
 
     }
 
@@ -336,49 +348,8 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
             return false;
     }*/
 
-    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-
-            return GET(urls[0]);
-        }
-
-        // onPostExecute displays the results of the AsyncTask.
-        @Override
-        protected void onPostExecute(String result) {
-        //    Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
-            if(result.equals("Did not work")) {
-                Log.e(result,"result");
-                showMessageDialog(" data doesn't exist");
-            }
-            else {
-                try {
-                    JSONObject obj = new JSONObject(result);
-                    String product = obj.getString("product");
-                    JSONObject obj1 = new JSONObject(product);
-                    String brands = obj1.getString("brands");
-
-                    Log.e(product, "product");
-
-                  //  showMessageDialog("brands, " + brands);
-                    Intent intent = new Intent(getActivity(), ViewForScannerActivity.class);
-                    intent.putExtra("message", brands);
-                    startActivity(intent);
-                }
 
 
-                catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-
-            }
-
-
-
-        }
-    }
 }
 
 

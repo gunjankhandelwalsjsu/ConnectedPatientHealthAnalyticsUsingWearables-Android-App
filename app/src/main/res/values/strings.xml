@@ -19,20 +19,13 @@
 
     <string name="action_contacts">My Contacts</string>
     <string name="hello_world">Hello world!</string>
-    <string name="post_title">Cloud Address Book</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="Email">Email</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="hint_fname">first name</string>
-    <string name="hint_last_name">last name</string>
-    <string name="contacts">My Contacts</string>
-    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="hint_fname">First name</string>
+    <string name="hint_last_name">Last name</string>
     <string name="register_title">Register</string>
     <string name="login_title">Login</string>
     <string name="fname">First Name</string>
     <string name="lname">Last Name</string>
-
     <string name="email">Email</string>
     <string name="pwd">Password</string>
     <string name="phone">Phone </string>
@@ -40,7 +33,6 @@
     <string name="state">State </string>
     <string name="city">City </string>
     <string name="zipcode">zipcode </string>
-
     <string name="btnRegister">Register</string>
 
 
@@ -230,4 +222,11 @@
     <string name="title_activity_licence">LicenceActivity</string>
     <string name="title_activity_assistant_adapter">AssistantAdapter</string>
     <string name="title_activity_sensor_tag">SensorTagActivity</string>
+    <string name="helloactivity_email">Email</string>
+    <string name="foodFacts">Your FoodFacts</string>
+    <string name="foodAllergicInfo">Food Allergic Information</string>
+    <string name="foodDiseaseInfo">Food and Disease related information</string>
+    <string name="nutritionInfo">Nutrition Information</string>
+    <string name="productName">Product</string>
+    <string name="patientAllergy">Allergies you have are</string>
 </resources>

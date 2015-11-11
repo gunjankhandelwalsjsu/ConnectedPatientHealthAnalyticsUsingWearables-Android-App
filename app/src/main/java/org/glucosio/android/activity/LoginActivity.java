@@ -1,11 +1,14 @@
 package org.glucosio.android.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,14 +43,20 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
 import org.glucosio.android.R;
+import org.glucosio.android.db.User;
 import org.glucosio.android.presenter.LoginPresenter;
 import org.glucosio.android.tools.LabelledSpinner;
 import org.glucosio.android.tools.Utility;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -76,15 +85,20 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailET;
     // Passwprd Edit View Object
     EditText pwdET;
+    String email;
+    String password;
+    String emailv,id;
+    User user;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        presenter = new LoginPresenter(this);
-        presenter.loadDatabase();
+//        presenter = new LoginPresenter(this);
 
         firstView = (ScrollView) findViewById(R.id.helloactivity_mainframe);
         EULAView = (ScrollView) findViewById(R.id.helloactivity_eulaframe);
@@ -98,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
 
         errorMsg = (TextView)findViewById(R.id.login_error);
         // Find Email Edit View control by ID
-        ed1 = (EditText)findViewById(R.id.editText_username);
+        ed1 = (EditText)findViewById(R.id.editText_email);
         // Find Password Edit View control by ID
         ed2 = (EditText)findViewById(R.id.editText_password);
         // Instantiate Progress Dialog object
@@ -107,6 +121,8 @@ public class LoginActivity extends AppCompatActivity {
         prgDialog.setMessage("Please wait...");
         // Set Cancelable as False
         prgDialog.setCancelable(false);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
 
       /*  final Drawable greyArrow = getApplicationContext().getResources().getDrawable(R.drawable.ic_navigate_next_grey_24px);
         greyArrow.setBounds(0, 0, 60, 60);
@@ -131,9 +147,25 @@ public class LoginActivity extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ed1.getText().toString().equals("admin") &&
 
-                        ed2.getText().toString().equals("admin")) {
+                try {
+                    loginUser();
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString("email", email);
+                    editor.commit();
+
+
+
+                    //   user=new User(id,emailv);
+                //    presenter.loadDatabase(id, emailv);
+
+                 //   presenter.loadDatabase(id, email);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                /*
                     Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
                     presenter.onNextClicked();
 
@@ -148,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (counter == 0) {
                         b1.setEnabled(false);
                     }
-                }
+                }*/
             }
         });
 
@@ -207,6 +239,7 @@ public class LoginActivity extends AppCompatActivity {
     public void closeHelloActivity(){
 
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("email",email);
         startActivity(intent);
         finish();
     }
@@ -243,23 +276,29 @@ public class LoginActivity extends AppCompatActivity {
 
 
 /********************************************************************************/
-public void loginUser(View view){
+public void loginUser() throws JSONException, UnsupportedEncodingException {
     // Get Email Edit View Value
-    String userName = ed1.getText().toString();
+    email = ed1.getText().toString();
+    Log.d("email",email);
     // Get Password Edit View Value
-    String password = ed2.getText().toString();
+    password = ed2.getText().toString();
     // Instantiate Http Request Param Object
     RequestParams params = new RequestParams();
     // When Email Edit View and Password Edit View have values other than Null
-    if(Utility.isNotNull(userName) && Utility.isNotNull(password)){
+    if(Utility.isNotNull(email) && Utility.isNotNull(password)){
         // When Email entered is Valid
-        if(Utility.validate(userName)){
+        if(Utility.validate(email)){
             // Put Http parameter username with value of Email Edit View control
-            params.put("username", userName);
+            JSONObject jsonParams = new JSONObject();
+
+            jsonParams.put("email", email);
             // Put Http parameter password with value of Password Edit Value control
-            params.put("password", password);
+            jsonParams.put("password", password);
             // Invoke RESTful Web Service with Http parameters
-            invokeWS(params);
+            StringEntity entity = new StringEntity(String.valueOf(jsonParams));
+            Log.d("json", String.valueOf(jsonParams));
+            entity.setContentType(String.valueOf(new BasicHeader(HTTP.CONTENT_TYPE, "application/json")));
+            invokeWS(entity);
         }
         // When Email is invalid
         else{
@@ -276,14 +315,15 @@ public void loginUser(View view){
     /**
      * Method that performs RESTful webservice invocations
      *
-     * @param params
+     * @param
      */
-    public void invokeWS(RequestParams params){
+    public void invokeWS(StringEntity entity){
         // Show Progress Dialog
         prgDialog.show();
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://192.168.43.17:9999/useraccount/login/dologin",params ,new AsyncHttpResponseHandler() {
+
+        client.post(this,"http://10.0.0.12:8080/webapp/login", entity,"application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 prgDialog.hide();
@@ -291,19 +331,22 @@ public void loginUser(View view){
                     // JSON Object
                     JSONObject obj = new JSONObject(String.valueOf(responseBody));
                     // When the JSON response has status boolean value assigned with true
-                    if(obj.getBoolean("status")){
+                    if (obj.getBoolean("status")) {
                         Toast.makeText(getApplicationContext(), "You are successfully logged in!", Toast.LENGTH_LONG).show();
                         // Navigate to Home screen
-                        navigatetoHomeActivity();
+                       emailv=obj.getString("email");
+                        id=obj.getString("id");
+                        navigatetoMainActivity();
                     }
                     // Else display error message
-                    else{
+                    else {
                         errorMsg.setText(obj.getString("error_msg"));
                         Toast.makeText(getApplicationContext(), obj.getString("error_msg"), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
-                    Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
+                    navigatetoMainActivity();
+                 //   Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
 
                 }
@@ -314,36 +357,33 @@ public void loginUser(View view){
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 prgDialog.hide();
                 // When Http response code is '404'
-                if(statusCode == 404){
+                if (statusCode == 404) {
                     Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
                 }
                 // When Http response code is '500'
-                else if(statusCode == 500){
+                else if (statusCode == 500) {
                     Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
                 }
                 // When Http response code other than 404, 500
-                else{
+                else {
                     Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
                 }
             }
 
         });
     }
-    public void navigatetoHomeActivity(){
-        Intent homeIntent = new Intent(getApplicationContext(),MainActivity.class);
-        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(homeIntent);
+    public void navigatetoMainActivity(){
+        Intent mainIntent = new Intent(getApplicationContext(),MainActivity.class);
+       mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mainIntent.putExtra("email", email);
+        startActivity(mainIntent);
     }
     /**
      * Method gets triggered when Register button is clicked
      *
      * @param view
      */
-    public void navigatetoRegisterActivity(View view){
-        Intent loginIntent = new Intent(getApplicationContext(),RegistrationActivity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(loginIntent);
-    }
+
 
 
 

@@ -23,7 +23,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/welcome"
+                    android:id="@+id/welcomeT"
                     android:layout_width="176dp"
                     android:layout_height="75dp"
                     android:layout_weight="0.66"
@@ -45,21 +45,21 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/fname"
+                    android:id="@+id/fnameT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
-                    android:id="@+id/lname"
+                    android:id="@+id/lnameT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
-                    android:id="@+id/display_email"
+                    android:id="@+id/display_emailT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:text="Medium Text"
@@ -67,38 +67,38 @@
 
 
                 <TextView
-                    android:id="@+id/phone"
+                    android:id="@+id/phoneT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
                 <TextView
-                    android:id="@+id/ContactInfo"
+                    android:id="@+id/ContactInfoT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
-                    android:text="Medium Text"
+                    android:text="Contact Information:"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
-                    android:id="@+id/StreetAddress"
+                    android:id="@+id/streetAddressT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
                 <TextView
-                    android:id="@+id/city"
+                    android:id="@+id/cityT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
                 <TextView
-                    android:id="@+id/state"
+                    android:id="@+id/stateT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
                 <TextView
-                    android:id="@+id/zipcode"
+                    android:id="@+id/zipcodeT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:text="Medium Text"
@@ -109,8 +109,30 @@
                     android:id="@+id/DoctorInfo"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
+                    android:text="Doctor Information:"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/d_nameT"
+                    android:layout_width="fill_parent"
+                    android:layout_height="38dp"
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/d_idT"
+                    android:layout_width="fill_parent"
+                    android:layout_height="38dp"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/d_mailT"
+                    android:layout_width="fill_parent"
+                    android:layout_height="38dp"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
 
                 <TextView
                     android:id="@+id/allergies"
@@ -125,7 +147,6 @@
                     android:layout_height="38dp"
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
 
                 <Button
                     android:id="@+id/edit_button"

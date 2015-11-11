@@ -5,36 +5,36 @@ import io.realm.annotations.PrimaryKey;
 public class User extends RealmObject {
 
     @PrimaryKey
-    private int id;
-    private String name;
+    private String id;
+    private String email;
 
 
     public User() {
 
     }
 
-    public User(int id, String name,String preferred_language, String country, int age, String gender,int dType, String pUnit, String pRange, int minRange, int maxRange) {
+    public User(String id, String email) {
         this.id=id;
-        this.name=name;
+        this.email=email;
 
     }
 
 
 
-    public String getName() {
-        return this.name;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setName(String name) {
-        this.name=name;
+    public void setEmail(String email) {
+        this.email=email;
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

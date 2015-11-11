@@ -11,21 +11,19 @@ import org.glucosio.android.db.User;
 public class LoginPresenter {
     DatabaseNewHandler dB;
     LoginActivity loginActivity;
-    int id;
-    int age;
-    String name;
-    String country;
-    int gender;
-    String language;
+    String id;
+
+    String email;
+
 
     public LoginPresenter(LoginActivity loginActivity) {
         this.loginActivity = loginActivity;
         dB = new DatabaseNewHandler(loginActivity);
     }
 
-    public void loadDatabase(){
-        id = 1; // Id is always 1. We don't support multi-user (for now :D).
-        name = "Test Account"; //TODO: add input for name in Tips;
+    public void loadDatabase(String id, String email){
+        this.id = id; // Id is always 1. We don't support multi-user (for now :D).
+        this.email = email; //TODO: add input for name in Tips;
     }
 
     public void onNextClicked(){
@@ -53,7 +51,7 @@ public class LoginPresenter {
     }
 
     public void saveToDatabase(){
-
+      //  dB.addUser(new User(id, email)); // We use ADA range by default
         loginActivity.closeHelloActivity();
     }
 }

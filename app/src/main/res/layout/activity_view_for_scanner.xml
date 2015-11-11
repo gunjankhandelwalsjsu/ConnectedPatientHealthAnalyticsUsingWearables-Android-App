@@ -10,31 +10,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="org.glucosio.android.activity.ViewForScannerActivity"
     android:id="@+id/root_id">
-    <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:text="Barcode"
-        android:background="#ccc"
-        android:textSize="20dp"
-        android:layout_alignTop="@+id/etResponse"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView
-        android:id="@+id/etResponse"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:ems="10"
-        android:text="data"
-        android:background="#ccc"
-        android:layout_marginTop="10dp"
-        android:inputType="textMultiLine"
-        android:layout_toRightOf="@+id/tvResult"
-        android:layout_toEndOf="@+id/tvResult" />
+
+
 
     <Button android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -43,6 +20,105 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         />
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dip"
+            android:weightSum="1">
+
+            <!-- View Title Label -->
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:text="@string/foodFacts"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+            <!-- FirstName Label -->
+
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/productName"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <TextView
+                android:id="@+id/patientAllergy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/patientAllergy"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <TextView
+                android:id="@+id/foodAllergicInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/foodAllergicInfo"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <!-- FirstName TextField -->
+
+            <!-- Name Label -->
+
+            <TextView
+                android:id="@+id/foodDiseaseInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/foodDiseaseInfo"
+                android:inputType="textMultiLine"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+            <!-- FirstName TextField -->
+            <TextView
+                android:id="@+id/nutritionInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nutritionInfo"
+                android:inputType="textMultiLine"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+
+
+
+
+
+            <!-- Error message -->
+
+            <TextView
+                android:id="@+id/register_error"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dip"
+                android:textColor="#e30000"
+                android:textStyle="bold" />
+
+
+            <Button
+                android:id="@+id/btnLinkToLoginScreen"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@null"
+                android:onClick="navigatetoLoginActivity"
+                android:text="Go Back"
+                android:textColor="#228b22"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>

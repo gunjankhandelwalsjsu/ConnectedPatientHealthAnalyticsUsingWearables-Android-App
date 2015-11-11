@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -39,6 +40,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import org.glucosio.android.R;
 import org.glucosio.android.adapter.HomePagerAdapter;
+import org.glucosio.android.db.DatabaseNewHandler;
 import org.glucosio.android.presenter.MainPresenter;
 import org.glucosio.android.tools.LabelledSpinner;
 
@@ -64,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
     TextView dialogAddDate;
     TextView dialogReading;
     HomePagerAdapter homePagerAdapter;
+    SharedPreferences sharedpreferences;
+
 
     private MainPresenter presenter;
     static final String RESULT_KEY = "RESULT_KEY";
@@ -71,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int Simple_Scanner_Activity = 1;
     private static final int Scanner_Activity = 2;
     TextView etResponse;
+    String email;
+    DatabaseNewHandler db;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +90,23 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+    //    Intent intent = getIntent();
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
+   //    email = intent.getStringExtra("email");
+    //    Intent i=getIntent();
+     //   String emailNew = i.getStringExtra("emailn");
+    //    if(email.isEmpty()&&!emailNew.isEmpty())
+     //       email=emailNew;
+
+//        Log.d("email",email);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setElevation(0);
         }
 
-        homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), getApplicationContext());
+        homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), getApplicationContext(), email);
 
         viewPager.setAdapter(homePagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -98,8 +115,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         super.onTabSelected(tab);
-
-
                     }
                 });
 
@@ -112,10 +127,15 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 if (position == 2) {
                     hideFabAnimation();
+                    LinearLayout emptyLayout = (LinearLayout) findViewById(R.id.mainactivity_empty_layout);
+                    ViewPager pager = (ViewPager) findViewById(R.id.pager);
+                    if (pager.getVisibility() == View.GONE) {
+                        pager.setVisibility(View.VISIBLE);
+                        emptyLayout.setVisibility(View.INVISIBLE);
+                    }
                 } else {
                     showFabAnimation();
                     checkIfEmptyLayout();
-
                 }
             }
 
@@ -257,7 +277,13 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_feedback) {
-            startGittyReporter();
+            return true;
+        } else if (id==R.id.action_profile)
+        {
+            Intent myIntent;
+            myIntent = new Intent(this, ProfileActivity.class);
+            myIntent.putExtra("email", email);
+            startActivity(myIntent);
         }
 
         return super.onOptionsItemSelected(item);

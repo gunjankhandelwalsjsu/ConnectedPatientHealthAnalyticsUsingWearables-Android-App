@@ -7,6 +7,7 @@ import org.glucosio.android.R;
 
 import cz.msebera.android.httpclient.Header;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,26 +46,44 @@ public class ProfileActivity extends AppCompatActivity {
     LocationManager locationManager;
     String provider;
 
-    String contactInfo = "";
     String fname = "";
     String lname = "";
     String streetAddress = "";
     String city = "";
     String phone = "";
     String picture = "";
-    String state="";
-    String zipcode="";
+    String state = "";
+    String zipcode = "";
     String d_name;
     String d_id;
     String d_mail_id;
     List<String> allergies;
-    List<String>  diseases;
-
+    List<String> diseases;
+    TextView fnameText,lnameText,phoneText,streetAddressText,cityText,stateText,zipcodeText,emailText,welcomeText,d_nameText,d_idText,d_mailText;
+TextView allergyText,diseaseText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        fnameText = (TextView) findViewById(R.id.fnameT);
+        lnameText = (TextView) findViewById(R.id.lnameT);
+        phoneText = (TextView) findViewById(R.id.phoneT);
+        emailText=(TextView)findViewById(R.id.display_emailT);
+        streetAddressText = (TextView) findViewById(R.id.streetAddressT);
+        cityText = (TextView) findViewById(R.id.cityT);
+        stateText = (TextView) findViewById(R.id.stateT);
+        zipcodeText = (TextView) findViewById(R.id.zipcodeT);
+        welcomeText=(TextView) findViewById(R.id.welcomeT);
+        d_nameText=(TextView) findViewById(R.id.d_nameT);
+        d_idText=(TextView) findViewById(R.id.d_idT);
+        d_mailText=(TextView) findViewById(R.id.d_mailT);
+        allergyText = (TextView) findViewById(R.id.allergies);
+        diseaseText = (TextView) findViewById(R.id.diseases);
+
+
+
+
         // Get the message from the intent
         Intent intent_old = getIntent();
         email = intent_old.getStringExtra("email");
@@ -76,10 +95,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void fetch_profile() {
-        final ProgressDialog pdia;
-     /*   pdia = ProgressDialog.show(ProfileActivity.this, "",
-                "Loading.....", true);*/
-     //   System.out.println("in fetch profile");
 
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -87,45 +102,141 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    JSONObject obj = new JSONObject(String.valueOf(responseBody));
+                    if (responseBody != null) {
+                        String responseStr = new String(responseBody);
+                        Log.d("Response", responseStr);
 
+                    }
+                    String json = new String(responseBody, "UTF8");
+
+                    JSONObject obj = new JSONObject(json);
+                    if (!obj.has("firstName")){
+                        welcomeText.setText("NA");
+                    fnameText.setText("First Name: " + "NA");
+                }
+
+                    else {
                     fname = obj.getString("firstName");
-                    lname = obj.getString("lastName");
-                    obj.getString("password");
-                    streetAddress = obj.getString("streetAddress");
-                    state = obj.getString("state");
-                    zipcode = obj.getString("zipcode");
-                    phone = obj.getString("phone");
+                    welcomeText.setText("Welcome "+fname+" !");
+                    fnameText.setText("First Name: "+fname);
+                    }
+
+                    if (!obj.has("lastName")){
+                        lnameText.setText("Last Name: NA");}
+                    else {
+                        lname = obj.getString("lastName");
+                        lnameText.setText("Last Name: " + lname);
+                    }
+
+                    if (!obj.has("email")){
+                        emailText.setText("Email: NA");}
+                    else {
                     email = obj.getString("email");
-                    city = obj.getString("city");
+                    emailText.setText("Email: "+email);}
+
+                    if (!obj.has("phone")){
+                        phoneText.setText("Phone: NA");}
+                    else {
+                        phone = obj.getString("phone");
+                        phoneText.setText("Phone: " + phone);
+                    }
+
+                    if (!obj.has("streetAddress")){
+                        streetAddressText.setText("Street Address: NA");}
+                    else {
+                    streetAddress = obj.getString("streetAddress");
+                    streetAddressText.setText("Street Address: "+streetAddress);
+                    }
+
+                    if (!obj.has("city")){
+                        cityText.setText("City :NA");}
+                    else {
+                        city = obj.getString("city");
+                        cityText.setText("City :" + city);
+                    }
+
+                    if (!obj.has("state")){
+                        stateText.setText("State: NA");
+                    }
+                    else {
+                    state = obj.getString("state");
+                    stateText.setText("State: "+state);
+                    }
+
+                    if(!obj.has("zipcode"))
+                        zipcodeText.setText("ZipCode :NA");
+
+                    else {
+                        zipcode = obj.getString("zipcode");
+                        Log.d("zipcode", zipcode);
+                        zipcodeText.setText("ZipCode :"+zipcode);
+                    }
+
+                    if(!obj.has("d_name"))
+                        d_nameText.setText("Name: NA");
+                    else {
                     d_name = obj.getString("d_name");
-                    d_id = obj.getString("d_id");
-                    JSONArray allergy = (JSONArray) obj.get("allergy");
-                    List<String> all = new ArrayList<String>();
-                    if (allergy != null && allergy.length() > 1) {
-                        for (int i = 0; i < allergy.length(); i++) {
-                            all.add(allergy.get(i).toString());
+                        d_nameText.setText("Name: "+d_name);
+
+                    }
+
+                    if(!obj.has("d_id"))
+                        d_idText.setText("Id: NA");
+                    else {
+                        d_id = obj.getString("d_id");
+                        d_idText.setText("Id: "+d_id);
+
+                    }
+
+                    if(!obj.has("d_mail_id"))
+                        d_mailText.setText("Email: NA");
+                    else {
+                        d_mail_id = obj.getString("d_mail_id");
+                        d_mailText.setText("Email: "+d_mail_id);
+
+                    }
+
+                    if(obj.has("allergy")) {
+                        JSONArray allergy = (JSONArray) obj.get("allergy");
+                        if (allergy != null && allergy.length() > 1) {
+                            for (int i = 0; i < allergy.length(); i++) {
+                                allergies.add(allergy.get(i).toString());
+                            }
+                        }
+                        if (allergies != null && allergies.size() != 0) {
+                            allergyText.setText("Allergies: " + allergies.toString());
                         }
                     }
-                    allergies = all;
+                    else
+                        allergyText.setText("Allergies: " + "NA");
+
+
+
+                    if(obj.has("disease")) {
+
                     JSONArray disease = (JSONArray) obj.get("disease");
-                    List<String> dis = new ArrayList<String>();
                     if (disease != null && disease.length() > 1) {
                         for (int i = 0; i < disease.length(); i++) {
-                            dis.add(disease.get(i).toString());
+                            diseases.add(disease.get(i).toString());
                         }
                     }
-                    diseases = dis;
+                        if (diseases != null && diseases.size() != 0) {
+                            diseaseText.setText("Diseases: " + diseases.toString());
+                        }
+                    }
+                    else
+                        diseaseText.setText("Diseases: " + "NA");
 
-
-                    d_mail_id = obj.getString("d_mail_id");
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
                 }
+
             }
 
-            @Override
+
+                @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable
                     error) {
                 Log.d("statusCode", String.valueOf(statusCode));
@@ -147,41 +258,10 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void display_profile() {
-        TextView u = (TextView) findViewById(R.id.welcome);
-        u.setText("Welcome " + fname + "!");
-        intent.putExtra("fname", fname);
+        Log.d("display", "in display profil");
 
-        TextView m = (TextView) findViewById(R.id.display_email);
-        m.setText("Email: " + email);
-        intent.putExtra("email", email);
 
-        TextView f = (TextView) findViewById(R.id.fname);
-        f.setText("First Name: " + fname);
-        intent.putExtra("fname", fname);
-
-        TextView l = (TextView) findViewById(R.id.lname);
-        l.setText("Last Name: " + lname);
-        intent.putExtra("lname", lname);
-
-        TextView b = (TextView) findViewById(R.id.ContactInfo);
-
-        TextView street = (TextView) findViewById(R.id.streetAddress);
-        street.setText("Street Address : "+ streetAddress);
-        intent.putExtra("streetAddress", streetAddress);
-
-        TextView c = (TextView) findViewById(R.id.city);
-        c.setText("city : "+ city);
-        intent.putExtra("city", city);
-
-        TextView st = (TextView) findViewById(R.id.state);
-        st.setText("State : "+ state);
-        intent.putExtra("state", state);
-
-        TextView zip = (TextView) findViewById(R.id.zipcode);
-        zip.setText("Zipcode : "+ zipcode);
-        intent.putExtra("zipcode", zipcode);
-
-        TextView al = (TextView) findViewById(R.id.allergies);
+         /*        TextView al = (TextView) findViewById(R.id.allergies);
         al.setText("Allergies: " + allergies.toString());
         intent.putStringArrayListExtra("Allergies", (ArrayList<String>) allergies);
 
@@ -191,16 +271,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         TextView doc = (TextView) findViewById(R.id.DoctorInfo);
         doc.setText("Doctor Info: " + d_id + d_name + d_mail_id);
-        intent.putExtra("DoctorInfo", d_id+d_name+d_mail_id);
-
-        TextView p = (TextView) findViewById(R.id.phone);
-        p.setText("Phone: " + phone);
-        intent.putExtra("phone", phone);
+        intent.putExtra("DoctorInfo", d_id+d_name+d_mail_id);*/
 
 
 
 
-        ImageView img = (ImageView) findViewById(R.id.profile_pic);
+                ImageView img = (ImageView) findViewById(R.id.profile_pic);
         /*if (gender.equals("F")) {
             g.setText("Gender: Female");
             img.setImageResource(R.drawable.female);
@@ -208,11 +284,7 @@ public class ProfileActivity extends AppCompatActivity {
             g.setText("Gender: Male");
             img.setImageResource(R.drawable.male);
         }*/
-    }
+            }
 
+        }
 
-    public void edit_profile(View view) throws MalformedURLException, JSONException {
-        startActivity(intent);
-    }
-
-}

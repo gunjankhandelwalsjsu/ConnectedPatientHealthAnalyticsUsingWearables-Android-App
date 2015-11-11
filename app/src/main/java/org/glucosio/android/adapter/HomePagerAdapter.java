@@ -1,6 +1,7 @@
 package org.glucosio.android.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,11 +21,13 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     Context mContext;
     private final FragmentManager mFragmentManager;
     private Fragment mFragmentAtPos0;
+    String email;
 
-    public HomePagerAdapter(FragmentManager fm, Context context) {
+    public HomePagerAdapter(FragmentManager fm, Context context, String email) {
         super(fm);
         mFragmentManager = fm;
 
+        this.email=email;
         this.mContext = context;
     }
 
@@ -39,13 +42,18 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
                 if (mFragmentAtPos0 == null) {
                     mFragmentAtPos0 = PreScannerFragment.newInstance(new FirstPageFragmentListener() {
                         public void onSwitchToNextFragment() {
+
                             mFragmentManager.beginTransaction().remove(mFragmentAtPos0).commit();
                             mFragmentAtPos0 = ScannerFragment.newInstance();
                             notifyDataSetChanged();
                         }
                     });
                 }
-                return new PreScannerFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("email", email );
+                PreScannerFragment frag = new PreScannerFragment();
+                frag.setArguments(bundle);
+                return frag;
         }
     }
 
