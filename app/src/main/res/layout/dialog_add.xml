@@ -88,7 +88,7 @@
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
-        <org.glucosio.android.tools.LabelledSpinner
+        <org.project.healthMeter.tools.LabelledSpinner
             android:id="@+id/dialog_add_reading_type"
             android:layout_marginTop="16dp"
             custom:labelText="@string/dialog_add_measured"

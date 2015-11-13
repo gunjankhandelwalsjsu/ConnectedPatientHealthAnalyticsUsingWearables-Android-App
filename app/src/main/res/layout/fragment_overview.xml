@@ -7,7 +7,7 @@
     android:layout_marginTop="16dp"
     android:layout_marginBottom="16dp"
     android:background="#ffffff"
-    tools:context="org.glucosio.android.fragment.OverviewFragment">
+    tools:context="org.project.healthMeter.fragment.OverviewFragment">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

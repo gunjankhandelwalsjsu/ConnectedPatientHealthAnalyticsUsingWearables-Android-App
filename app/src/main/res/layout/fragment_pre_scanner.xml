@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.glucosio.android.fragment.PreScannerFragment"
+    tools:context="org.project.healthMeter.fragment.PreScannerFragment"
     android:id="@+id/first_fragment_root_id"
     >
 

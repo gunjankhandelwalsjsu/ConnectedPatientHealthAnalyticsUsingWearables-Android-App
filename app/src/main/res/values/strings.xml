@@ -1,16 +1,20 @@
 <resources>
     <string name="app_name">Health Meter</string>
     <string name="action_settings">Settings</string>
+    <string name="action_log_out">Log Out</string>
+
     <string name="action_feedback">Send feedback</string>
     <string name="tab_overview">Overview</string>
     <string name="tab_history">History</string>
     <string name="tab_scan">Scan Food</string>
+    <string name="action_invite">Invite a friend</string>
+    <string name="tab_tips">Tips</string>
 
     <string name="title_activity_hello">Login</string>
     <string name="helloactivity_headline">Login</string>
     <string name="helloactivity_terms">Terms of usage.</string>
     <string name="helloactivity_terms_accept">I\'ve read and accept the terms of usage</string>
-    <string name="helloactivity_terms_full">The contents of the Glucosio website and apps, such as text, graphics, images, and other material (“Content”) are for informational purposes only. The content is not intended to be a substitute for professional medical advice, diagnosis, or treatment. We encourage Glucosio users to always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read on the Glucosio website or in our apps. The Glucosio Website, Blog, Wiki and other web browser accessible content (“Website”) should be used only for the purpose described above.\n Reliance on any information provided by Glucosio, Glucosio team members, volunteers and others appearing on the Website or in our apps is solely at your own risk.  The Site and the Content are provided on an “as is” basis.</string>
+    <string name="helloactivity_terms_full">The contents of the Health Meter website and apps, such as text, graphics, images, and other material (“Content”) are for informational purposes only. The content is not intended to be a substitute for professional medical advice, diagnosis, or treatment. We encourage Health Meter users to always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read on the Health Meter website or in our apps. The Health Meter Website, Blog, Wiki and other web browser accessible content (“Website”) should be used only for the purpose described above.\n Reliance on any information provided by Health Meter, Health Meter team members, volunteers and others appearing on the Website or in our apps is solely at your own risk.  The Site and the Content are provided on an “as is” basis.</string>
     <string name="helloactivity_subhead">Please enter your Login credentials.</string>
     <string name="helloactivity_username">Username</string>
 
@@ -24,6 +28,9 @@
     <string name="hint_last_name">Last name</string>
     <string name="register_title">Register</string>
     <string name="login_title">Login</string>
+    <string name="EditProfile_title">Edit Profile</string>
+
+
     <string name="fname">First Name</string>
     <string name="lname">Last Name</string>
     <string name="email">Email</string>
@@ -84,6 +91,20 @@
     <string name="title_activity_bluetooth">Bluetooth Generation</string>
 
 
+    <string name="title_activity_scanner">ScannerActivity</string>
+    <string name="title_activity_view_for_scanner">ViewForScannerActivity</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
+    <string name="title_activity_licence">LicenceActivity</string>
+    <string name="title_activity_assistant_adapter">AssistantAdapter</string>
+    <string name="title_activity_sensor_tag">SensorTagActivity</string>
+    <string name="helloactivity_email">Email</string>
+    <string name="foodFacts">Your FoodFacts</string>
+    <string name="foodAllergicInfo">Food Allergic Information</string>
+    <string name="foodDiseaseInfo">Food and Disease related information</string>
+    <string name="nutritionInfo">Nutrition Information</string>
+    <string name="productName">Product</string>
+    <string name="patientAllergy">Allergies you have are</string>
+
 
     <string-array name="helloactivity_language_list">
         <item>English (US)</item>
@@ -98,6 +119,11 @@
     <string name="helloactivity_password">Password</string>
     <string name="helloactivity_password_invalid">Please enter a valid age.</string>
 
+
+    <string name="helloactivity_country">Country</string>
+    <string name="helloactivity_age">Age</string>
+    <string name="helloactivity_age_invalid">Please enter a valid age.</string>
+
     <string name="helloactivity_gender">Gender</string>
     <string name="helloactivity_gender_list_1">Male</string>
     <string name="helloactivity_gender_list_2">Female</string>
@@ -108,12 +134,11 @@
         <item>@string/helloactivity_gender_list_2</item>
         <item>@string/helloactivity_gender_list_3</item>
     </string-array>
-
     <string name="helloactivity_spinner_diabetes_type">Diabetes type</string>
     <string name="helloactivity_spinner_diabetes_type_1">Type 1</string>
     <string name="helloactivity_spinner_diabetes_type_2">Type 2</string>
 
-    <string-array name="helloactivity_diabetes_type">
+    <string-array name="helloactivity_diabetes_type" translatable="false">
         <item>@string/helloactivity_spinner_diabetes_type_1</item>
         <item>@string/helloactivity_spinner_diabetes_type_2</item>
     </string-array>
@@ -139,18 +164,18 @@
     <string name="dialog_add_date">Date</string>
     <string name="dialog_add_time">Time</string>
     <string name="dialog_add_measured">Measured</string>
-
     <string name="dialog_add_type_1">Before breakfast</string>
     <string name="dialog_add_type_2">After breakfast</string>
     <string name="dialog_add_type_3">Before lunch</string>
     <string name="dialog_add_type_4">After lunch</string>
     <string name="dialog_add_type_5">Before dinner</string>
     <string name="dialog_add_type_6">After dinner</string>
-    <string name="dialog_add_type_7">General</string>
-    <string name="dialog_add_type_8">Recheck</string>
+    <string name="dialog_add_type_7">Snack</string>
+    <string name="dialog_add_type_8">Bedtime</string>
     <string name="dialog_add_type_9">Night</string>
-
-
+    <string name="dialog_add_type_10">Fasting glucose</string>
+    <string name="dialog_add_type_11">Recheck</string>
+    <string name="dialog_add_type_12">Other</string>
     <string-array name="dialog_add_measured_list" translatable="false">
         <item>@string/dialog_add_type_1</item>
         <item>@string/dialog_add_type_2</item>
@@ -161,7 +186,11 @@
         <item>@string/dialog_add_type_7</item>
         <item>@string/dialog_add_type_8</item>
         <item>@string/dialog_add_type_9</item>
+        <item>@string/dialog_add_type_10</item>
+        <item>@string/dialog_add_type_11</item>
+        <item>@string/dialog_add_type_12</item>
     </string-array>
+
     <string name="dialog_add_cancel">CANCEL</string>
     <string name="dialog_add_add">ADD</string>
     <string name="dialog_error">Please fill all the fields.</string>
@@ -186,6 +215,13 @@
 
     <string name="fragment_overview_tip">Tip</string>
     <string name="tip_example" translatable="false">Use less cheese in your recipes and meals. Fresh mozzarella packed in water and Swiss cheese are usually lower in sodium.</string>
+    <string name="preferences_about">About</string>
+    <string name="version" translatable="false">0.8.3 (Noce)</string>
+    <string name="preferences_version">Version</string>
+    <string name="preferences_terms">Terms of use</string>
+    <string name="glucose_reading_type">Type</string>
+    <string name="weight">Weight</string>
+    <string name="dialog_add_custom_type">Custom measurement category</string>
 
 
 
@@ -201,7 +237,7 @@
         <item>When eating out ask for sauces, gravy and salad dressings "on the side."</item>
         <item>Sugar free doesn’t really mean sugar free. It means 0.5 grams (g) of sugar per serving, so be careful to not indulge in too many sugar free items.</item>
         <item>Moving toward a healthy weight helps control blood sugars. Your doctor, a dietitian, and a fitness trainer can get you started on a plan that will work for you.</item>
-        <item>Checking your blood level and tracking it in an app like Glucosio twice a day will help you be aware of outcomes from food and lifestyle choices.</item>
+        <item>Checking your blood level and tracking it in an app like Health Meter twice a day will help you be aware of outcomes from food and lifestyle choices.</item>
         <item>Get A1c blood tests to find out your average blood sugar for the past 2 to 3 months. Your doctor should tell you how frequently this test will be needed to be performed.</item>
         <item>Tracking how many carbohydrates you consume can be just as important as checking blood levels since carbohydrates influence blood glucose levels. Talk to your doctor or a dietician about carbohydrate intake.</item>
         <item>Controlling blood pressure, cholesterol, and triglyceride levels is important since diabetics are susceptible to heart disease.</item>
@@ -216,17 +252,138 @@
         <item>Older diabetics may be at higher risk for health issues associated with diabetes. Talk to your doctor about how your age plays a role in your diabetes and what to watch for.</item>
         <item>Limit the amount of salt you use to cook food and that you add to meals after it has been cooked.</item>
     </string-array>
-    <string name="title_activity_scanner">ScannerActivity</string>
-    <string name="title_activity_view_for_scanner">ViewForScannerActivity</string>
-    <string name="title_activity_preferences">PreferencesActivity</string>
-    <string name="title_activity_licence">LicenceActivity</string>
-    <string name="title_activity_assistant_adapter">AssistantAdapter</string>
-    <string name="title_activity_sensor_tag">SensorTagActivity</string>
-    <string name="helloactivity_email">Email</string>
-    <string name="foodFacts">Your FoodFacts</string>
-    <string name="foodAllergicInfo">Food Allergic Information</string>
-    <string name="foodDiseaseInfo">Food and Disease related information</string>
-    <string name="nutritionInfo">Nutrition Information</string>
-    <string name="productName">Product</string>
-    <string name="patientAllergy">Allergies you have are</string>
+
+
+    <!-- Future Strings Baked In Early For l10n -->
+
+    <string name="assistant">Assistant</string>.
+    <string name="assistant_action_update">UPDATE NOW</string>
+    <string name="assistant_action_ok">OK, GOT IT</string>
+    <string name="assistant_action_feedback">SUBMIT FEEDBACK</string>
+    <string name="assistant_action_reading">ADD READING</string>
+    <string name="assistant_weight_title">Update your weight</string>
+    <string name="assistant_weight_desc">Make sure to update your weight so Health Meter has the most accurate information.</string>
+    <string name="assistant_research_title">Update your research opt-in</string>
+    <string name="assistant_research_desc">You can always opt-in or opt-out of diabetes research sharing, but remember all data shared is entirely anonymous. We only share demographics and glucose level trends.</string>
+    <string name="assistant_categories_title">Create categories</string>
+    <string name="assistant_categories_desc">Health Meter comes with default categories for glucose input but you can create custom categories in settings to match your unique needs.</string>
+    <string name="assistant_check_title">Check here often</string>
+    <string name="assistant_check_desc">Health Meter assistant provides regular tips and will keep improving, so always check here for useful actions you can take to improve your Health Meter experience and for other useful tips.</string>
+    <string name="assistant_feedback_title">Submit feedback </string>
+    <string name="assistant_feedback_desc">If you find any technical issues or have feedback about Health Meter we encourage you to submit it in the settings menu in order to help us improve Health Meter.</string>
+    <string name="assistant_reading_title">Add a reading</string>
+    <string name="assistant_reading_desc">Be sure to regularly add your glucose readings so we can help you track your glucose levels over time.</string>
+
+    <string-array name="assistant_titles" translatable="false">
+        <item>@string/assistant_feedback_title</item>
+        <item>@string/assistant_reading_title</item>
+        <item>@string/assistant_categories_title</item>
+    </string-array>
+    <string-array name="assistant_descriptions" translatable="false">
+        <item>@string/assistant_feedback_desc</item>
+        <item>@string/assistant_reading_desc</item>
+        <item>@string/assistant_categories_desc</item>
+    </string-array>
+
+    <string-array name="assistant_actions" translatable="false">
+        <item>@string/assistant_action_feedback</item>
+        <item>@string/assistant_action_reading</item>
+        <item>@string/assistant_action_try</item>
+    </string-array>
+
+    <string name="helloactivity_spinner_preferred_range">Preferred range</string>
+    <string name="helloactivity_spinner_preferred_range_1" translatable="false">ADA</string>
+    <string name="helloactivity_spinner_preferred_range_2" translatable="false">AACE</string>
+    <string name="helloactivity_spinner_preferred_range_3" translatable="false">UK NICE</string>
+    <string name="helloactivity_spinner_preferred_range_4">Custom range</string>
+    <string name="helloactivity_preferred_range_min">Min value</string>
+    <string name="helloactivity_preferred_range_max">Max value</string>
+    <string name="assistant_action_try">TRY IT NOW</string>
+    <string name="helloactivity_language">Language</string>
+
+    <string-array name="helloactivity_preferred_range" translatable="false">
+        <item>@string/helloactivity_spinner_preferred_range_1</item>
+        <item>@string/helloactivity_spinner_preferred_range_2</item>
+        <item>@string/helloactivity_spinner_preferred_range_3</item>
+        <item>@string/helloactivity_spinner_preferred_range_4</item>
+    </string-array>
+
+    <string name="invitation_title">Invite other people</string>
+    <string name="invitation_message">Try Health Meter, an open source app for diabetes management and research.</string>
+    <string name="invitation_cta">Try Health Meter</string>
+
+    <string name="title_activity_backup">Backup</string>
+    <string name="preferences_privacy">Privacy</string>
+    <string name="helloactivity_textview_tos">By using Health Meter, you are agreeing to the</string>
+    <string name="preferences_backup_google_drive">Google Drive</string>
+    <string name="preferences_about_healthMeter">About Health Meter</string>
+    <string name="preferences_rate">Rate Health Meter</string>
+    <string name="preferences_licences_open">Open source Licences</string>
+    <string name="about_donate">Donate to Health Meter</string>
+    <string name="reading_ok">OK</string>
+    <string name="reading_hypo">Hypoglycemia</string>
+    <string name="reading_low">Low</string>
+    <string name="reading_high">High</string>
+    <string name="reading_hyper">Hyperglycemia</string>
+
+
+    <!-- Future Strings Baked In Early For l10n -->
+    <!-- Exercise Types -->
+
+    <string name="dialog_add_exercisetype_1">Leisurely walking</string>
+    <string name="dialog_add_exercisetype_2">Walking fast</string>
+    <string name="dialog_add_exercisetype_3">Jogging</string>
+    <string name="dialog_add_exercisetype_4">Running</string>
+    <string name="dialog_add_exercisetype_5">Swimming</string>
+    <string name="dialog_add_exercisetype_6">Dancing</string>
+    <string name="dialog_add_exercisetype_7">Roller skating</string>
+    <string name="dialog_add_exercisetype_8">Bicycling</string>
+    <string name="dialog_add_exercisetype_9">Golf</string>
+    <string name="dialog_add_exercisetype_10">Softball</string>
+    <string name="dialog_add_exercisetype_11">Badminton</string>
+    <string name="dialog_add_exercisetype_12">Football</string>
+    <string name="dialog_add_exercisetype_13">Basketball</string>
+    <string name="dialog_add_exercisetype_14">Volleyball</string>
+    <string name="dialog_add_exercisetype_15">Cricket</string>
+    <string name="dialog_add_exercisetype_16">Frisbee</string>
+    <string name="dialog_add_exercisetype_17">Skiing</string>
+    <string name="dialog_add_exercisetype_18">Boxing</string>
+    <string name="dialog_add_exercisetype_19">Tennis</string>
+    <string name="dialog_add_exercisetype_20">Table tennis</string>
+    <string name="dialog_add_exercisetype_21">Martial arts</string>
+    <string name="dialog_add_exercisetype_22">Rock-climbing</string>
+    <string name="dialog_add_exercisetype_23">Wrestling</string>
+    <string name="dialog_add_exercisetype_24">Hiking</string>
+    <string name="dialog_add_exercisetype_25">Yard work</string>
+
+    <!-- Food Entry Labels -->
+
+    <string name="dialog_addfood_carbs">Carbs:</string>
+    <string name="dialog_addfood_protein">Protein:</string>
+    <string name="dialog_addfood_sugars">Sugars:</string>
+    <string name="dialog_addfood_fat">Fat:</string>
+
+
+    <!-- About Health Meter Strings -->
+
+    <string name="about_credits">Credits</string>
+    <string name="about_contribute">Contribute</string>
+    <string name="about_contributel10n">Contribute to Translation</string>
+    <string name="about_contributedev">Contribute to Development</string>
+    <string name="about_discussion">Join our discussion community</string>
+    <string name="about_maillist">Subscribe to our mailing list</string>
+    <string name="assistant_archived">ARCHIVED TIPS</string>
+
+
+
+
+
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="choose_image_source">Choose the image source</string>
+    <string name="error">Error!</string>
+    <string name="image_error">Error parsing image!</string>
+    <string name="uploaded">Successfully uploaded</string>
+
 </resources>
+

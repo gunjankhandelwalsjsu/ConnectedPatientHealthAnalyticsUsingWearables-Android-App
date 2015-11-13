@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.glucosio.android" >
+    package="org.project.healthMeter" >
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -17,12 +18,13 @@
         android:required="true" />
 
     <application
+        android:name=".AnalyticsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true" >
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="org.project.healthMeter.activity.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/GlucosioTheme" >
             <intent-filter>
@@ -32,47 +34,77 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="org.project.healthMeter.activity.MainActivity"
             android:label="@string/title_activity_hello"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" >
         </activity>
         <activity
-            android:name=".activity.GittyActivity"
-            android:parentActivityName="activity.MainActivity"
+            android:name="org.project.healthMeter.activity.GittyActivity"
+            android:parentActivityName="org.project.healthMeter.activity.MainActivity"
             android:theme="@style/GittyTheme" >
         </activity>
         <activity
-            android:name=".activity.ScannerActivity"
+            android:name="org.project.healthMeter.activity.ScannerActivity"
             android:label="@string/title_activity_scanner"
-            android:parentActivityName="activity.MainActivity" >
+            android:parentActivityName="org.project.healthMeter.activity.MainActivity" >
         </activity>
         <activity
-            android:name=".activity.ViewForScannerActivity"
+            android:name="org.project.healthMeter.activity.ViewForScannerActivity"
             android:label="@string/title_activity_view_for_scanner"
-            android:parentActivityName=".activity.MainActivity"
+            android:parentActivityName="org.project.healthMeter.activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/GlucosioSettings" >
         </activity>
         <activity
-            android:name=".activity.SensorTagActivity"
+            android:name="org.project.healthMeter.activity.SensorTagActivity"
             android:label="@string/title_activity_sensor_tag"
-            android:parentActivityName=".activity.MainActivity"
+            android:parentActivityName="org.project.healthMeter.activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/GlucosioSettings" >
         </activity>
         <activity
-            android:name=".activity.RegistrationActivity"
+            android:name="org.project.healthMeter.activity.RegistrationActivity"
             android:theme="@style/GlucosioSettings" >
         </activity>
-        <activity android:name=".activity.ProfileActivity"
+        <activity android:name="org.project.healthMeter.activity.ProfileActivity"
+            android:parentActivityName="org.project.healthMeter.activity.MainActivity"
             android:theme="@style/GlucosioSettings" >
-            >
         </activity>
-        <activity android:name=".activity.EditProfileActivity"
+
+        <activity android:name="org.project.healthMeter.activity.EditProfileActivity"
+            android:parentActivityName="org.project.healthMeter.activity.ProfileActivity"
             android:theme="@style/GlucosioSettings" >
-            >
+
         </activity>
+        <!-- Register AnalyticsReceiver and AnalyticsService to support background
+dispatching on non-Google Play devices -->
+    <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+        android:enabled="true">
+        <intent-filter>
+            <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+        </intent-filter>
+    </receiver>
+    <service android:name="com.google.android.gms.analytics.AnalyticsService"
+        android:enabled="true"
+        android:exported="false"/>
+    <!-- Register CampaignTrackingReceiver and CampaignTrackingService to enable
+         installation campaign reporting -->
+    <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="com.android.vending.INSTALL_REFERRER" />
+        </intent-filter>
+    </receiver>
+    <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
+
+
+
 
 </manifest>
