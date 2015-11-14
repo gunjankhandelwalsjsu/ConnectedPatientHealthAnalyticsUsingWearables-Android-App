@@ -106,6 +106,8 @@ public class EditProfileActivity extends AppCompatActivity implements
     List<String> allergyList=new ArrayList<>();
     String email;
     Bitmap bitmap;
+    String doctorName="",dPhone="",doctorMailId="";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +154,7 @@ public class EditProfileActivity extends AppCompatActivity implements
         cityET.setText(intent.getStringExtra("city"));
 
         zipcodeET = (EditText) findViewById(R.id.editZipcode);
-        zipcodeET.setText(intent.getStringExtra("zipcode"));
+        zipcodeET.setText(intent.getStringExtra("zipCode"));
 
 
         // Instantiate Progress Dialog object
@@ -197,26 +199,18 @@ public class EditProfileActivity extends AppCompatActivity implements
             DatePicker bdate = (DatePicker) findViewById(R.id.bdate);
             bdate.updateDate(year, month, day);
         }
+        doctorName=intent.getStringExtra("doctorName");
+        dPhone=intent.getStringExtra("dPhone");
+        doctorMailId=intent.getStringExtra("doctorMailId");
 
+        TextView dNameT = (TextView) findViewById(R.id.d_nameT);
+        dNameT.setText(doctorName);
 
-        //upload = (Button) findViewById(R.id.upload);
-        //caption = (EditText) findViewById(R.id.picture);
+        TextView dPhoneT = (TextView) findViewById(R.id.d_phoneT);
+        dPhoneT.setText(dPhone);
 
-//        upload.setOnClickListener(new View.OnClickListener() {
-//
-//
-//
-//        public void onClick(View v) {
-//            if (bitmap == null) {
-//                Toast.makeText(getApplicationContext(),
-//                        "Please select image", Toast.LENGTH_SHORT).show();
-//            } else {
-//                dialog = ProgressDialog.show(EditProfile.this, "Uploading",
-//                        "Please wait...", true);
-//                new ImageUploadTask().execute();
-//            }
-//        }
-//        });
+        TextView dMail = (TextView) findViewById(R.id.d_mailT);
+        dMail.setText(doctorMailId);
     }
 
 
@@ -311,6 +305,9 @@ public class EditProfileActivity extends AppCompatActivity implements
                 if (checked)
                     diseaseList.add("Blood Pressure");
                 break;
+            default:
+               diseaseList.add("No Diseases");
+                break;
 
         }
     }
@@ -332,6 +329,7 @@ public class EditProfileActivity extends AppCompatActivity implements
        // EditText gemail = (EditText) findViewById(R.id.editEmail);
         //String str_email = gemail.getText().toString();
 
+
         EditText password = (EditText) findViewById(R.id.editPassword);
         String str_password = password.getText().toString();
 
@@ -352,6 +350,7 @@ public class EditProfileActivity extends AppCompatActivity implements
 
         EditText zipcode = (EditText) findViewById(R.id.editZipcode);
         String str_zipcode = zipcode.getText().toString();
+
 
 
         //   EditText pic = (EditText) findViewById(R.id.picture);
@@ -394,23 +393,8 @@ public class EditProfileActivity extends AppCompatActivity implements
                 }
             });
         }
-        else if(str_password.length()<6)
-        {
-            runOnUiThread(new Runnable() {
-                public void run() {
 
-                    TextView err = (TextView) findViewById( R.id.update_profile_error );
-                    err.setText("Password too short! Minimum 6 characters");
-                    EditText password = (EditText) findViewById(R.id.editPassword);
-                    password.setText("");
-                    EditText confirm_password = (EditText) findViewById(R.id.confirm_password);
-                    confirm_password.setText("");
-                }
-            });
-        }
 
-        else
-        {
 
             JSONObject jsonParams = new JSONObject();
      //       jsonParams.put("UserPicture", img_path);
@@ -429,7 +413,7 @@ public class EditProfileActivity extends AppCompatActivity implements
             jsonParams.put("zipCode", str_zipcode);
             jsonParams.put("birthDate", str_bdate);
             jsonParams.put("gender", ch_gender);
-
+            Log.d("str_bdate",str_bdate);
 
             JSONArray alist=new JSONArray();
             if (allergyList.size()==0)
@@ -449,11 +433,14 @@ public class EditProfileActivity extends AppCompatActivity implements
             }
             jsonParams.put("allergy", alist);
             jsonParams.put("disease", dlist);
+            jsonParams.put("doctorMailId",doctorMailId);
+            jsonParams.put("doctorName",doctorName);
+            jsonParams.put("dPhone",dPhone);
   //          jsonParams.put("UserGender", ch_gender);
    //         jsonParams.put("UserBirthDate", str_bdate);
             //   jsonParams.put("notes", "Test api support");
-                StringEntity entity = new StringEntity(jsonParams.toString());
-            Log.d("json", String.valueOf(jsonParams));
+            StringEntity entity = new StringEntity(jsonParams.toString());
+            Log.d("json print", String.valueOf(jsonParams));
             entity.setContentType(String.valueOf(new BasicHeader(HTTP.CONTENT_TYPE, "application/json")));
 
 
@@ -464,7 +451,7 @@ public class EditProfileActivity extends AppCompatActivity implements
             myIntent.putExtra("email", email);
             startActivity(myIntent);
 
-        }
+
     }
 
     public void invokeWS(StringEntity entity){

@@ -1,8 +1,10 @@
 package org.project.healthMeter.presenter;
 
+import android.content.SharedPreferences;
+
+import org.project.healthMeter.db.DatabaseNewHandler;
 import org.project.healthMeter.fragment.OverviewFragment;
 import org.project.healthMeter.tools.TemperatureTools;
-import org.project.healthMeter.db.DatabaseNewHandler;
 import org.project.healthMeter.tools.TipsManager;
 
 import java.util.ArrayList;
@@ -22,6 +24,9 @@ public class OverviewPresenter {
     private List<String> datetimeMonth;
     private OverviewFragment fragment;
     private ArrayList<String> datetime;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+
+    SharedPreferences sharedpreferences;
 
     public OverviewPresenter(OverviewFragment overviewFragment) {
         dB = new DatabaseNewHandler(overviewFragment.getActivity());
@@ -86,4 +91,5 @@ public class OverviewPresenter {
     public List<String> getDatetimeMonth() {
         return datetimeMonth;
     }
+
 }

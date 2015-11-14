@@ -11,7 +11,6 @@ public class TemperatureReading extends RealmObject {
     private long id;
 
     private double reading;
-
     private int user_id;
     private Date created;
 

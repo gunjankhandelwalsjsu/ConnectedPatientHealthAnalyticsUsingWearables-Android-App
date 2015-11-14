@@ -72,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     User user;
     public static final String MyPREFERENCES = "MyPrefs" ;
 
+
     SharedPreferences sharedpreferences;
 
     @Override
@@ -103,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set Cancelable as False
         prgDialog.setCancelable(false);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
 
 
       /*  final Drawable greyArrow = getApplicationContext().getResources().getDrawable(R.drawable.ic_navigate_next_grey_24px);

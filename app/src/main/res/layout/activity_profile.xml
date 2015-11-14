@@ -79,6 +79,7 @@
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
+
                 <TextView
                     android:id="@+id/birthDate"
                     android:layout_width="fill_parent"
@@ -154,7 +155,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
-                    android:id="@+id/d_idT"
+                    android:id="@+id/d_phoneT"
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:text="Medium Text"

@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.project.healthMeter.R;
+import org.project.healthMeter.presenter.ScannerPresenter;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class ViewForScannerActivity extends ActionBarActivity {
     public static final String MyPREFERENCES = "MyPrefs" ;
 
     SharedPreferences sharedpreferences;
+    ScannerPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +52,8 @@ public class ViewForScannerActivity extends ActionBarActivity {
         //email = extras.getString("email");
 //        Log.d(email,email);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
-          email= sharedpreferences.getString("email","NA");
+        email= sharedpreferences.getString("email", "NA");
+        Log.d("email from scannerPr",email);
 
         productNameText = (TextView) findViewById(R.id.productName);
         patientAllergyText=(TextView) findViewById(R.id.patientAllergy);
@@ -60,6 +62,8 @@ public class ViewForScannerActivity extends ActionBarActivity {
         nutritionInfoText = (TextView) findViewById(R.id.nutritionInfo);
 
         fetch_foodData();
+
+        presenter =new ScannerPresenter(this);
 
         //   etResponse.setText(barcode);
 
@@ -86,10 +90,16 @@ public class ViewForScannerActivity extends ActionBarActivity {
                     Log.d("json", json);
                     JSONObject obj = new JSONObject(json);
                     String productName = obj.getString("productName");
-                    Log.d("productname", productName);
                     String brand = obj.getString("brand");
+
+
+
+              /**************************************************************************************/
                     String Allergyresult = obj.getString("allergyResult");
-                    JSONArray pAllergylist = new JSONArray();
+                    JSONArray pAllergylist;
+
+
+
                     pAllergylist = obj.getJSONArray("patientAllergy");
                     List<String> all = new ArrayList<String>();
                     if (pAllergylist != null && pAllergylist.length() != 0) {
@@ -98,39 +108,50 @@ public class ViewForScannerActivity extends ActionBarActivity {
                             all.add(pAllergylist.get(i).toString());
                         }
                     }
-                    Log.d("allergy", all.toString());
+                /******************************************************************************/
+
                     String nutriments = obj.getString("nutriments");
                     String[] nut = nutriments.toString().split(",");
                     StringBuilder builder = new StringBuilder();
+                    String sugarConsumed = "";
+
                     for (int i = 0; i < nut.length; i++) {
                         nut[i] = nut[i].replace("\"", " ");
                         nut[i] = nut[i].replace("{", " ");
                         nut[i] = nut[i].replace("}", " ");
+                        if(nut[i].contains("sugar"))
+                            sugarConsumed=nut[i];
                         builder.append(nut[i] + "\n");
-
                         Log.d(String.valueOf(i), nut[i]);
                     }
 
-
+                /***************************************************************************************/
 
                         productNameText.setText("Brand : " + brand + "  Product Name: " + productName);
-
+//////////////////////////////////////////////////////////////////////////////////
                     if (((pAllergylist != null) && pAllergylist.length() != 0)) {
                         patientAllergyText.setText("allergy" + all.toString());
                     } else
                         patientAllergyText.setText("NA");
+                    //////////////////////////////////////////////////////////////////////////////////
+
 
                     if (obj.has("allergyResult") || ((Allergyresult != null) && Allergyresult.length() != 0)) {
                         foodAllergicInfoText.setText("Food Allergy info: " + Allergyresult);
                     } else
                         foodAllergicInfoText.setText("Food Allergy info: " + "NA");
+//////////////////////////////////////////////////////////////////////////////////
 
                     foodDiseaseInfoText.setText("Disease info: " + "need to fetch");
+                    //////////////////////////////////////////////////////////////////////////////////
+
                     if (!obj.has("nutriments"))
                         nutritionInfoText.setText("Nutrition info: " + "NA");
                     else
                         nutritionInfoText.setText("Nutrition info: " + builder.toString());
+//////////////////////////////////////////////////////////////////////////////////
 
+                    presenter.addValueTodb(productName,all.toString(),"needToFetch",Allergyresult,sugarConsumed);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

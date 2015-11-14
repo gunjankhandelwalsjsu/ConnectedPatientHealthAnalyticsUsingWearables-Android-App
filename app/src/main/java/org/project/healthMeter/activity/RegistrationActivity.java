@@ -53,11 +53,8 @@ public class RegistrationActivity extends Activity {
     EditText stateET;
     EditText cityET;
     EditText zipcodeET;
-    List<String> diseaseList=new ArrayList<>();
-    List<String> allergyList=new ArrayList<>();
-
-
-
+    List<String> diseaseList = new ArrayList<>();
+    List<String> allergyList = new ArrayList<>();
 
 
     @Override
@@ -74,7 +71,6 @@ public class RegistrationActivity extends Activity {
         emailET = (EditText) findViewById(R.id.registerEmail);
         // Find Password Edit View control by ID
         pwdET = (EditText) findViewById(R.id.registerPassword);
-
 
         phoneET = (EditText) findViewById(R.id.phone);
         streetET = (EditText) findViewById(R.id.streetAddress);
@@ -172,7 +168,7 @@ public class RegistrationActivity extends Activity {
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
 
             case R.id.diabetes:
                 if (checked)
@@ -185,7 +181,6 @@ public class RegistrationActivity extends Activity {
 
         }
     }
-
 
 
     /**
@@ -213,11 +208,11 @@ public class RegistrationActivity extends Activity {
 
 
         // Instantiate Http Request Param Object
-     //   RequestParams params = new RequestParams();
+        //   RequestParams params = new RequestParams();
         // When Name Edit View, Email Edit View and Password Edit View have values other than Null
-        if(Utility.isNotNull(fName) && Utility.isNotNull(lName)&&Utility.isNotNull(email) && Utility.isNotNull(password)&& Utility.isNotNull(phone)&& Utility.isNotNull(streetAddress)&& Utility.isNotNull(city)&& Utility.isNotNull(zipcode)&& Utility.isNotNull(state)){
+        if (Utility.isNotNull(fName) && Utility.isNotNull(lName) && Utility.isNotNull(email) && Utility.isNotNull(password) && Utility.isNotNull(phone) && Utility.isNotNull(streetAddress) && Utility.isNotNull(city) && Utility.isNotNull(zipcode) && Utility.isNotNull(state)) {
             // When Email entered is Valid
-            if(Utility.validate(email)){
+            if (Utility.validate(email)) {
                 // Put Http parameter name with value of Name Edit View control
           /*      params.put("firstName", fName);
                 params.put("lastName", lName);
@@ -232,7 +227,7 @@ public class RegistrationActivity extends Activity {
                 params.put("city", city);
                 params.put("zipCode", zipcode);
                 params.put("allergy", allergyList);*/
-           //     params.put("Disease", diseaseList);
+                //     params.put("Disease", diseaseList);
 
 
                 jsonParams.put("firstName", fName);
@@ -247,11 +242,11 @@ public class RegistrationActivity extends Activity {
                 jsonParams.put("state", state);
                 jsonParams.put("city", city);
                 jsonParams.put("zipCode", zipcode);
-                JSONArray alist=new JSONArray();
+                JSONArray alist = new JSONArray();
                 for (int i = 0; i < allergyList.size(); i++) {
                     alist.put(allergyList.get(i));
                 }
-                JSONArray dlist=new JSONArray();
+                JSONArray dlist = new JSONArray();
                 for (int i = 0; i < diseaseList.size(); i++) {
                     dlist.put(diseaseList.get(i));
                 }
@@ -272,12 +267,12 @@ public class RegistrationActivity extends Activity {
                 startActivity(myIntent);
             }
             // When Email is invalid
-            else{
+            else {
                 Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_LONG).show();
             }
         }
         // When any of the Edit View control left blank
-        else{
+        else {
             Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
         }
 
@@ -288,14 +283,14 @@ public class RegistrationActivity extends Activity {
      *
      * @param
      */
-    public void invokeWS(StringEntity entity){
+    public void invokeWS(StringEntity entity) {
         // Show Progress Dialog
         prgDialog.show();
         Log.d("y so", "manyyyyyyyyy");
 
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post(this,"http://10.0.0.12:8080/webapp/patient", entity,"application/json", new AsyncHttpResponseHandler() {
+        client.post(this, "http://10.0.0.12:8080/webapp/patient", entity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 // Hide Progress Dialog
@@ -329,7 +324,7 @@ public class RegistrationActivity extends Activity {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 // Hide Progress Dialog
                 prgDialog.hide();
-                Log.d("statusCode",String.valueOf(statusCode));
+                Log.d("statusCode", String.valueOf(statusCode));
                 // When Http response code is '404'
                 if (statusCode == 404 || statusCode == 405) {
                     Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
@@ -344,15 +339,14 @@ public class RegistrationActivity extends Activity {
                 }
             }
         });
-            }
-
+    }
 
 
     /**
      * Method which navigates from Register Activity to Login Activity
      */
-    public void navigatetoLoginActivity(View view){
-        Intent loginIntent = new Intent(getApplicationContext(),LoginActivity.class);
+    public void navigatetoLoginActivity(View view) {
+        Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
         // Clears History of Activity
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
@@ -361,7 +355,7 @@ public class RegistrationActivity extends Activity {
     /**
      * Set degault values for Edit View controls
      */
-    public void setDefaultValues(){
+    public void setDefaultValues() {
         fNameET.setText("");
         lNameET.setText("");
         emailET.setText("");

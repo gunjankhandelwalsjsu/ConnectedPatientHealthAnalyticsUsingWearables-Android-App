@@ -208,11 +208,7 @@
                 android:textStyle="bold" />
 
 
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.44">
+
 
                 <CheckBox android:id="@+id/soyabean"
                     android:layout_width="wrap_content"
@@ -301,7 +297,6 @@
                     android:text="@string/candelnut"
                     android:onClick="onCheckboxClicked"/>
 
-            </GridLayout>
 
 
             <CheckBox android:id="@+id/diabetes"
@@ -348,6 +343,37 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_weight="0.16" />
+
+            <TextView
+                android:id="@+id/DoctorInfo"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dip"
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:text="Doctor Information:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/d_nameT"
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/d_phoneT"
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/d_mailT"
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
 
             <Button
                 android:id="@+id/update_profile"

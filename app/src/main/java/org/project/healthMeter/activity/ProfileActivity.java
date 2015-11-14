@@ -53,16 +53,16 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     String d_name;
-    String d_id;
+    String d_phone;
     String d_mail_id;
     List<String> allergies = new ArrayList<>();
     List<String> diseases = new ArrayList<>();
-    TextView fnameText, lnameText, phoneText, streetAddressText, cityText, stateText, zipcodeText, emailText, welcomeText, d_nameText, d_idText, d_mailText;
+    TextView fnameText, lnameText, phoneText, streetAddressText, cityText, stateText, zipcodeText, emailText, welcomeText, d_nameText, d_phoneText, d_mailText;
     TextView allergyText, diseaseText, genderText, birthDateText;
-    public static final String MyPREFERENCES = "MyPrefs";
     ImageView profile_pic_view;
 
     SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
         zipcodeText = (TextView) findViewById(R.id.zipcodeT);
         welcomeText = (TextView) findViewById(R.id.welcomeT);
         d_nameText = (TextView) findViewById(R.id.d_nameT);
-        d_idText = (TextView) findViewById(R.id.d_idT);
+        d_phoneText = (TextView) findViewById(R.id.d_phoneT);
         d_mailText = (TextView) findViewById(R.id.d_mailT);
         allergyText = (TextView) findViewById(R.id.allergies);
         diseaseText = (TextView) findViewById(R.id.diseases);
@@ -143,7 +143,7 @@ public class ProfileActivity extends AppCompatActivity {
                     } else {
                         lname = obj.getString("lastName");
                         lnameText.setText("Last Name: " + lname);
-                        intent.putExtra("lname", "lname");
+                        intent.putExtra("lname", lname);
 
                     }
                     fetch_image();
@@ -189,7 +189,7 @@ public class ProfileActivity extends AppCompatActivity {
                     } else {
                         birthDate = obj.getString("birthDate");
                         birthDateText.setText("Birth Date: " + birthDate);
-                        intent.putExtra("birthDate", "birthDate");
+                        intent.putExtra("birthDate", birthDate);
 
                     }
 
@@ -249,61 +249,66 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
 
-                    if (!obj.has("zipcode")) {
+                    if (!obj.has("zipCode")) {
                         zipcodeText.setText("ZipCode :NA");
-                        intent.putExtra("zipcode", "NA");
+                        intent.putExtra("zipCode", "NA");
 
                     } else {
-                        zipcode = obj.getString("zipcode");
+                        zipcode = obj.getString("zipCode");
                         Log.d("zipcode", zipcode);
-                        zipcodeText.setText("ZipCode :" + zipcode);
-                        intent.putExtra("zipcode", zipcode);
+                        zipcodeText.setText("zipCode :" + zipcode);
+                        intent.putExtra("zipCode", zipcode);
 
                     }
 
-                    if (!obj.has("d_name")) {
+                    if (!obj.has("doctorName")) {
                         d_nameText.setText("Name: NA");
-                        intent.putExtra("d_name", "NA");
+                        intent.putExtra("doctorName", "NA");
                     } else {
-                        d_name = obj.getString("d_name");
+                        d_name = obj.getString("doctorName");
                         d_nameText.setText("Name: " + d_name);
-                        intent.putExtra("d_name", d_name);
+                        intent.putExtra("doctorName", d_name);
 
 
                     }
 
-                    if (!obj.has("d_id")) {
-                        d_idText.setText("Id: NA");
-                        intent.putExtra("d_id", "NA");
+                    if (!obj.has("dPhone")) {
+                        d_phoneText.setText("Phone: NA");
+                        intent.putExtra("dPhone", "NA");
                     } else {
-                        d_id = obj.getString("d_id");
-                        d_idText.setText("Id: " + d_id);
-
-                        intent.putExtra("d_id", d_id);
+                        d_phone = obj.getString("dPhone");
+                        d_phoneText.setText("Phone: " + d_phone);
+                        intent.putExtra("dPhone", d_phone);
 
                     }
 
-                    if (!obj.has("d_mail_id")) {
+                    if (!obj.has("doctorMailId")) {
                         d_mailText.setText("Email: NA");
-                        intent.putExtra("d_mail_id", "NA");
+                        intent.putExtra("doctorMailId", "NA");
                     } else {
-                        d_mail_id = obj.getString("d_mail_id");
+                        d_mail_id = obj.getString("doctorMailId");
                         d_mailText.setText("Email: " + d_mail_id);
-                        intent.putExtra("d_mail_id", d_mail_id);
+                        intent.putExtra("doctorMailId", d_mail_id);
 
 
                     }
 
                     if (obj.has("allergy")) {
                         JSONArray allergy = (JSONArray) obj.get("allergy");
-                        if (allergy != null && allergy.length() > 1) {
+                        if (allergy != null && allergy.length() > 0) {
                             for (int i = 0; i < allergy.length(); i++) {
                                 allergies.add(allergy.get(i).toString());
                             }
                         }
+                        String a = " ";
                         if (allergies != null && allergies.size() != 0) {
-                            allergyText.setText("Allergies: " + allergies.toString());
-                            intent.putExtra("allergies", allergies.toString());
+                            for (String s : allergies)
+                            {
+                                a += s + "\t";
+                            }
+
+                            allergyText.setText("Allergies: " + a);
+                            intent.putExtra("allergies", a);
 
                         }
                     } else {
@@ -315,14 +320,20 @@ public class ProfileActivity extends AppCompatActivity {
                     if (obj.has("disease")) {
 
                         JSONArray disease = (JSONArray) obj.get("disease");
-                        if (disease != null && disease.length() > 1) {
+                        if (disease != null && disease.length() > 0) {
                             for (int i = 0; i < disease.length(); i++) {
                                 diseases.add(disease.get(i).toString());
                             }
                         }
+                        String d = "";
                         if (diseases != null && diseases.size() != 0) {
-                            diseaseText.setText("Diseases: " + diseases.toString());
-                            intent.putExtra("diseases", diseases.toString());
+                            for (String s : diseases)
+                            {
+                                d += s + "\t";
+                            }
+
+                            diseaseText.setText("Diseases: " + d);
+                            intent.putExtra("diseases", d);
 
                         }
                     } else {

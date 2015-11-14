@@ -1,6 +1,7 @@
 package org.project.healthMeter.fragment;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -147,10 +149,7 @@ public class OverviewFragment extends Fragment {
         legend.setEnabled(false);
 
         loadLastReading();
-/*
-        loadGlucoseTrend();
-*/
-    //    loadRandomTip();
+     //   loadRandomTip();
 
         return mFragmentView;
     }
@@ -181,6 +180,8 @@ public class OverviewFragment extends Fragment {
 
 
         ArrayList<Entry> yVals = new ArrayList<Entry>();
+        ArrayList<Integer> colors = new ArrayList<>();
+
 
         if (graphSpinner.getSelectedItemPosition() == 0) {
             // Day view
@@ -197,13 +198,18 @@ public class OverviewFragment extends Fragment {
                     yVals.add(new Entry(val, i));
 
             }
-        } else {
+
+        colors.add(getResources().getColor(R.color.glucosio_pink));
+    }
+
+        else {
             // Month view
             for (int i = 0; i < presenter.getReadingsMonth().size(); i++) {
                     float val = Float.parseFloat(presenter.getReadingsMonth().get(i)+"");
                     yVals.add(new Entry(val, i));
-
             }
+
+            colors.add(getResources().getColor(R.color.glucosio_pink));
         }
 
         // create a dataset and give it a type
@@ -219,10 +225,13 @@ public class OverviewFragment extends Fragment {
         set1.setValueTextSize(0);
         set1.setValueTextColor(Color.parseColor("#FFFFFF"));
         set1.setFillColor(Color.BLACK);
-//        set1.setDrawFilled(true);
-        // set1.setShader(new LinearGradient(0, 0, 0, mChart.getHeight(),
-        // Color.BLACK, Color.WHITE, Shader.TileMode.MIRROR));
 
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2){
+            set1.setDrawFilled(false);
+            set1.setLineWidth(3f);
+            set1.setCircleSize(4.5f);
+            set1.setDrawCircleHole(true);
+        }
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
         dataSets.add(set1); // add the datasets
 
@@ -232,6 +241,8 @@ public class OverviewFragment extends Fragment {
         // set data
         chart.setData(data);
         chart.setPinchZoom(true);
+        chart.setHardwareAccelerationEnabled(true);
+        chart.animateY(1000, Easing.EasingOption.EaseOutCubic);
     }
 
     private void loadLastReading(){
@@ -246,12 +257,12 @@ public class OverviewFragment extends Fragment {
     }
 
 
-/*
-    private void loadRandomTip(){
+
+ /*   private void loadRandomTip(){
         TipsManager tipsManager = new TipsManager(getActivity().getApplicationContext(), presenter.getUserAge());
         tipTextView.setText(presenter.getRandomTip(tipsManager));
-    }
-
+    }*/
+/*
     public String convertDate(String date){
         FormatDateTime dateTime = new FormatDateTime(getActivity().getApplicationContext());
         return dateTime.convertDate(date);
