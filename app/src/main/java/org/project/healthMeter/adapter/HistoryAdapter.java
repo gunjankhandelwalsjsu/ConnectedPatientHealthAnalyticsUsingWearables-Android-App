@@ -2,6 +2,7 @@ package org.project.healthMeter.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 
 import org.project.healthMeter.R;
 import org.project.healthMeter.presenter.HistoryPresenter;
+import org.project.healthMeter.tools.TemperatureRanges;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
@@ -69,6 +72,19 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         idTextView.setText(presenter.getId().get(position).toString());
         readingTextView.setText(presenter.getReading().get(position).toString());
+        TemperatureRanges ranges = new TemperatureRanges(mContext);
+       // String color = ranges.colorFromRange(presenter.getReading().get(position));
+        readingTextView.setText(presenter.getReading().get(position).toString() + "deg F");
+      //  readingTextView.setTextColor(ranges.stringToColor(color));
+        ArrayList<String> time=presenter.getDatetime();
+        Log.d("positionString", String.valueOf(position));
+        String x=time.get(position);
+        String text=presenter.convertDate(x);
+        datetimeTextView.setText(text);
+//        typeTextView.setText(presenter.getType().get(position));
+
+//        datetimeTextView.setText(presenter.convertDate(presenter.getDatetime().get(position)));
+  //      typeTextView.setText(presenter.getType().get(position));
 //        datetimeTextView.setText(presenter.convertDate(presenter.getDatetime().get(position)));
      //   typeTextView.setText(typeToString(presenter.getType().get(position)));
     }

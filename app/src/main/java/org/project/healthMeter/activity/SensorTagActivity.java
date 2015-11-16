@@ -121,7 +121,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
         patientHistorySeries = new SimpleXYSeries("Time");
         patientHistorySeries.useImplicitXVals();
-        aprHistoryPlot.setRangeBoundaries(23,32, BoundaryMode.FIXED);
+        aprHistoryPlot.setRangeBoundaries(95,105, BoundaryMode.FIXED);
         aprHistoryPlot.setDomainBoundaries(0, 30, BoundaryMode.FIXED);
         aprHistoryPlot.addSeries(patientHistorySeries, new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null));
         aprHistoryPlot.setDomainStepValue(5);
@@ -584,7 +584,10 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         double temp = SensorTagData.extractBarTemperature(characteristic, mPressureCals);
         if(i==0){
              Log.d("report", Double.toString(temp));
-             presenter.addValueTodb(temp);
+            double fTemp=9*temp/5 + 32;
+            double roundOff = Math.round(fTemp * 100.0) / 100.0;
+
+            presenter.addValueTodb(roundOff);
      //       presenter.updateSpinnerTypeTime();
 
         }

@@ -1,8 +1,8 @@
 package org.project.healthMeter.presenter;
 
+import org.project.healthMeter.db.DatabaseNewHandler;
 import org.project.healthMeter.fragment.HistoryFragment;
 import org.project.healthMeter.tools.ReadingTools;
-import org.project.healthMeter.db.DatabaseNewHandler;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class HistoryPresenter {
     public void loadDatabase(){
         this.id = dB.getTemperatureIdAsArray();
         this.reading = dB.getTemperatureReadingAsArray();
-     //   this.datetime = dB.getTemperatureDateTimeAsArray();
+        this.datetime = dB.getTemperatureDateTimeAsArray();
     }
 
 

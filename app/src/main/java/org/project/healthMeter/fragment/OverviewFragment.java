@@ -189,8 +189,9 @@ public class OverviewFragment extends Fragment {
 
                     float val = Float.parseFloat(presenter.getReading().get(i).toString());
                     yVals.add(new Entry(val, i));
-                }
 
+
+            }
         } else if (graphSpinner.getSelectedItemPosition() == 1){
             // Week view
             for (int i = 0; i < presenter.getReadingsWeek().size(); i++) {
@@ -211,6 +212,10 @@ public class OverviewFragment extends Fragment {
 
             colors.add(getResources().getColor(R.color.glucosio_pink));
         }
+
+
+
+
 
         // create a dataset and give it a type
         LineDataSet set1 = new LineDataSet(yVals, "");
@@ -251,8 +256,8 @@ public class OverviewFragment extends Fragment {
 
 
             TemperatureRanges ranges = new TemperatureRanges(getActivity().getApplicationContext());
-            String color = ranges.colorFromRange((int)Math.round(Double.parseDouble(presenter.getLastReading())));
-            readingTextView.setTextColor(ranges.stringToColor(color));
+        //    String color = ranges.colorFromRange((int)Math.round(Double.parseDouble(presenter.getLastReading())));
+         //   readingTextView.setTextColor(ranges.stringToColor(color));
         }
     }
 
