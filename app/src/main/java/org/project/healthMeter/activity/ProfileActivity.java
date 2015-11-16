@@ -325,20 +325,20 @@ public class ProfileActivity extends AppCompatActivity {
                                 diseases.add(disease.get(i).toString());
                             }
                         }
-                        String d = "";
+                        String d = " ";
                         if (diseases != null && diseases.size() != 0) {
-                            for (String s : diseases)
+                            for (String t : diseases)
                             {
-                                d += s + "\t";
+                                d += t + "\t";
                             }
 
                             diseaseText.setText("Diseases: " + d);
-                            intent.putExtra("diseases", d);
+                            intent.putExtra("disease", d);
 
                         }
                     } else {
                         diseaseText.setText("Diseases: " + "NA");
-                        intent.putExtra("diseases", "NA");
+                        intent.putExtra("disease", "NA");
 
                     }
 

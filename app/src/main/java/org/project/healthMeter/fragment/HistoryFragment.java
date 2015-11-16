@@ -2,7 +2,6 @@ package org.project.healthMeter.fragment;
 
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import org.project.healthMeter.R;
 import org.project.healthMeter.activity.MainActivity;
-import org.project.healthMeter.activity.SensorTagActivity;
 import org.project.healthMeter.adapter.HistoryAdapter;
 import org.project.healthMeter.db.TemperatureReading;
 import org.project.healthMeter.listener.RecyclerItemClickListener;
@@ -57,7 +55,6 @@ public class HistoryFragment extends Fragment {
         presenter = new HistoryPresenter(this);
         presenter.loadDatabase();
 
-        if (!presenter.isdbEmpty()) {
             mFragmentView = inflater.inflate(R.layout.fragment_history, container, false);
 
             mRecyclerView = (RecyclerView) mFragmentView.findViewById(R.id.fragment_history_recycler_view);
@@ -124,22 +121,6 @@ public class HistoryFragment extends Fragment {
                     builder.show();
                 }
             }));
-
-        } else {
-            mFragmentView = inflater.inflate(R.layout.fragment_empty, container, false);
-            scanButton = (Button)mFragmentView.findViewById(R.id.scan_button);
-            scanButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(getContext(), SensorTagActivity.class);
-                    startActivity(intent);
-                }
-
-            });
-        }
-
-
 
 
         return mFragmentView;

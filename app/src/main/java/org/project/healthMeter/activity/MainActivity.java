@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (position == 2) {
+
+
                     hideFabAnimation();
                     LinearLayout emptyLayout = (LinearLayout) findViewById(R.id.mainactivity_empty_layout);
                     ViewPager pager = (ViewPager) findViewById(R.id.pager);
@@ -338,11 +340,11 @@ public class MainActivity extends AppCompatActivity {
                 if (getResources().getConfiguration().orientation == 1) {
                     // If Portrait choose vertical curved line
                     ImageView arrow = (ImageView) findViewById(R.id.mainactivity_arrow);
-                //    arrow.setBackground(getResources().getDrawable(R.drawable.curved_line_vertical));
+                    arrow.setBackground(getResources().getDrawable(R.drawable.curved_line_vertical));
                 } else {
                     // Else choose horizontal one
                     ImageView arrow = (ImageView) findViewById(R.id.mainactivity_arrow);
-                 //   arrow.setBackground((getResources().getDrawable(R.drawable.curved_line_horizontal)));
+                    arrow.setBackground((getResources().getDrawable(R.drawable.curved_line_horizontal)));
                 }
             }
         } else {

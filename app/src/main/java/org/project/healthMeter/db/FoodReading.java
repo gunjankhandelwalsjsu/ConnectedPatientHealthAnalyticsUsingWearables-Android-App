@@ -11,10 +11,35 @@ import io.realm.annotations.PrimaryKey;
 public class FoodReading extends RealmObject {
 
     @PrimaryKey
-    private long id;
+    private String id;
+
+    private Date created;
     private String foodName;
     private String ExistingAllergy;
+
+    public FoodReading() {
+    }
+
     private String ExistingDisease;
+    private String AllergyResult;
+    private String sugarsConsumed;
+
+    public FoodReading(String foodName, String existingAllergy, String existingDisease, String allergyResult, String sugarsConsumed) {
+        this.foodName = foodName;
+        this.ExistingAllergy = existingAllergy;
+        this.ExistingDisease = existingDisease;
+        this.AllergyResult = allergyResult;
+        this.sugarsConsumed = sugarsConsumed;
+    }
+
+    public FoodReading(String foodName, String existingAllergy, String existingDisease, String allergyResult, String sugarsConsumed, Date finalDateTime) {
+        this.foodName = foodName;
+        this.ExistingAllergy = existingAllergy;
+        this.ExistingDisease = existingDisease;
+        this.AllergyResult = allergyResult;
+        this.sugarsConsumed = sugarsConsumed;
+        this.created=finalDateTime;
+    }
 
     public String getFoodName() {
         return foodName;
@@ -56,42 +81,16 @@ public class FoodReading extends RealmObject {
         this.sugarsConsumed = sugarsConsumed;
     }
 
-    private String AllergyResult;
-    private String sugarsConsumed;
-
-
-    private int user_id;
-    private Date created;
-
-    public FoodReading() {
-    }
-
-    public FoodReading(String foodName,String ExistingAllergy,String ExistingDisease,String AllergyResult,String sugarsConsumed, Date created) {
-         this.foodName=foodName;
-         this.ExistingAllergy=ExistingAllergy;
-         this.ExistingDisease=ExistingDisease;
-         this.AllergyResult=AllergyResult;
-         this.sugarsConsumed=sugarsConsumed;
-        this.created = created;
-    }
-
-    public long getId() {
+       public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
 
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
 
     public Date getCreated() {
         return created;

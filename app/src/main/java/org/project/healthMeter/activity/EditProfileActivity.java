@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -214,6 +213,7 @@ public class EditProfileActivity extends AppCompatActivity implements
     }
 
 
+
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -306,7 +306,7 @@ public class EditProfileActivity extends AppCompatActivity implements
                     diseaseList.add("Blood Pressure");
                 break;
             default:
-               diseaseList.add("No Diseases");
+               diseaseList.add("No Disease");
                 break;
 
         }
@@ -500,7 +500,7 @@ public class EditProfileActivity extends AppCompatActivity implements
                 if (statusCode == 404 || statusCode == 405) {
                     Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
                 }
-                // When Http response code is '500'
+                // When q   1 response code is '500'
                 else if (statusCode == 500) {
                     Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
                 }
@@ -751,14 +751,6 @@ public class EditProfileActivity extends AppCompatActivity implements
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-
-        Matrix mtx = new Matrix();
-        mtx.postRotate(90);
-        // Rotating Bitmap
-        Bitmap rotatedBMP = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mtx, true);
-
-        if (rotatedBMP != bitmap)
-            bitmap.recycle();
 
         profile_pic_view.setImageBitmap(bitmap);
 

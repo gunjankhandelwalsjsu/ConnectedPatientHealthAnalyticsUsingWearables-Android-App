@@ -16,6 +16,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.project.healthMeter.R;
+import org.project.healthMeter.activity.ViewForScannerActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,17 +36,6 @@ import java.util.List;
 import me.dm7.barcodescanner.zbar.BarcodeFormat;
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
-
-
-import android.widget.Button;
-import android.widget.TextView;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.project.healthMeter.R;
-import org.project.healthMeter.activity.ViewForScannerActivity;
 
 public class ScannerFragment extends Fragment implements MessageDialogFragment.MessageDialogListener,
         ZBarScannerView.ResultHandler, FormatSelectorDialogFragment.FormatSelectorDialogListener,
@@ -81,7 +79,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
             mCameraId = -1;
         }
         setupFormats();
-        email=getArguments().getString("email");
+       // email=getArguments().getString("email");
 
 
         return mScannerView;
@@ -188,9 +186,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
         Log.i("Contentsssssss =", rawResult.getContents());
         barcode=rawResult.getContents();
         Intent intent = new Intent(getActivity(), ViewForScannerActivity.class);
-//        Log.d("email",email);
         intent.putExtra("barcode", barcode);
-        intent.putExtra("email",email);
         startActivity(intent);
 
        // new HttpAsyncTask().execute("http://world.openfoodfacts.org/api/v0/product/"+rawResult.getContents()+".json");
@@ -303,15 +299,6 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
         return result;
 
     }
-/*
-    public boolean isConnected() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected())
-            return true;
-        else
-            return false;
-    }*/
 
 
 

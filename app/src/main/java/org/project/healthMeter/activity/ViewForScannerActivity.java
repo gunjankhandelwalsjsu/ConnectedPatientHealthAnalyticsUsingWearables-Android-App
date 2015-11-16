@@ -49,11 +49,9 @@ public class ViewForScannerActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         Bundle extras = getIntent().getExtras();
         barcode = extras.getString("barcode");
-        //email = extras.getString("email");
-//        Log.d(email,email);
+
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         email= sharedpreferences.getString("email", "NA");
-        Log.d("email from scannerPr",email);
 
         productNameText = (TextView) findViewById(R.id.productName);
         patientAllergyText=(TextView) findViewById(R.id.patientAllergy);
@@ -75,7 +73,6 @@ public class ViewForScannerActivity extends ActionBarActivity {
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://10.0.0.12:8080/webapp/food/" + email + "/" + barcode, new AsyncHttpResponseHandler() {
-
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -142,7 +139,26 @@ public class ViewForScannerActivity extends ActionBarActivity {
                         foodAllergicInfoText.setText("Food Allergy info: " + "NA");
 //////////////////////////////////////////////////////////////////////////////////
 
-                    foodDiseaseInfoText.setText("Disease info: " + "need to fetch");
+                    JSONArray pDiseaselist;
+
+
+
+                    pDiseaselist = obj.getJSONArray("PatientDisease");
+                    List<String> dis = new ArrayList<String>();
+                    if (pDiseaselist != null && pDiseaselist.length() != 0) {
+                        for (int i = 0; i < pDiseaselist.length(); i++) {
+                            Log.d("in converter" ,pDiseaselist.get(i).toString());
+                            dis.add(pDiseaselist.get(i).toString());
+                        }
+                    }
+                    if (((pDiseaselist != null) && pDiseaselist.length() != 0)) {
+                        foodDiseaseInfoText.setText("disease" + dis.toString());
+                    } else
+                        foodDiseaseInfoText.setText("disease: NA");
+
+
+
+               //     foodDiseaseInfoText.setText("Disease info: " + "need to fetch");
                     //////////////////////////////////////////////////////////////////////////////////
 
                     if (!obj.has("nutriments"))
@@ -151,7 +167,7 @@ public class ViewForScannerActivity extends ActionBarActivity {
                         nutritionInfoText.setText("Nutrition info: " + builder.toString());
 //////////////////////////////////////////////////////////////////////////////////
 
-                    presenter.addValueTodb(productName,all.toString(),"needToFetch",Allergyresult,sugarConsumed);
+                    presenter.addValueTodb(productName,all.toString(),dis.toString(),Allergyresult,sugarConsumed);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

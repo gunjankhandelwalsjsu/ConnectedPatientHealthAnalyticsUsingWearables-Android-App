@@ -199,18 +199,26 @@
             <!-- Error message -->
 
             <TextView
-                android:id="@+id/register_error"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dip"
-                android:textColor="#e30000"
-                android:textStyle="bold" />
+                android:layout_marginTop="15dip"
+                android:text="Allergy"  />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
 
+<TableLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1"
+    android:padding="16dp">
+    <TableRow>
 
 
-                <CheckBox android:id="@+id/soyabean"
+    <CheckBox android:id="@+id/soyabean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/soyabean"
@@ -221,38 +229,49 @@
                     android:text="@string/milk"
                     android:onClick="onCheckboxClicked"
                     android:checked="false" />
-
+    </TableRow>
+    <TableRow>
                 <CheckBox android:id="@+id/gluten"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/gluten"
                     android:onClick="onCheckboxClicked"/>
+
+
                 <CheckBox android:id="@+id/egg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/egg"
                     android:onClick="onCheckboxClicked"/>
+    </TableRow>
+    <TableRow>
                 <CheckBox android:id="@+id/mustard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/mustard"
                     android:onClick="onCheckboxClicked"/>
+
                 <CheckBox android:id="@+id/peanuts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/peanuts"
                     android:onClick="onCheckboxClicked"/>
+    </TableRow>
+    <TableRow>
 
                 <CheckBox android:id="@+id/fish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/fish"
                     android:onClick="onCheckboxClicked"/>
+
                 <CheckBox android:id="@+id/nuts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nuts"
                     android:onClick="onCheckboxClicked"/>
+    </TableRow>
+    <TableRow>
                 <CheckBox android:id="@+id/coconut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -264,6 +283,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/seasmeSeeds"
                     android:onClick="onCheckboxClicked"/>
+    </TableRow>
+    <TableRow>
                 <CheckBox android:id="@+id/corn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -275,6 +296,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/flour"
                     android:onClick="onCheckboxClicked"/>
+    </TableRow>
+    <TableRow>
                 <CheckBox android:id="@+id/wheyPowder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -286,19 +309,29 @@
                     android:layout_height="wrap_content"
                     android:text="@string/cornStarch"
                     android:onClick="onCheckboxClicked"/>
+    </TableRow>
+    <TableRow>
                 <CheckBox android:id="@+id/celery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/celery"
                     android:onClick="onCheckboxClicked"/>
+
                 <CheckBox android:id="@+id/candelnut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/candelnut"
                     android:onClick="onCheckboxClicked"/>
+    </TableRow>
 
+</TableLayout>
+            </LinearLayout>
 
-
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip"
+                android:text="Disease"  />
             <CheckBox android:id="@+id/diabetes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -310,7 +343,11 @@
                 android:text="@string/bloodPressure"
                 android:onClick="onDiseaseCheckboxClicked"/>
 
-
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip"
+                android:text="Select Gender"  />
 
             <RadioGroup
                 android:id="@+id/gender"
@@ -335,14 +372,20 @@
                     android:text="Female" />
             </RadioGroup>
 
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip"
+                android:text="Select Date of Birth"  />
             <DatePicker
                 android:id="@+id/bdate"
-                android:layout_width="278dp"
-                android:layout_height="150dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_weight="0.16" />
+
 
             <TextView
                 android:id="@+id/DoctorInfo"

@@ -1,17 +1,16 @@
 package org.project.healthMeter.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import org.project.healthMeter.FirstPageFragmentListener;
 import org.project.healthMeter.R;
 import org.project.healthMeter.fragment.HistoryFragment;
 import org.project.healthMeter.fragment.OverviewFragment;
 import org.project.healthMeter.fragment.PreScannerFragment;
 import org.project.healthMeter.fragment.ScannerFragment;
-import org.project.healthMeter.FirstPageFragmentListener;
 
 /**
  * Created by paolo on 13/08/15.
@@ -48,10 +47,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
                         }
                     });
                 }
-                Bundle bundle = new Bundle();
-                bundle.putString("email", email );
                 PreScannerFragment frag = new PreScannerFragment();
-                frag.setArguments(bundle);
                 return frag;
         }
     }

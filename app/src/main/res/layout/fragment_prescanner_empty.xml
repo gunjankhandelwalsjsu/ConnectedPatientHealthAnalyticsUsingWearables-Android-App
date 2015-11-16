@@ -1,44 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:background="?attr/colorPrimary"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/glucosio_pink"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabIndicatorColor="@color/glucosio_accent"
-            app:tabTextColor="#80ffffff"/>
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.project.healthMeter.fragment.PreScannerFragment"
+    android:id="@+id/first_fragment_root_id">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
+            >
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <LinearLayout
-        android:id="@+id/mainactivity_empty_layout"
+        android:id="@+id/fragment_prescanner_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:baselineAligned="false"
@@ -99,13 +78,20 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/main_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:onClick="onFabClicked"
-        android:src="@drawable/ic_add_black_24dp"
-        app:backgroundTint="@color/glucosio_accent" />
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/preScanbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scanBarcode"
+            android:onClick="onClicked"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin="16dp"
+            app:backgroundTint="@color/glucosio_accent"
+            android:src="@drawable/images"
+            />
+        </LinearLayout>
+</FrameLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>

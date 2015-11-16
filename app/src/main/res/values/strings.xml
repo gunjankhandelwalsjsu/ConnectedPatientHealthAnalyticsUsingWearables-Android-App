@@ -384,6 +384,7 @@
     <string name="error">Error!</string>
     <string name="image_error">Error parsing image!</string>
     <string name="uploaded">Successfully uploaded</string>
+    <string name="scanBarcode">Take photo</string>
 
 </resources>
 

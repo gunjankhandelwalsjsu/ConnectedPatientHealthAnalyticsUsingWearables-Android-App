@@ -269,7 +269,8 @@ public void loginUser() throws JSONException, UnsupportedEncodingException {
     RequestParams params = new RequestParams();
     // When Email Edit View and Password Edit View have values other than Null
     if(Utility.isNotNull(email) && Utility.isNotNull(password)){
-        // When Email entered is Valid
+        // When Emp
+        // ail entered is Valid
         if(Utility.validate(email)){
             // Put Http parameter username with value of Email Edit View control
             JSONObject jsonParams = new JSONObject();

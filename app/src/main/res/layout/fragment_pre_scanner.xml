@@ -1,15 +1,35 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="org.project.healthMeter.fragment.PreScannerFragment"
-    android:id="@+id/first_fragment_root_id"
-    >
+    android:id="@+id/first_fragment_root_id">
 
-    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.RecyclerView
 
-    <Button android:id="@+id/button"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Scan"/>
+        android:orientation="vertical"
+        android:background="@color/glucosio_light_grey_background"
+        android:id="@+id/fragment_preScanner_recycler_view"
+        android:scrollbars="vertical"
+        android:clickable="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:focusable="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/preScannerbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scanBarcode"
+        android:onClick="clickTakePhoto"
+        android:layout_alignStart="@+id/value_read"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_margin="16dp"
+        app:backgroundTint="@color/glucosio_accent"
+        android:src="@drawable/images"/>
 </FrameLayout>
+
+
+
