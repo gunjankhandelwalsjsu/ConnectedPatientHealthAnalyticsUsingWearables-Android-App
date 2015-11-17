@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import org.project.healthMeter.FirstPageFragmentListener;
 import org.project.healthMeter.R;
 import org.project.healthMeter.fragment.HistoryFragment;
 import org.project.healthMeter.fragment.OverviewFragment;
@@ -37,7 +36,9 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return new HistoryFragment();
             default:
-                if (mFragmentAtPos0 == null) {
+                PreScannerFragment frag = new PreScannerFragment();
+                return frag;
+                /*if (mFragmentAtPos0 == null) {
                     mFragmentAtPos0 = PreScannerFragment.newInstance(new FirstPageFragmentListener() {
                         public void onSwitchToNextFragment() {
 
@@ -46,9 +47,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
                             notifyDataSetChanged();
                         }
                     });
-                }
-                PreScannerFragment frag = new PreScannerFragment();
-                return frag;
+                }*/
+
         }
     }
 

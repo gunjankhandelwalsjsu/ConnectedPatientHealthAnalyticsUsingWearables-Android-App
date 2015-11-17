@@ -363,7 +363,7 @@ public class EditProfileActivity extends AppCompatActivity implements
             ch_gender = "M";
 
         DatePicker bdate = (DatePicker) findViewById(R.id.bdate);
-        String str_bdate = bdate.getDayOfMonth()+"/"+(bdate.getMonth()+1)+"/"+bdate.getYear();
+        String str_bdate = bdate.getYear()+"/"+bdate.getDayOfMonth()+"/"+(bdate.getMonth()+1);
 
         System.out.println(bdate.toString());
 

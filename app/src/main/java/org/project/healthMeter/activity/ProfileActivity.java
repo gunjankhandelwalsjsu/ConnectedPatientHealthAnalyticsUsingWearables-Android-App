@@ -191,6 +191,7 @@ public class ProfileActivity extends AppCompatActivity {
                         birthDateText.setText("Birth Date: " + birthDate);
                         intent.putExtra("birthDate", birthDate);
 
+
                     }
 
 

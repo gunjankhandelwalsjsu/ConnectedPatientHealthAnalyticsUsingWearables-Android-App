@@ -1,97 +1,49 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/coordinator_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="org.project.healthMeter.fragment.PreScannerFragment"
     android:id="@+id/first_fragment_root_id">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <LinearLayout
+
+
+    <RelativeLayout
         android:id="@+id/fragment_prescanner_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:baselineAligned="false"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:weightSum="100">
+      >
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="45">
 
             <TextView
                 android:id="@+id/mainactivity_empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="center|bottom"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center|center"
                 android:lineSpacingExtra="-1dp"
                 android:onClick="onFabClicked"
                 android:text="@string/fragment_empty_text"
                 android:textSize="16sp" />
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="55">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"></RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_marginRight="32dp"
-                    android:layout_marginTop="@dimen/abc_action_bar_content_inset_material"
-                    android:layout_weight="1">
+            </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/mainactivity_arrow"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_marginBottom="@dimen/fab_size_normal"
-                        android:layout_marginRight="@dimen/fab_size_normal" />
 
-                </RelativeLayout>
-            </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
-
-</RelativeLayout>
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/preScanbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="77dp"
+            android:layout_height="80dp"
             android:text="@string/scanBarcode"
             android:onClick="onClicked"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_margin="16dp"
+            android:layout_gravity="bottom|right"
             app:backgroundTint="@color/glucosio_accent"
             android:src="@drawable/images"
-            />
-        </LinearLayout>
+            android:paddingBottom="20dp"
+            android:layout_marginBottom="60dp" />
+
 </FrameLayout>
 
 
-    </android.support.design.widget.CoordinatorLayout>

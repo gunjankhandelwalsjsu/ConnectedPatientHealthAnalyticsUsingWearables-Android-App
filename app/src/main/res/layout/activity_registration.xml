@@ -51,7 +51,49 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" android:hint="Enter your Last Name"/>
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="Gender"  />
 
+        <RadioGroup
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:checked="true"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="Select Date of Birth"  />
+        <DatePicker
+            android:id="@+id/bdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:datePickerMode="spinner"
+            android:startYear="1930"
+            android:calendarViewShown="false"
+
+            />
         <!-- Email Label -->
 
 
@@ -184,116 +226,148 @@
             android:text="Allergies you have"
         android:textStyle="bold" />
 
-            <CheckBox android:id="@+id/soyabean"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/soyabean"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/milk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/milk"
-                android:onClick="onCheckboxClicked"
-                android:checked="false" />
-
-            <CheckBox android:id="@+id/gluten"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/gluten"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/egg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/egg"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/mustard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mustard"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/peanuts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/peanuts"
-                android:onClick="onCheckboxClicked"/>
-
-            <CheckBox android:id="@+id/fish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fish"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/nuts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nuts"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/coconut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/coconut"
-                android:onClick="onCheckboxClicked"/>
-
-            <CheckBox android:id="@+id/seasmeSeeds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/seasmeSeeds"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/corn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/corn"
-                android:onClick="onCheckboxClicked"/>
-
-            <CheckBox android:id="@+id/flour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/flour"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/wheyPowder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/wheyPowder"
-                android:onClick="onCheckboxClicked"/>
-
-            <CheckBox android:id="@+id/cornStarch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cornStarch"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/celery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/celery"
-                android:onClick="onCheckboxClicked"/>
-            <CheckBox android:id="@+id/candelnut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/candelnut"
-                android:onClick="onCheckboxClicked"/>
-        <TextView
-            android:id="@+id/diseasys"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dip"
-            android:text="Diseases you have"
-            android:textStyle="bold" />
-
-            <CheckBox android:id="@+id/diabetes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/diabetes"
-                android:onClick="onDiseaseCheckboxClicked"/>
-            <CheckBox android:id="@+id/BloodPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bloodPressure"
-                android:onClick="onDiseaseCheckboxClicked"/>
+            android:orientation="vertical"
+            android:padding="16dp">
 
 
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1"
+            android:padding="16dp">
+            <TableRow>
 
 
+                <CheckBox android:id="@+id/soyabean"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/soyabean"
+                    android:onClick="onCheckboxClicked"/>
+                <CheckBox android:id="@+id/milk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/milk"
+                    android:onClick="onCheckboxClicked"
+                    android:checked="false" />
+            </TableRow>
+            <TableRow>
+                <CheckBox android:id="@+id/gluten"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gluten"
+                    android:onClick="onCheckboxClicked"/>
 
-        <Button
+
+                <CheckBox android:id="@+id/egg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/egg"
+                    android:onClick="onCheckboxClicked"/>
+            </TableRow>
+            <TableRow>
+                <CheckBox android:id="@+id/mustard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mustard"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/peanuts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/peanuts"
+                    android:onClick="onCheckboxClicked"/>
+            </TableRow>
+            <TableRow>
+
+                <CheckBox android:id="@+id/fish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fish"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/nuts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nuts"
+                    android:onClick="onCheckboxClicked"/>
+            </TableRow>
+            <TableRow>
+                <CheckBox android:id="@+id/coconut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/coconut"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/seasmeSeeds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seasmeSeeds"
+                    android:onClick="onCheckboxClicked"/>
+            </TableRow>
+            <TableRow>
+                <CheckBox android:id="@+id/corn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/corn"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/flour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/flour"
+                    android:onClick="onCheckboxClicked"/>
+            </TableRow>
+            <TableRow>
+                <CheckBox android:id="@+id/wheyPowder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wheyPowder"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/cornStarch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cornStarch"
+                    android:onClick="onCheckboxClicked"/>
+            </TableRow>
+            <TableRow>
+                <CheckBox android:id="@+id/celery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/celery"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/candelnut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/candelnut"
+                    android:onClick="onCheckboxClicked"/>
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:text="Disease"  />
+    <CheckBox android:id="@+id/diabetes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/diabetes"
+        android:onClick="onDiseaseCheckboxClicked"/>
+    <CheckBox android:id="@+id/BloodPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bloodPressure"
+        android:onClick="onDiseaseCheckboxClicked"/>
+
+
+    <Button
             android:id="@+id/btnRegister"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -5,4 +5,5 @@
     <item type="id" name="menu_formats" />
     <item type="id" name="menu_camera_selector" />
     <item name="youtTextView" type="id" />
+
 </resources>

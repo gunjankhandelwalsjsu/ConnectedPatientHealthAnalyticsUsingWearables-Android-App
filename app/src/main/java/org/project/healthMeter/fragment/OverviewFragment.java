@@ -1,5 +1,6 @@
 package org.project.healthMeter.fragment;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,7 +38,8 @@ public class OverviewFragment extends Fragment {
     OverviewPresenter presenter;
     private Spinner graphSpinner;
 
-
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ;
     public static HistoryFragment newInstance() {
         HistoryFragment fragment = new HistoryFragment();
 
@@ -149,7 +151,6 @@ public class OverviewFragment extends Fragment {
         legend.setEnabled(false);
 
         loadLastReading();
-     //   loadRandomTip();
 
         return mFragmentView;
     }
@@ -263,13 +264,10 @@ public class OverviewFragment extends Fragment {
 
 
 
- /*   private void loadRandomTip(){
-        TipsManager tipsManager = new TipsManager(getActivity().getApplicationContext(), presenter.getUserAge());
-        tipTextView.setText(presenter.getRandomTip(tipsManager));
-    }*/
+
+    }
 /*
     public String convertDate(String date){
         FormatDateTime dateTime = new FormatDateTime(getActivity().getApplicationContext());
         return dateTime.convertDate(date);
     }*/
-}

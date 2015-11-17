@@ -9,7 +9,9 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -32,12 +34,16 @@ import com.androidplot.xy.BoundaryMode;
 import com.androidplot.xy.LineAndPointFormatter;
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.project.healthMeter.R;
-import org.project.healthMeter.tools.SensorTagData;
 import org.project.healthMeter.presenter.SensorPresenter;
+import org.project.healthMeter.tools.SensorTagData;
 
 import java.util.UUID;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Dave Smith
@@ -81,7 +87,8 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
     private SimpleXYSeries patientHistorySeries = null;
     private static int i=0;
      SensorPresenter presenter;
-
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -586,8 +593,9 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
              Log.d("report", Double.toString(temp));
             double fTemp=9*temp/5 + 32;
             double roundOff = Math.round(fTemp * 100.0) / 100.0;
-
+            sendToServer(roundOff);
             presenter.addValueTodb(roundOff);
+
      //       presenter.updateSpinnerTypeTime();
 
         }
@@ -611,4 +619,46 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         Toast.makeText(getApplicationContext(), getString(R.string.dialog_error), Toast.LENGTH_SHORT).show();
     }
 
-}
+
+
+    public void sendToServer(double reading){
+
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        // Get the message from the intent
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        String email = sharedpreferences.getString("email", "NA");
+
+        client.get("http://10.0.0.12:8080/webapp/temperatureAnalytics/" + email+"/"+reading, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (responseBody != null) {
+                    String responseStr = new String(responseBody);
+                    Log.d("Response", responseStr);
+
+                }
+                else
+                    Log.d("rec","recorded");
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Log.d("statusCode", String.valueOf(statusCode));
+                        // When Http response code is '404'
+                        if (statusCode == 404 || statusCode == 405) {
+                            Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                        }
+                        // When Http response code is '500'
+                        else if (statusCode == 500) {
+                            Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                        }
+                        // When Http response code other than 404, 500
+                        else {
+                            Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        }

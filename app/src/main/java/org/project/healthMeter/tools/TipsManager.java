@@ -12,8 +12,9 @@ public class TipsManager {
     private Context mContext;
     private int userAge;
 
-    public TipsManager(Context mContext) {
+    public TipsManager(Context mContext, int userAge) {
         this.mContext = mContext;
+        this.userAge=userAge;
     }
 
 

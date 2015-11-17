@@ -102,16 +102,16 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/helloactivity_register"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:textColor="#228b22"
+                android:textStyle="bold"
                 android:text="Signup(New User)"
                 android:onClick="onRegisterClicked"
-                android:textSize="25dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                 />
+
+
+                android:gravity="center_horizontal" />
 
             <android.support.v7.widget.AppCompatButton
                 android:layout_width="wrap_content"

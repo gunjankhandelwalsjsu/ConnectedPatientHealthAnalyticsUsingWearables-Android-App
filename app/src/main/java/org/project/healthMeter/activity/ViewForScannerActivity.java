@@ -143,7 +143,7 @@ public class ViewForScannerActivity extends ActionBarActivity {
 
 
 
-                    pDiseaselist = obj.getJSONArray("PatientDisease");
+                    pDiseaselist = obj.getJSONArray("patientDisease");
                     List<String> dis = new ArrayList<String>();
                     if (pDiseaselist != null && pDiseaselist.length() != 0) {
                         for (int i = 0; i < pDiseaselist.length(); i++) {
@@ -165,6 +165,7 @@ public class ViewForScannerActivity extends ActionBarActivity {
                         nutritionInfoText.setText("Nutrition info: " + "NA");
                     else
                         nutritionInfoText.setText("Nutrition info: " + builder.toString());
+
 //////////////////////////////////////////////////////////////////////////////////
 
                     presenter.addValueTodb(productName,all.toString(),dis.toString(),Allergyresult,sugarConsumed);

@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,10 @@ public class RegistrationActivity extends Activity {
     EditText zipcodeET;
     List<String> diseaseList = new ArrayList<>();
     List<String> allergyList = new ArrayList<>();
+    DatePicker bdate;
+    RadioButton gender;
+    String ch_gender;
+
 
 
     @Override
@@ -77,6 +83,14 @@ public class RegistrationActivity extends Activity {
         stateET = (EditText) findViewById(R.id.state);
         cityET = (EditText) findViewById(R.id.city);
         zipcodeET = (EditText) findViewById(R.id.zipcode);
+
+         gender = (RadioButton) findViewById(R.id.female);
+
+
+         bdate = (DatePicker) findViewById(R.id.bdate);
+
+        System.out.println(bdate.toString());
+
 
         // Instantiate Progress Dialog object
         prgDialog = new ProgressDialog(this);
@@ -202,7 +216,11 @@ public class RegistrationActivity extends Activity {
         String city = cityET.getText().toString();
         String state = stateET.getText().toString();
         String zipcode = zipcodeET.getText().toString();
-
+        String str_bdate = bdate.getYear()+"/"+bdate.getDayOfMonth()+"/"+(bdate.getMonth()+1);
+        if(gender.isChecked())
+            ch_gender = "F";
+        else
+            ch_gender = "M";
 
         JSONObject jsonParams = new JSONObject();
 
@@ -242,6 +260,9 @@ public class RegistrationActivity extends Activity {
                 jsonParams.put("state", state);
                 jsonParams.put("city", city);
                 jsonParams.put("zipCode", zipcode);
+                jsonParams.put("birthDate", str_bdate);
+                jsonParams.put("gender", ch_gender);
+                Log.d("str_bdate", str_bdate);
                 JSONArray alist = new JSONArray();
                 for (int i = 0; i < allergyList.size(); i++) {
                     alist.put(allergyList.get(i));

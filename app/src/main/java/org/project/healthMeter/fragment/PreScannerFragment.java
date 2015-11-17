@@ -66,6 +66,7 @@ public class PreScannerFragment extends Fragment implements View.OnClickListener
             mFragmentView = inflater.inflate(R.layout.fragment_pre_scanner, container, false);
             preScannerbutton = (FloatingActionButton) mFragmentView.findViewById(R.id.preScannerbutton);
 
+
             preScannerbutton.setOnClickListener(this);
 
             mRecyclerView = (RecyclerView) mFragmentView.findViewById(R.id.fragment_preScanner_recycler_view);
