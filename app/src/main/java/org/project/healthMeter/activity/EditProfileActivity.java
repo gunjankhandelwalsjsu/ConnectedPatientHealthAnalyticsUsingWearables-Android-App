@@ -4,16 +4,19 @@ package org.project.healthMeter.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
 import android.support.v7.app.ActionBar;
@@ -511,76 +514,6 @@ public class EditProfileActivity extends AppCompatActivity implements
     }
 
 
-
-    public void chooseImageSource(View v) {
-        System.gc();
-        final CharSequence[] items = {
-                getString(R.string.gallery),
-                getString(R.string.camera) };
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.choose_image_source);
-        builder.setItems(items, this);
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    protected void startCamera() {
-        Intent camIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(camIntent, CAMERA);
-    }
-
-
-    protected void startGallery() {
-        Intent gallIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        gallIntent.setType("image/*");
-        startActivityForResult(gallIntent, GALLERY);
-    }
-
-    private Bitmap getImageFromURI(Uri data) {
-        try {
-            in = getContentResolver().openInputStream(data);
-            return Media.getBitmap(getContentResolver(), data);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY || requestCode == CAMERA) {
-            if (resultCode == Activity.RESULT_OK) {
-                System.out.println("onActivityResult");
-                //        profile_pic = getImageFromURI(data.getData());
-                System.out.println(profile_pic);
-                setPic();
-                if (profile_pic != null) {
-                    System.out.println("null image");
-                    profile_pic_view.setImageBitmap(profile_pic);
-                } else {
-                    Toast.makeText(getBaseContext(),
-                            getString(R.string.image_error), Toast.LENGTH_LONG)
-                            .show();
-                }
-            } else {
-                if (resultCode != RESULT_CANCELED) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error),
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-    }
-    private void sendPhoto(Bitmap bitmap) throws Exception {
-        Log.d("sendinggggg....","photoooo");
-
-        new UploadTask().execute(bitmap);
-    }
-
     private class UploadTask extends AsyncTask<Bitmap, Void, Void> {
 
         protected Void doInBackground(Bitmap... bitmaps) {
@@ -600,6 +533,7 @@ public class EditProfileActivity extends AppCompatActivity implements
                         "http://10.0.0.12:8080/webapp/patientImage/upload"); // server
 
                 MultipartEntity reqEntity = new MultipartEntity();
+                Log.d("m","I hereeeeessss");
                 reqEntity.addPart("image",
                         email + ".jpg", in);
                 // reqEntity.addPart("email",email);
@@ -697,6 +631,134 @@ public class EditProfileActivity extends AppCompatActivity implements
         super.onRestoreInstanceState(savedInstanceState);
         System.out.println(mCurrentPhotoPath);
         profile_pic_view = (ImageView) findViewById(R.id.profile_pic);
+    }
+
+
+
+
+    public void chooseImageSource(View v) {
+        System.gc();
+        final CharSequence[] items = {
+                getString(R.string.gallery),
+                getString(R.string.camera) };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.choose_image_source);
+        builder.setItems(items, this);
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    protected void startCamera() {
+        Intent camIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camIntent, CAMERA);
+    }
+
+
+    protected void startGallery() {
+        Intent gallIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        gallIntent.setType("image/*");
+        startActivityForResult(gallIntent, GALLERY);
+    }
+
+    private Bitmap getImageFromURI(Uri data) {
+        try {
+            in = getContentResolver().openInputStream(data);
+            return Media.getBitmap(getContentResolver(), data);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+    Uri selectedImageUri;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GALLERY || requestCode == CAMERA) {
+            if (resultCode == Activity.RESULT_OK) {
+                System.out.println("onActivityResult");
+                 selectedImageUri = data.getData();
+
+                if(requestCode==GALLERY) {
+                    profile_pic = getImageFromURI(data.getData());
+                    mCurrentPhotoPath = getPath(this,selectedImageUri);
+
+                    System.out.println(profile_pic);
+                }
+                else {
+                    setPic();
+                }
+                if (profile_pic != null) {
+                    System.out.println("null image");
+                    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                    bmOptions.inJustDecodeBounds = true;
+                    BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+                    // Determine how much to scale down the image
+
+                    // Decode the image file into a Bitmap sized to fill the View
+                    bmOptions.inJustDecodeBounds = false;
+                    bmOptions.inPurgeable = true;
+
+                    Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
+                    profile_pic_view.setImageBitmap(profile_pic);
+                    try {
+                        Log.d("m","I hereeeeessss");
+
+                        sendPhoto(bitmap);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Toast.makeText(getBaseContext(),
+                            getString(R.string.image_error), Toast.LENGTH_LONG)
+                            .show();
+                }
+            } else {
+                if (resultCode != RESULT_CANCELED) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    public String getPath(Context context,Uri uri) {
+
+        String filePath = "";
+        String wholeID = DocumentsContract.getDocumentId(uri);
+
+        // Split at colon, use second item in the array
+        String id = wholeID.split(":")[1];
+
+        String[] column = { MediaStore.Images.Media.DATA };
+
+        // where id is equal to
+        String sel = MediaStore.Images.Media._ID + "=?";
+
+        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                column, sel, new String[]{ id }, null);
+
+        int columnIndex = cursor.getColumnIndex(column[0]);
+
+        if (cursor.moveToFirst()) {
+            filePath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        return filePath;
+
+    }
+
+
+    private void sendPhoto(Bitmap bitmap) throws Exception {
+        Log.d("sendinggggg....", "photoooo");
+
+        new UploadTask().execute(bitmap);
     }
 
     static final int REQUEST_TAKE_PHOTO = 1;

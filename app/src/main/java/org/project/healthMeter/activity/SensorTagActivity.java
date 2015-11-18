@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -127,7 +128,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
         patientHistorySeries = new SimpleXYSeries("Time");
         patientHistorySeries.useImplicitXVals();
-        aprHistoryPlot.setRangeBoundaries(95,105, BoundaryMode.FIXED);
+        aprHistoryPlot.setRangeBoundaries(85,105, BoundaryMode.FIXED);
         aprHistoryPlot.setDomainBoundaries(0, 30, BoundaryMode.FIXED);
         aprHistoryPlot.addSeries(patientHistorySeries, new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null));
         aprHistoryPlot.setDomainStepValue(5);
@@ -233,7 +234,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-            //    NavUtils.navigateUpFromSameTask(this);
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.action_scan:
                 mDevices.clear();
@@ -604,9 +605,12 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
             patientHistorySeries.removeFirst();
         }
+        double fTemp=9*temp/5 + 32;
 
         // add the latest history sample:
-        patientHistorySeries.addLast(null, temp);
+        double roundOff = Math.round(fTemp * 100.0) / 100.0;
+
+        patientHistorySeries.addLast(null, roundOff);
 
 
         // redraw the Plots:
