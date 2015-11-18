@@ -98,6 +98,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         email = sharedpreferences.getString("email", "NA");
 
+
         intent = new Intent(this, EditProfileActivity.class);
         intent.putExtra("email", email);
         fetch_profile();
@@ -193,7 +194,10 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                     }
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
 
+                    editor.putString("birthDate", birthDate);
+                    editor.commit();
 
                     if (!obj.has("email")) {
                         emailText.setText("Email: NA");

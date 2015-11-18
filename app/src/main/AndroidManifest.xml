@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true" >
         <activity
-            android:name="org.project.healthMeter.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/GlucosioTheme" >
             <intent-filter>
@@ -34,77 +34,83 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.project.healthMeter.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/title_activity_hello"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBar" >
         </activity>
         <activity
-            android:name="org.project.healthMeter.activity.GittyActivity"
-            android:parentActivityName="org.project.healthMeter.activity.MainActivity"
+            android:name=".activity.GittyActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/GittyTheme" >
         </activity>
         <activity
-            android:name="org.project.healthMeter.activity.ScannerActivity"
+            android:name=".activity.ScannerActivity"
             android:label="@string/title_activity_scanner"
-            android:parentActivityName="org.project.healthMeter.activity.MainActivity" >
+            android:parentActivityName=".activity.MainActivity" >
         </activity>
         <activity
-            android:name="org.project.healthMeter.activity.ViewForScannerActivity"
+            android:name=".activity.ViewForScannerActivity"
             android:label="@string/title_activity_view_for_scanner"
-            android:parentActivityName="org.project.healthMeter.activity.MainActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/GlucosioSettings" >
         </activity>
         <activity
-            android:name="org.project.healthMeter.activity.SensorTagActivity"
+            android:name=".activity.SensorTagActivity"
             android:label="@string/title_activity_sensor_tag"
-            android:parentActivityName="org.project.healthMeter.activity.MainActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/GlucosioSettings" >
         </activity>
         <activity
-            android:name="org.project.healthMeter.activity.RegistrationActivity"
+            android:name=".activity.RegistrationActivity"
             android:theme="@style/GlucosioSettings" >
         </activity>
-        <activity android:name="org.project.healthMeter.activity.ProfileActivity"
-            android:parentActivityName="org.project.healthMeter.activity.MainActivity"
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/GlucosioSettings" >
         </activity>
+        <activity
+            android:name=".activity.EditProfileActivity"
+            android:parentActivityName=".activity.ProfileActivity"
+            android:theme="@style/GlucosioSettings" >
+        </activity>
+        <!--
+Register AnalyticsReceiver and AnalyticsService to support background
+dispatching on non-Google Play devices
+        -->
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
 
-        <activity android:name="org.project.healthMeter.activity.EditProfileActivity"
-            android:parentActivityName="org.project.healthMeter.activity.ProfileActivity"
-            android:theme="@style/GlucosioSettings" >
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+        <!--
+         Register CampaignTrackingReceiver and CampaignTrackingService to enable
+         installation campaign reporting
+        -->
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
 
-        </activity>
-        <!-- Register AnalyticsReceiver and AnalyticsService to support background
-dispatching on non-Google Play devices -->
-    <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-        android:enabled="true">
-        <intent-filter>
-            <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
-        </intent-filter>
-    </receiver>
-    <service android:name="com.google.android.gms.analytics.AnalyticsService"
-        android:enabled="true"
-        android:exported="false"/>
-    <!-- Register CampaignTrackingReceiver and CampaignTrackingService to enable
-         installation campaign reporting -->
-    <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="com.android.vending.INSTALL_REFERRER" />
-        </intent-filter>
-    </receiver>
-    <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
     </application>
-
-
-
 
 </manifest>

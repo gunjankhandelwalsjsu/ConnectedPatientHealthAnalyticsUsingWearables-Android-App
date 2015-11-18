@@ -115,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                    hideFabAnimation();
-                    //LinearLayout emptyLayout = (LinearLayout) findViewById(R.id.mainactivity_empty_layout);
+                    LinearLayout emptyLayout = (LinearLayout) findViewById(R.id.mainactivity_empty_layout);
                     ViewPager pager = (ViewPager) findViewById(R.id.pager);
                     if (pager.getVisibility() == View.GONE) {
                         pager.setVisibility(View.VISIBLE);
-                      // emptyLayout.setVisibility(View.INVISIBLE);
+                       emptyLayout.setVisibility(View.INVISIBLE);
                     }
                 } else {
                     showFabAnimation();

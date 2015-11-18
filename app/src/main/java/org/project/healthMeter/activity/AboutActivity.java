@@ -8,7 +8,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-
+import android.widget.ImageView;
 
 import org.project.healthMeter.R;
 
@@ -125,6 +125,8 @@ public class AboutActivity extends AppCompatActivity {
 
         }
     }
+
+
 
     public boolean onOptionsItemSelected(MenuItem item){
         finish();

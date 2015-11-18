@@ -2,6 +2,7 @@ package org.project.healthMeter.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import org.project.healthMeter.R;
 import org.project.healthMeter.presenter.PreScannerPresenter;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -60,12 +62,14 @@ public class PreScannerAdapter  extends RecyclerView.Adapter<PreScannerAdapter.V
         TextView AllergyResultTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_AllergyResult);
         TextView ExistingDiseaseTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingDisease);
         TextView sugarsConsumedTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_sugarsConsumed);
+        TextView datetimeTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_time);
 
         TextView ProductNameTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_ProductName_title);
         TextView ExistingAllergyTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingAllergy_title);
         TextView AllergyResultTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_AllergyResult_title);
         TextView ExistingDiseaseTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingDisease_title);
         TextView sugarsConsumedTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_sugarsConsumed_title);
+        Collections.addAll(presenter.getDatetime());
 
         TextView idTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_id);
         TextView typeTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_type);
@@ -86,7 +90,11 @@ public class PreScannerAdapter  extends RecyclerView.Adapter<PreScannerAdapter.V
         AllergyResultTextView.setText(presenter.getReading().get(position).getAllergyResult().toString());
         ExistingDiseaseTextView.setText(presenter.getReading().get(position).getExistingDisease().toString());
         sugarsConsumedTextView.setText(presenter.getReading().get(position).getSugarsConsumed().toString());
-
+        ArrayList<String> time=presenter.getDatetime();
+        Log.d("positionString", String.valueOf(position));
+        String x=time.get(position);
+        String text=presenter.convertDate(x);
+        datetimeTextView.setText(text);
 //        datetimeTextView.setText(presenter.convertDate(presenter.getDatetime().get(position)));
         //   typeTextView.setText(typeToString(presenter.getType().get(position)));
     }

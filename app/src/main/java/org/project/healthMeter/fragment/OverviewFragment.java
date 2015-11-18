@@ -1,5 +1,6 @@
 package org.project.healthMeter.fragment;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -25,6 +26,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import org.project.healthMeter.R;
 import org.project.healthMeter.presenter.OverviewPresenter;
 import org.project.healthMeter.tools.TemperatureRanges;
+import org.project.healthMeter.tools.TipsManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -151,6 +153,7 @@ public class OverviewFragment extends Fragment {
         legend.setEnabled(false);
 
         loadLastReading();
+        loadRandomTip();
 
         return mFragmentView;
     }
@@ -262,6 +265,13 @@ public class OverviewFragment extends Fragment {
         }
     }
 
+    private void loadRandomTip(){
+        sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        String birthDate = sharedpreferences.getString("birthDate", "1985/1/1");
+        TipsManager tipsManager = new TipsManager(getActivity().getApplicationContext(), birthDate);
+        tipTextView.setText(presenter.getRandomTip(tipsManager));
+    }
 
 
 

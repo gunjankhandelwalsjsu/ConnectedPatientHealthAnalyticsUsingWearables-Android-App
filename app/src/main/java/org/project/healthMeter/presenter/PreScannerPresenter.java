@@ -4,6 +4,7 @@ import org.project.healthMeter.db.DatabaseNewHandler;
 import org.project.healthMeter.db.FoodReading;
 import org.project.healthMeter.db.User;
 import org.project.healthMeter.fragment.PreScannerFragment;
+import org.project.healthMeter.tools.ReadingTools;
 import org.project.healthMeter.tools.SplitDateTime;
 
 import java.text.DateFormat;
@@ -27,6 +28,7 @@ public class PreScannerPresenter {
     String AllergyResult;
     String ExistingDisease;
     String foodName;
+    private ArrayList<String> datetime;
 
     String sugarsConsumed;
     private ArrayList<FoodReading> reading=new ArrayList<>();
@@ -133,6 +135,8 @@ public class PreScannerPresenter {
             reading.add(single);
 
         }
+        this.datetime = dB.getFoodReadingDateTimeAsArray();
+
 
     }
     public void getCurrentTime(){
@@ -163,7 +167,16 @@ public class PreScannerPresenter {
 
     }
 */
+
+    public String convertDate(String date) {
+        ReadingTools rTools = new ReadingTools();
+        return rTools.convertDate(date);
+    }
     public void onUndoClicked() {
         fragment.notifyAdapter();
     }
+    public ArrayList<String> getDatetime() {
+        return datetime;
+    }
+
 }

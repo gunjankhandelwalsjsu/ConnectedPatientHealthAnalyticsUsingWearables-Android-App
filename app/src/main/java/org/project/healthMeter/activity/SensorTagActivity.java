@@ -17,7 +17,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -234,7 +233,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+            //    NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.action_scan:
                 mDevices.clear();

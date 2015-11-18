@@ -73,9 +73,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         idTextView.setText(presenter.getId().get(position).toString());
         readingTextView.setText(presenter.getReading().get(position).toString());
         TemperatureRanges ranges = new TemperatureRanges(mContext);
-       // String color = ranges.colorFromRange(presenter.getReading().get(position));
         readingTextView.setText(presenter.getReading().get(position).toString() + "deg F");
-      //  readingTextView.setTextColor(ranges.stringToColor(color));
         ArrayList<String> time=presenter.getDatetime();
         Log.d("positionString", String.valueOf(position));
         String x=time.get(position);

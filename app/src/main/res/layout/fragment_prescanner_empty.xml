@@ -14,8 +14,6 @@
         android:baselineAligned="false"
         android:orientation="vertical"
       >
-
-
             <TextView
                 android:id="@+id/mainactivity_empty"
                 android:layout_width="fill_parent"
@@ -25,9 +23,6 @@
                 android:onClick="onFabClicked"
                 android:text="@string/fragment_empty_text"
                 android:textSize="16sp" />
-
-
-
 
             </RelativeLayout>
 

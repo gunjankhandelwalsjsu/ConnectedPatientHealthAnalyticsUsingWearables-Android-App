@@ -9,7 +9,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:background="?android:attr/selectableItemBackground"
     app:cardElevation="1dp">
-    <LinearLayout
+    <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         tools:ignore="MissingPrefix"
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="5dp">
                 <TextView fontPath="fonts/lato-bold.ttf"
                     android:id="@+id/item_preScanner_time"
                     android:layout_height="wrap_content"
@@ -41,23 +41,23 @@
                     android:text="Previous value"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="0dp">
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:stretchColumns="1"
-                android:gravity="right"
+                android:gravity="left"
                 android:padding="16dp">
-                <TableRow>
+                <TableRow  android:layout_height="1px" android:background="#F8BBD0">
                     <TextView
                         android:id="@+id/item_preScanner_ProductName_title"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="Product Name"
+                        android:text="Last Eaten"
                         android:padding="3dip"
                         android:textColor="@color/glucosio_text_green"/>
 
@@ -73,12 +73,12 @@
                 </TableRow>
 
 
-                <TableRow>
+                <TableRow >
                     <TextView
                         android:id="@+id/item_preScanner_ExistingAllergy_title"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="Allergy Name"
+                        android:text="Allergy"
                         android:textColor="@color/glucosio_text_green"/>
                 <TextView
                     android:id="@+id/item_preScanner_ExistingAllergy"
@@ -89,21 +89,32 @@
 
                 </TableRow>
 
-                <TableRow>
+                <TableRow  android:layout_height="1px" android:background="#F8BBD0">
+
+
                     <TextView
                         android:id="@+id/item_preScanner_AllergyResult_title"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="Result"
+                        android:text="Suggestion"
+                        android:singleLine="false"
+                        android:maxLines="4"
+
                         android:textColor="@color/glucosio_text_green"/>
+
                 <TextView
                     android:id="@+id/item_preScanner_AllergyResult"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="Result"
+                    android:singleLine="false"
+                    android:scrollHorizontally="false"
+                    android:scrollbars="vertical"
+                    android:maxLines="4"
+
                     android:textColor="@color/glucosio_text_green"/>
 
-                </TableRow>
+            </TableRow>
 
 
                 <TableRow>
@@ -120,13 +131,13 @@
                     android:text="Disease"
                     android:textColor="@color/glucosio_text_green"/>
 
-                </TableRow>
-                <TableRow>
+                </TableRow >
+                <TableRow  android:layout_height="1px" android:background="#F8BBD0">
                     <TextView
                         android:id="@+id/item_preScanner_sugarsConsumed_title"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="g"
+                        android:text="Sugar today"
                         android:textColor="@color/glucosio_text_green"/>
                 <TextView
                     android:id="@+id/item_preScanner_sugarsConsumed"
@@ -152,5 +163,5 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:background="#dadada"/>
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

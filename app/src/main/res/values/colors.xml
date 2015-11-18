@@ -21,4 +21,6 @@
     <color name="glucosio_reading_low">#4B8DDB</color>
     <color name="glucosio_reading_high">#E7B85D</color>
     <color name="glucosio_reading_hypo">#6F4EAB</color>
+    <color name="light_gray">#CFCFCF</color>
+
 </resources>

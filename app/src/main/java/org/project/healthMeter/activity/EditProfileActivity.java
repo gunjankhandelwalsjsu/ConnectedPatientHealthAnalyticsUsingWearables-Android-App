@@ -1,9 +1,7 @@
+
 package org.project.healthMeter.activity;
 
-/**
- * Created by rajeshkhandelwal on 11/12/15.
- */
-
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -306,7 +304,7 @@ public class EditProfileActivity extends AppCompatActivity implements
                     diseaseList.add("Blood Pressure");
                 break;
             default:
-               diseaseList.add("No Disease");
+                diseaseList.add("No Disease");
                 break;
 
         }
@@ -326,7 +324,7 @@ public class EditProfileActivity extends AppCompatActivity implements
         EditText lname = (EditText) findViewById(R.id.editlName);
         String str_lname = lname.getText().toString();
 
-       // EditText gemail = (EditText) findViewById(R.id.editEmail);
+        // EditText gemail = (EditText) findViewById(R.id.editEmail);
         //String str_email = gemail.getText().toString();
 
 
@@ -396,60 +394,60 @@ public class EditProfileActivity extends AppCompatActivity implements
 
 
 
-            JSONObject jsonParams = new JSONObject();
-     //       jsonParams.put("UserPicture", img_path);
-            jsonParams.put("id", id);
-            jsonParams.put("firstName", str_fname);
-            jsonParams.put("lastName", str_lname);
-            jsonParams.put("password", str_password);
+        JSONObject jsonParams = new JSONObject();
+        //       jsonParams.put("UserPicture", img_path);
+        jsonParams.put("id", id);
+        jsonParams.put("firstName", str_fname);
+        jsonParams.put("lastName", str_lname);
+        jsonParams.put("password", str_password);
 
-            // Put Http parameter username with value of Email Edit View control
-            jsonParams.put("email", email);
-            // Put Http parameter password with value of Password Edit View control
-            jsonParams.put("phone", str_phone);
-            jsonParams.put("streetAddress", str_streetAddress);
-            jsonParams.put("state", str_state);
-            jsonParams.put("city", str_city);
-            jsonParams.put("zipCode", str_zipcode);
-            jsonParams.put("birthDate", str_bdate);
-            jsonParams.put("gender", ch_gender);
-            Log.d("str_bdate",str_bdate);
+        // Put Http parameter username with value of Email Edit View control
+        jsonParams.put("email", email);
+        // Put Http parameter password with value of Password Edit View control
+        jsonParams.put("phone", str_phone);
+        jsonParams.put("streetAddress", str_streetAddress);
+        jsonParams.put("state", str_state);
+        jsonParams.put("city", str_city);
+        jsonParams.put("zipCode", str_zipcode);
+        jsonParams.put("birthDate", str_bdate);
+        jsonParams.put("gender", ch_gender);
+        Log.d("str_bdate",str_bdate);
 
-            JSONArray alist=new JSONArray();
-            if (allergyList.size()==0)
-                alist.put("No Allergies");
-            else {
-                for (int i = 0; i < allergyList.size(); i++) {
-                    alist.put(allergyList.get(i));
-                }
+        JSONArray alist=new JSONArray();
+        if (allergyList.size()==0)
+            alist.put("No Allergies");
+        else {
+            for (int i = 0; i < allergyList.size(); i++) {
+                alist.put(allergyList.get(i));
             }
-            JSONArray dlist=new JSONArray();
-            if(diseaseList.size()==0)
-                dlist.put("No Diseases");
-            else {
-                for (int i = 0; i < diseaseList.size(); i++) {
-                    dlist.put(diseaseList.get(i));
-                }
+        }
+        JSONArray dlist=new JSONArray();
+        if(diseaseList.size()==0)
+            dlist.put("No Diseases");
+        else {
+            for (int i = 0; i < diseaseList.size(); i++) {
+                dlist.put(diseaseList.get(i));
             }
-            jsonParams.put("allergy", alist);
-            jsonParams.put("disease", dlist);
-            jsonParams.put("doctorMailId",doctorMailId);
-            jsonParams.put("doctorName",doctorName);
-            jsonParams.put("dPhone",dPhone);
-  //          jsonParams.put("UserGender", ch_gender);
-   //         jsonParams.put("UserBirthDate", str_bdate);
-            //   jsonParams.put("notes", "Test api support");
-            StringEntity entity = new StringEntity(jsonParams.toString());
-            Log.d("json print", String.valueOf(jsonParams));
-            entity.setContentType(String.valueOf(new BasicHeader(HTTP.CONTENT_TYPE, "application/json")));
+        }
+        jsonParams.put("allergy", alist);
+        jsonParams.put("disease", dlist);
+        jsonParams.put("doctorMailId",doctorMailId);
+        jsonParams.put("doctorName",doctorName);
+        jsonParams.put("dPhone",dPhone);
+        //          jsonParams.put("UserGender", ch_gender);
+        //         jsonParams.put("UserBirthDate", str_bdate);
+        //   jsonParams.put("notes", "Test api support");
+        StringEntity entity = new StringEntity(jsonParams.toString());
+        Log.d("json print", String.valueOf(jsonParams));
+        entity.setContentType(String.valueOf(new BasicHeader(HTTP.CONTENT_TYPE, "application/json")));
 
 
-            // Invoke RESTful Web Service with Http parameters
-            invokeWS(entity);
-            Intent myIntent;
-            myIntent = new Intent(this, ProfileActivity.class);
-            myIntent.putExtra("email", email);
-            startActivity(myIntent);
+        // Invoke RESTful Web Service with Http parameters
+        invokeWS(entity);
+        Intent myIntent;
+        myIntent = new Intent(this, ProfileActivity.class);
+        myIntent.putExtra("email", email);
+        startActivity(myIntent);
 
 
     }
@@ -483,7 +481,7 @@ public class EditProfileActivity extends AppCompatActivity implements
                     }
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
-             //       Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
+                    //       Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
 
                 }
@@ -556,9 +554,9 @@ public class EditProfileActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY || requestCode == CAMERA) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 System.out.println("onActivityResult");
-        //        profile_pic = getImageFromURI(data.getData());
+                //        profile_pic = getImageFromURI(data.getData());
                 System.out.println(profile_pic);
                 setPic();
                 if (profile_pic != null) {
@@ -594,7 +592,7 @@ public class EditProfileActivity extends AppCompatActivity implements
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); // convert Bitmap to ByteArrayOutputStream
             InputStream in = new ByteArrayInputStream(stream.toByteArray()); // convert ByteArrayOutputStream to ByteArrayInputStream
-           // intent.putExtra("image", byteArray);
+            // intent.putExtra("image", byteArray);
             DefaultHttpClient httpclient = new DefaultHttpClient();
             try {
                 Log.d("posting....","postt");
@@ -604,7 +602,7 @@ public class EditProfileActivity extends AppCompatActivity implements
                 MultipartEntity reqEntity = new MultipartEntity();
                 reqEntity.addPart("image",
                         email + ".jpg", in);
-               // reqEntity.addPart("email",email);
+                // reqEntity.addPart("email",email);
                 httppost.setEntity(reqEntity);
 
                 Log.i(TAG, "request " + httppost.getRequestLine());
@@ -659,7 +657,7 @@ public class EditProfileActivity extends AppCompatActivity implements
         protected void onPostExecute(Void result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-          //  Toast.makeText(this, R.string.uploaded, Toast.LENGTH_LONG).show();
+            //  Toast.makeText(this, R.string.uploaded, Toast.LENGTH_LONG).show();
 
         }
     }
@@ -683,13 +681,23 @@ public class EditProfileActivity extends AppCompatActivity implements
         super.onConfigurationChanged(newConfig);
     }
 
+
+    String mCurrentPhotoPath;
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // TODO Auto-generated method stub
         super.onSaveInstanceState(outState);
-        Log.i(TAG, "onSaveInstanceState");
+        System.out.println(mCurrentPhotoPath);
+        profile_pic_view = (ImageView) findViewById(R.id.profile_pic);
     }
-    String mCurrentPhotoPath;
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onRestoreInstanceState(savedInstanceState);
+        System.out.println(mCurrentPhotoPath);
+        profile_pic_view = (ImageView) findViewById(R.id.profile_pic);
+    }
 
     static final int REQUEST_TAKE_PHOTO = 1;
     File photoFile = null;
@@ -774,7 +782,7 @@ public class EditProfileActivity extends AppCompatActivity implements
             startGallery();
         } else {
             if (item == CAMERA) {
-              //  startCamera();
+                //  startCamera();
                 dispatchTakePictureIntent();
 
             } else {
@@ -798,4 +806,3 @@ public class EditProfileActivity extends AppCompatActivity implements
 
 
 }
-
