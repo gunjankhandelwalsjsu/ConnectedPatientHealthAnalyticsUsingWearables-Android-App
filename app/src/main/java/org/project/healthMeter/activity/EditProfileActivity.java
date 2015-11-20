@@ -27,6 +27,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -155,6 +156,7 @@ public class EditProfileActivity extends AppCompatActivity implements
 
         zipcodeET = (EditText) findViewById(R.id.editZipcode);
         zipcodeET.setText(intent.getStringExtra("zipCode"));
+        Button selectDoctor = (Button) findViewById(R.id.btnSubmit);
 
 
         // Instantiate Progress Dialog object
@@ -214,7 +216,10 @@ public class EditProfileActivity extends AppCompatActivity implements
     }
 
 
-
+public void spinners(View view){
+    Intent intent=new Intent(this,SpinnerActivity.class);
+    startActivity(intent);
+}
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -326,9 +331,6 @@ public class EditProfileActivity extends AppCompatActivity implements
 
         EditText lname = (EditText) findViewById(R.id.editlName);
         String str_lname = lname.getText().toString();
-
-        // EditText gemail = (EditText) findViewById(R.id.editEmail);
-        //String str_email = gemail.getText().toString();
 
 
         EditText password = (EditText) findViewById(R.id.editPassword);

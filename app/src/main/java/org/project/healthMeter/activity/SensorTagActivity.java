@@ -282,7 +282,6 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         setProgressBarIndeterminateVisibility(false);
     }
 
-    /* BluetoothAdapter.LeScanCallback */
 
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {

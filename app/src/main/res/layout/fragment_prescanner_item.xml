@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:clickable="true"
+    android:id="@+id/item_preScanner"
     android:foreground="?android:attr/selectableItemBackground"
     android:background="?android:attr/selectableItemBackground"
     app:cardElevation="1dp">
@@ -154,7 +155,6 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="0" />
-
             </TableLayout>
         </LinearLayout>
 

@@ -51,7 +51,7 @@
         </activity>
         <activity
             android:name=".activity.ViewForScannerActivity"
-            android:label="@string/title_activity_view_for_scanner"
+            android:label="@string/scanFoodItem"
             android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/GlucosioSettings" >
@@ -70,6 +70,15 @@
         <activity
             android:name=".activity.ProfileActivity"
             android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/GlucosioSettings" >
+        </activity>
+        <activity
+            android:name=".activity.AboutActivity"
+            android:theme="@style/GlucosioSettings" >
+        </activity>
+        <activity
+            android:name=".activity.BackupActivity"
+            android:label="@string/title_activity_backup"
             android:theme="@style/GlucosioSettings" >
         </activity>
         <activity
@@ -111,6 +120,10 @@ dispatching on non-Google Play devices
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity android:name=".activity.SpinnerActivity"
+            android:theme="@style/GlucosioSettings" >
+
+        </activity>
     </application>
 
 </manifest>

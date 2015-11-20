@@ -31,13 +31,13 @@ public class LicenceActivity extends AppCompatActivity {
 
 
         if (url != null && url.equals("privacy")) {
-            webView.loadUrl("http://www.glucosio.org/privacy/");
+            webView.loadUrl("http://10.0.0.12:8080/MongoDBWebapp/contact.jsp");
             getSupportActionBar().setTitle(getResources().getString(R.string.preferences_privacy));
-        } else if (url != null && url.equals("open_source")) {
-            webView.loadUrl("http://www.glucosio.org/third-party-licenses/");
-            getSupportActionBar().setTitle(getResources().getString(R.string.preferences_licences_open));
+        } else if (url != null && url.equals("contactUs")) {
+            webView.loadUrl("http://10.0.0.12:8080/MongoDBWebapp/contact.jsp");
+            getSupportActionBar().setTitle(getResources().getString(R.string.preferences_contactUs));
         } else {
-            webView.loadUrl("http://www.glucosio.org/terms/");
+            webView.loadUrl("http://10.0.0.12:8080/MongoDBWebapp/contact.jsp");
             getSupportActionBar().setTitle(getResources().getString(R.string.preferences_terms));
         }
 

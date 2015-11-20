@@ -113,6 +113,8 @@ public class PreScannerPresenter {
 
 
     public PreScannerPresenter(PreScannerFragment preScannerFragment) {
+        this.fragment = preScannerFragment;
+
         dB = new DatabaseNewHandler(preScannerFragment.getActivity());
     }
 
@@ -167,6 +169,21 @@ public class PreScannerPresenter {
 
     }
 */
+   public void onDeleteClicked(String idToDelete){
+       removeReadingFromDb(dB.getFoodReadingById(idToDelete));
+       fragment.notifyAdapter();
+       fragment.updateToolbarBehaviour();
+   }
+    public int getReadingsNumber(){
+        return reading.size();
+    }
+
+
+    private void removeReadingFromDb(FoodReading gReading) {
+        dB.deleteFoodReadings(gReading);
+        fragment.reloadFragmentAdapter();
+        loadDatabase();
+    }
 
     public String convertDate(String date) {
         ReadingTools rTools = new ReadingTools();

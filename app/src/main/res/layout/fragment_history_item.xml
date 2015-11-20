@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:focusable="true"
     android:clickable="true"
+    android:id="@+id/item_history"
     android:foreground="?android:attr/selectableItemBackground"
     android:background="?android:attr/selectableItemBackground"
     app:cardElevation="1dp">

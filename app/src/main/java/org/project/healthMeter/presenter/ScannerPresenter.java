@@ -6,6 +6,7 @@ import org.project.healthMeter.activity.ViewForScannerActivity;
 import org.project.healthMeter.db.DatabaseNewHandler;
 import org.project.healthMeter.db.FoodReading;
 import org.project.healthMeter.db.User;
+import org.project.healthMeter.fragment.ScannerFragment;
 import org.project.healthMeter.tools.SplitDateTime;
 
 import java.text.DateFormat;
@@ -33,6 +34,11 @@ public class ScannerPresenter {
 
     public ScannerPresenter(ViewForScannerActivity scannertActivity) {
         dB = new DatabaseNewHandler(scannertActivity);
+    }
+
+    public ScannerPresenter(ScannerFragment scannerFragment) {
+        dB = new DatabaseNewHandler(scannerFragment.getActivity());
+
     }
 
     public Boolean isdbEmpty() {

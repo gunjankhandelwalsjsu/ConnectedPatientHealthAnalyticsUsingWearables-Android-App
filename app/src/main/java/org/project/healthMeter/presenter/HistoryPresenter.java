@@ -1,6 +1,7 @@
 package org.project.healthMeter.presenter;
 
 import org.project.healthMeter.db.DatabaseNewHandler;
+import org.project.healthMeter.db.TemperatureReading;
 import org.project.healthMeter.fragment.HistoryFragment;
 import org.project.healthMeter.tools.ReadingTools;
 
@@ -41,7 +42,17 @@ public class HistoryPresenter {
         fragment.notifyAdapter();
     }
 
+    public void onDeleteClicked(int idToDelete){
+        removeReadingFromDb(dB.getTemperatureReadingById(idToDelete));
+        fragment.notifyAdapter();
+        fragment.updateToolbarBehaviour();
+    }
 
+    private void removeReadingFromDb(TemperatureReading gReading) {
+        dB.deleteTemperatureReadings(gReading);
+        fragment.reloadFragmentAdapter();
+        loadDatabase();
+    }
 
     // Getters
     public ArrayList<Long> getId() {
@@ -59,4 +70,9 @@ public class HistoryPresenter {
     public ArrayList<String> getDatetime() {
         return datetime;
     }
+
+    public int getReadingsNumber(){
+        return reading.size();
+    }
+
 }

@@ -1,6 +1,9 @@
 package org.project.healthMeter.fragment;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -18,21 +21,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.project.healthMeter.R;
-import org.project.healthMeter.activity.ViewForScannerActivity;
+import org.project.healthMeter.presenter.ScannerPresenter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import me.dm7.barcodescanner.zbar.BarcodeFormat;
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
@@ -56,7 +69,12 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
     private static final int Scanner_Activity = 2;
     TextView etResponse;
     Button button;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+
+    SharedPreferences sharedpreferences;
     String email;
+    ScannerPresenter presenter;
+
 
 
     public static ScannerFragment newInstance() {
@@ -80,7 +98,10 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
         }
         setupFormats();
        // email=getArguments().getString("email");
+        sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        email= sharedpreferences.getString("email", "NA");
 
+        presenter =new ScannerPresenter(this);
 
         return mScannerView;
 
@@ -182,12 +203,14 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
             r.play();
         } catch (Exception e) {
         }
-        showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
+      //  showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
         Log.i("Contentsssssss =", rawResult.getContents());
         barcode=rawResult.getContents();
-        Intent intent = new Intent(getActivity(), ViewForScannerActivity.class);
+       /* Intent intent = new Intent(getActivity(), ViewForScannerActivity.class);
         intent.putExtra("barcode", barcode);
-        startActivity(intent);
+        startActivity(intent);*/
+        fetch_foodData();
+
 
        // new HttpAsyncTask().execute("http://world.openfoodfacts.org/api/v0/product/"+rawResult.getContents()+".json");
 
@@ -299,6 +322,201 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
         return result;
 
     }
+    public void callAllergyDialog(String Allergyresult, final String[] nut) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getActivity());
+
+        // set title
+        alertDialogBuilder.setTitle("Allergy Information");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(Allergyresult + "! Do you want to get Nutrition Information")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        //dialog.cancel();
+                        StringBuilder builder = new StringBuilder();
+                        for(String s : nut) {
+                            builder.append(s);
+                        }
+
+
+                        showMessageDialog("Nutrition info = " + Arrays.deepToString(nut));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the
+                        // dialog box and do nothing
+                        getFragmentManager().popBackStack();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+
+    }
+
+
+
+
+    public void fetch_foodData() {
+
+        ScannerPresenter presentert;
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get("http://10.0.0.12:8080/webapp/food/" + email + "/" + barcode, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+
+                    if (responseBody != null) {
+                        String responseStr = new String(responseBody);
+                        Log.d("Response", responseStr);
+
+                    }
+                    String json = new String(responseBody, "UTF8");
+                    Log.d("json", json);
+                    JSONObject obj = new JSONObject(json);
+                    String productName = obj.getString("productName");
+                    String brand = obj.getString("brand");
+                    String nutriments = obj.getString("nutriments");
+                    String[] nut = nutriments.toString().split(",");
+                    StringBuilder builder = new StringBuilder();
+                    String sugarConsumed = "";
+
+                    for (int i = 0; i < nut.length; i++) {
+                        nut[i] = nut[i].replace("\"", " ");
+                        nut[i] = nut[i].replace("{", " ");
+                        nut[i] = nut[i].replace("}", " ");
+                        if (nut[i].equals("sugars"))
+                            sugarConsumed = nut[i];
+                        builder.append(nut[i] + "\n");
+                        Log.d(String.valueOf(i), nut[i]);
+                    }
+
+                    final String[] nutFinal=nut;
+
+                    /**************************************************************************************/
+                    String sugarResult = obj.getString("sugarResult");
+                    final String Allergyresult = obj.getString("allergyResult");
+
+                    if (sugarResult.contains("Exceeded the daily intake")) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                getActivity());
+
+                        // set title
+                        alertDialogBuilder.setTitle("Sugar Alert");
+
+                        // set dialog message
+                        alertDialogBuilder
+                                .setMessage(sugarResult)
+                                .setCancelable(false)
+                                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                       callAllergyDialog(Allergyresult,nutFinal);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // if this button is clicked, just close
+                                        // the
+                                        // dialog box and do nothing
+                                        getFragmentManager().popBackStack();
+                                    }
+                                });
+
+                        // create alert dialog
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+
+                        // show it
+                        alertDialog.show();
+
+
+                    }
+
+
+
+
+
+
+
+
+                    JSONArray pAllergylist;
+
+
+                    pAllergylist = obj.getJSONArray("patientAllergy");
+                    List<String> all = new ArrayList<String>();
+                    if (pAllergylist != null && pAllergylist.length() != 0) {
+                        for (int i = 0; i < pAllergylist.length(); i++) {
+                            System.out.println("in converter" + pAllergylist.get(i).toString());
+                            all.add(pAllergylist.get(i).toString());
+                        }
+                    }
+                    /******************************************************************************/
+
+
+                    /***************************************************************************************/
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+                    //     foodDiseaseInfoText.setText("Disease info: " + "need to fetch");
+                    //////////////////////////////////////////////////////////////////////////////////
+
+                  /*  if (!obj.has("nutriments"))
+                        nutritionInfoText.setText("Nutrition info: " + "NA");
+                    else
+                        nutritionInfoText.setText("Nutrition info: " + builder.toString());*/
+
+//////////////////////////////////////////////////////////////////////////////////
+                    JSONArray pDiseaselist;
+
+
+                    pDiseaselist = obj.getJSONArray("patientDisease");
+                    List<String> dis = new ArrayList<String>();
+                    if (pDiseaselist != null && pDiseaselist.length() != 0) {
+                        for (int i = 0; i < pDiseaselist.length(); i++) {
+                            Log.d("in converter", pDiseaselist.get(i).toString());
+                            dis.add(pDiseaselist.get(i).toString());
+                        }
+                    }
+                    presenter.addValueTodb(productName, all.toString(), dis.toString(), Allergyresult, sugarConsumed);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.d("statusCode", String.valueOf(statusCode));
+                // When Http response code is '404'
+                if (statusCode == 404 || statusCode == 405) {
+                    Toast.makeText(getActivity(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                }
+                // When Http response code is '500'
+                else if (statusCode == 500) {
+                    Toast.makeText(getActivity(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                }
+                // When Http response code other than 404, 500
+                else {
+                    Toast.makeText(getActivity(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
 
 
 

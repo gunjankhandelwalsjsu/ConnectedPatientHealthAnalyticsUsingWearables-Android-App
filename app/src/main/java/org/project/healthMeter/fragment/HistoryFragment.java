@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,11 +26,13 @@ import org.project.healthMeter.presenter.HistoryPresenter;
 public class HistoryFragment extends Fragment {
 
     RecyclerView mRecyclerView;
-    RecyclerView.LayoutManager mLayoutManager;
+    private LinearLayoutManager mLayoutManager;
     RecyclerView.Adapter mAdapter;
     TemperatureReading readingToRestore;
     HistoryPresenter presenter;
     Button scanButton;
+    private Boolean isToolbarScrolling = true;
+
 
     public static HistoryFragment newInstance() {
         HistoryFragment fragment = new HistoryFragment();
@@ -72,58 +75,77 @@ public class HistoryFragment extends Fragment {
             mRecyclerView.setAdapter(mAdapter);
             mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
-                public void onItemClick(View view, int position)
-                {
+                public void onItemClick(View view, int position) {
                     // Do nothing
                 }
 
                 @Override
-                public void onItemLongClick(View view, final int position)
-                {
-                    CharSequence colors[] = new CharSequence[] {getResources().getString(R.string.dialog_edit), getResources().getString(R.string.dialog_delete)};
+                public void onItemLongClick(final View view, final int position) {
+                    CharSequence colors[] = new CharSequence[]{getResources().getString(R.string.dialog_delete)};
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setItems(colors, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (which == 0){
-                                // EDIT
-                                TextView idTextView = (TextView) mRecyclerView.getChildAt(position).findViewById(R.id.item_history_id);
-                                final int idToEdit = Integer.parseInt(idTextView.getText().toString());
-                            } else {
-                                // DELETE
-                                TextView idTextView = (TextView) mRecyclerView.getChildAt(position).findViewById(R.id.item_history_id);
 
-                                Snackbar.make(((MainActivity)getActivity()).getFabView(), R.string.fragment_history_snackbar_text, Snackbar.LENGTH_LONG).setCallback(new Snackbar.Callback() {
-                                    @Override
-                                    public void onDismissed(Snackbar snackbar, int event) {
-                                        switch (event) {
-                                            case Snackbar.Callback.DISMISS_EVENT_ACTION:
-                                                // Do nothing, see Undo onClickListener
-                                                break;
+                            // DELETE
+                            TextView idTextView = (TextView) view.findViewById(R.id.item_history_id);
+                            final int idToDelete = Integer.parseInt(idTextView.getText().toString());
+                            final CardView item = (CardView) view.findViewById(R.id.item_history);
+                            item.animate().alpha(0.0f).setDuration(2000);
 
-                                        }
+                            Snackbar.make(((MainActivity) getActivity()).getFabView(), R.string.fragment_history_snackbar_text, Snackbar.LENGTH_LONG).setCallback(new Snackbar.Callback() {
+                                @Override
+                                public void onDismissed(Snackbar snackbar, int event) {
+                                    switch (event) {
+                                        case Snackbar.Callback.DISMISS_EVENT_ACTION:
+                                            // Do nothing, see Undo onClickListener
+                                            break;
+                                        case Snackbar.Callback.DISMISS_EVENT_TIMEOUT:
+                                            presenter.onDeleteClicked(idToDelete);
+                                            break;
                                     }
+                                }
 
-                                    @Override
-                                    public void onShown(Snackbar snackbar) {
-                                        // Do nothing
-                                    }
-                                }).setAction("UNDO", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        presenter.onUndoClicked();
-                                    }
-                                }).setActionTextColor(getResources().getColor(R.color.glucosio_accent)).show();
-                            }
+                                @Override
+                                public void onShown(Snackbar snackbar) {
+                                    // Do nothing
+                                }
+                            }).setAction("UNDO", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    item.clearAnimation();
+                                    item.setAlpha(1.0f);
+                                    mAdapter.notifyDataSetChanged();
+                                }
+                            }).setActionTextColor(getResources().getColor(R.color.glucosio_accent)).show();
                         }
+
                     });
                     builder.show();
                 }
             }));
+        mRecyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                mRecyclerView.removeOnLayoutChangeListener(this);
+                updateToolbarBehaviour();
+            }
+        });
 
 
-        return mFragmentView;
+    return mFragmentView;
+    }
+    public void updateToolbarBehaviour(){
+        if (mLayoutManager.findLastCompletelyVisibleItemPosition() == presenter.getReadingsNumber()-1) {
+            isToolbarScrolling = false;
+            ((MainActivity) getActivity()).turnOffToolbarScrolling();
+        } else {
+            if (!isToolbarScrolling){
+                isToolbarScrolling = true;
+                ((MainActivity)getActivity()).turnOnToolbarScrolling();
+            }
+        }
     }
 
     public void notifyAdapter(){
