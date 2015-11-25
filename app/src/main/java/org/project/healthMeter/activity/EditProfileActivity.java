@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -25,14 +26,16 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -71,7 +74,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class EditProfileActivity extends AppCompatActivity implements
         OnEditorActionListener, OnItemClickListener, OnClickListener,
-        android.view.View.OnClickListener{
+        android.view.View.OnClickListener,AdapterView.OnItemSelectedListener{
     private static final String TAG = "upload";
     String response = "";
     Intent intent;
@@ -108,6 +111,15 @@ public class EditProfileActivity extends AppCompatActivity implements
     String email;
     Bitmap bitmap;
     String doctorName="",dPhone="",doctorMailId="";
+
+
+    private Spinner spinner;
+    JSONArray arr; SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    String pEmail;
+    final List<String> list = new ArrayList<String>();
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -156,8 +168,9 @@ public class EditProfileActivity extends AppCompatActivity implements
 
         zipcodeET = (EditText) findViewById(R.id.editZipcode);
         zipcodeET.setText(intent.getStringExtra("zipCode"));
-        Button selectDoctor = (Button) findViewById(R.id.btnSubmit);
+    //    Button selectDoctor = (Button) findViewById(R.id.btnSubmit);
 
+        addItemsOnSpinner2();
 
         // Instantiate Progress Dialog object
         prgDialog = new ProgressDialog(this);
@@ -205,21 +218,133 @@ public class EditProfileActivity extends AppCompatActivity implements
         dPhone=intent.getStringExtra("dPhone");
         doctorMailId=intent.getStringExtra("doctorMailId");
 
-        TextView dNameT = (TextView) findViewById(R.id.d_nameT);
-        dNameT.setText(doctorName);
 
-        TextView dPhoneT = (TextView) findViewById(R.id.d_phoneT);
-        dPhoneT.setText(dPhone);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
 
-        TextView dMail = (TextView) findViewById(R.id.d_mailT);
-        dMail.setText(doctorMailId);
+
+
+
+
+
     }
 
 
-public void spinners(View view){
-    Intent intent=new Intent(this,SpinnerActivity.class);
-    startActivity(intent);
-}
+    public void addItemsOnSpinner2() {
+        list.add("Select one");
+
+        pEmail = email;
+        Log.d("msg", email);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(this, "http://192.168.43.191:8080/webapp/addDoctorToPatientProfile/list", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    if (responseBody != null) {
+                        String responseStr = new String(responseBody);
+                        Log.d("Response", responseStr);
+
+                    }
+                    arr = new JSONArray(new String(responseBody));
+
+
+                    if (arr != null && arr.length() > 0) {
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject d = (JSONObject) arr.get(i);
+                            list.add(d.getString("firstName") + d.getString("lastName") + " -" + d.getString("email"));
+                        }
+                    } else {
+                        list.add("no doctors");
+                    }
+
+                    Log.d("msg", list.get(0));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+        spinner = (Spinner) findViewById(R.id.spinner);
+        // Spinner click listener
+        spinner.setOnItemSelectedListener(this);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+
+
+    }
+
+    void addDoctor(StringEntity entity) {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(this, "http://192.168.43.191:8080/webapp/addDoctorToPatientProfile", entity, "application/json", new AsyncHttpResponseHandler() {
+
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Context context = getApplicationContext();
+                CharSequence text = "Doctor added successfully!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                try {
+                    if (responseBody != null) {
+                        String responseStr = new String(responseBody);
+                        Log.d("Response", responseStr);
+
+                    }
+                    String json = null;
+                    json = new String(responseBody, "UTF8");
+                    JSONObject obj = null;
+                    obj = new JSONObject(json);
+
+
+                    if (!obj.has("doctorName")) {
+                    } else {
+                        doctorName = obj.getString("doctorName");
+
+
+
+                    }
+
+                    if (!obj.has("dPhone")) {
+                    } else {
+                        dPhone = obj.getString("dPhone");
+
+                    }
+
+                    if (!obj.has("doctorMailId")) {
+                        intent.putExtra("doctorMailId", "NA");
+                    } else {
+                        doctorMailId = obj.getString("doctorMailId");
+
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+                @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+
+            }
+        });
+
+    }
+
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -464,7 +589,7 @@ public void spinners(View view){
 
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post(this,"http://10.0.0.12:8080/webapp/login/editProfile", entity,"application/json", new AsyncHttpResponseHandler() {
+        client.post(this,"http://192.168.43.191:8080/webapp/login/editProfile", entity,"application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 // Hide Progress Dialog
@@ -515,6 +640,86 @@ public void spinners(View view){
         });
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+
+        final String emailQ = item.substring(item.indexOf("-") + 1);
+
+        Log.d("emailMe hereeeeeee", emailQ);
+
+        if (arr != null && arr.length() > 0) {
+            for (int i = 0; i < arr.length(); i++) {
+                try {
+                    JSONObject d = (JSONObject) arr.get(i);
+                    if ((d.getString("email")).equals(emailQ)) {
+
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+                        // set title
+                        alertDialogBuilder.setTitle("Doctor " + d.getString("firstName") + " Information");
+
+                        // set dialog message
+                        alertDialogBuilder
+                                .setMessage("Name:" + d.getString("firstName") + d.getString("lastName") + "\nAddress:" + d.getString("streetAddress") + "\n" + d.getString("state") + "\n" + d.getString("city") + "\n" + d.getString("zipCode") + "\nPhone:" + d.getString("phone") + "\nSpecialization:" + d.getString("specialization"))
+                                .setCancelable(false)
+                                .setPositiveButton("Add Doctor", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        JSONObject jsonParams = new JSONObject();
+                                        //       jsonParams.put("UserPicture", img_path);
+                                        try {
+                                            jsonParams.put("doctorEmail", emailQ);
+                                            jsonParams.put("patientEmail", pEmail);
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        StringEntity entity = null;
+                                        try {
+                                            entity = new StringEntity(jsonParams.toString());
+                                        } catch (UnsupportedEncodingException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Log.d("json print", String.valueOf(jsonParams));
+                                        //  entity.setContentType(String.valueOf(new BasicHeader(HTTP.CONTENT_TYPE, "application/json")));
+
+                                        entity.setContentType(String.valueOf(new BasicHeader(HTTP.CONTENT_TYPE, "application/json")));
+                                        addDoctor(entity);
+
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        // create alert dialog
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+
+                        // show it
+                        alertDialog.show();
+
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 
     private class UploadTask extends AsyncTask<Bitmap, Void, Void> {
 
@@ -532,7 +737,7 @@ public void spinners(View view){
             try {
                 Log.d("posting....","postt");
                 HttpPost httppost = new HttpPost(
-                        "http://10.0.0.12:8080/webapp/patientImage/upload"); // server
+                        "http://192.168.43.191:8080/webapp/patientImage/upload"); // server
 
                 MultipartEntity reqEntity = new MultipartEntity();
                 Log.d("m","I hereeeeessss");

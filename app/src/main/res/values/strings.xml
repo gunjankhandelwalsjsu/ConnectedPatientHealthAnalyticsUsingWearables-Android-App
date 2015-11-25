@@ -28,6 +28,8 @@
     <string name="hint_last_name">Last name</string>
     <string name="register_title">Register</string>
     <string name="login_title">Login</string>
+    <string name="Profile_title">Profile</string>
+
     <string name="EditProfile_title">Edit Profile</string>
 
 

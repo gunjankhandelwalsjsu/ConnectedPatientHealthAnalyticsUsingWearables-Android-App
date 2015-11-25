@@ -60,7 +60,7 @@ public class SpinnerActivity extends AppCompatActivity implements AdapterView.On
 
         pEmail = sharedpreferences.getString("email", "NA");
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(this, "http://10.0.0.12:8080/webapp/addDoctorToPatientProfile/list", new AsyncHttpResponseHandler() {
+        client.get(this, "http://10.250.171.27:8080/webapp/addDoctorToPatientProfile/list", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
@@ -188,7 +188,7 @@ public class SpinnerActivity extends AppCompatActivity implements AdapterView.On
     void addDoctor(StringEntity entity) {
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post(this, "http://10.0.0.12:8080/webapp/addDoctorToPatientProfile", entity, "application/json", new AsyncHttpResponseHandler() {
+        client.post(this, "http://10.250.171.27:8080/webapp/addDoctorToPatientProfile", entity, "application/json", new AsyncHttpResponseHandler() {
 
 
             @Override

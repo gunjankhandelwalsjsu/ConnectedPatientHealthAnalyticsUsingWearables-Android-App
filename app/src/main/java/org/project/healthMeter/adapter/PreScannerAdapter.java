@@ -80,9 +80,7 @@ public class PreScannerAdapter  extends RecyclerView.Adapter<PreScannerAdapter.V
         Collections.addAll(presenter.getId());
 
 
-        // if (db.getUser(1).getUnitMeasurement == mmolL){
-        //    readingTextView.setText(convert.toMmolL(reading.get(position)) + "mmol/l");
-        //}
+
 
         idTextView.setText(presenter.getId().get(position).toString());
         ProductNameTextView.setText(presenter.getReading().get(position).getFoodName().toString());
@@ -99,30 +97,7 @@ public class PreScannerAdapter  extends RecyclerView.Adapter<PreScannerAdapter.V
         //   typeTextView.setText(typeToString(presenter.getType().get(position)));
     }
 
-    public String typeToString(int typeInt){
-        //TODO refactor this ugly mess
-        String typeString = "";
-        if (typeInt == 0) {
-            typeString = mContext.getString(R.string.dialog_add_type_1);
-        } else if (typeInt == 1) {
-            typeString = mContext.getString(R.string.dialog_add_type_2);
-        } else if (typeInt == 2) {
-            typeString = mContext.getString(R.string.dialog_add_type_3);
-        } else if (typeInt == 3) {
-            typeString = mContext.getString(R.string.dialog_add_type_4);
-        } else if (typeInt == 4) {
-            typeString = mContext.getString(R.string.dialog_add_type_5);
-        } else if (typeInt == 5) {
-            typeString = mContext.getString(R.string.dialog_add_type_6);
-        } else if (typeInt == 6) {
-            typeString = mContext.getString(R.string.dialog_add_type_7);
-        } else if (typeInt == 7) {
-            typeString = mContext.getString(R.string.dialog_add_type_8);
-        } else if (typeInt == 8) {
-            typeString = mContext.getString(R.string.dialog_add_type_9);
-        }
-        return typeString;
-    }
+
 /*
     private void loadDatabase(){
         // Get database from MainActivity

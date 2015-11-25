@@ -372,7 +372,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
         ScannerPresenter presentert;
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://10.0.0.12:8080/webapp/food/" + email + "/" + barcode, new AsyncHttpResponseHandler() {
+        client.get("http://192.168.43.191:8080/webapp/food/" + email + "/" + barcode, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -442,6 +442,10 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
 
                     }
+                    else
+                        callAllergyDialog(Allergyresult,nutFinal);
+
+
 
 
 

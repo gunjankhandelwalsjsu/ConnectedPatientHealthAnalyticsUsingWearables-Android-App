@@ -409,30 +409,15 @@
                 android:id="@+id/btnSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select your doc..."
-                android:onClick="spinners"/>
+                android:text="Select your doctor"
+                />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
-            <TextView
-                android:id="@+id/d_nameT"
-                android:layout_width="fill_parent"
-                android:layout_height="38dp"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/d_phoneT"
-                android:layout_width="fill_parent"
-                android:layout_height="38dp"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/d_mailT"
-                android:layout_width="fill_parent"
-                android:layout_height="38dp"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
             <Button

@@ -71,7 +71,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         setProgressBarIndeterminate(true);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Profile");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         fnameText = (TextView) findViewById(R.id.fnameT);
@@ -110,7 +109,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://10.0.0.12:8080/webapp/login/profile/" + email, new AsyncHttpResponseHandler() {
+        client.get("http://192.168.43.191:8080/webapp/login/profile/" + email, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
@@ -398,7 +397,7 @@ public class ProfileActivity extends AppCompatActivity {
         @Override
         protected Bitmap doInBackground(Void... params) {
 
-            String url = "http://10.0.0.12:8080/webapp/patientImage/download/" + email;
+            String url = "http://192.168.43.191:8080/webapp/patientImage/download/" + email;
             try {
                 URLConnection connection = new URL(url).openConnection();
                 connection.setConnectTimeout(1000 * 30);
