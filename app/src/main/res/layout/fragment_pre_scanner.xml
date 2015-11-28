@@ -23,12 +23,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/scanBarcode"
-        android:onClick="clickTakePhoto"
+        android:onClick="clickGetProduct"
         android:layout_alignStart="@+id/value_read"
-        android:layout_gravity="center_horizontal|bottom"
+        android:layout_gravity="left|bottom"
         android:layout_margin="16dp"
         app:backgroundTint="@color/glucosio_accent"
         android:src="@drawable/images"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/productButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/scanBarcode"
+        android:onClick="clickTakePhoto"
+        android:layout_alignStart="@+id/value_read"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="16dp"
+        app:backgroundTint="@color/glucosio_accent"
+        android:src="@drawable/text"/>
 </FrameLayout>
 
 

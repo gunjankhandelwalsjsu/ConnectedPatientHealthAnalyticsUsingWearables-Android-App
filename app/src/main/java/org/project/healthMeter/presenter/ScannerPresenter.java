@@ -2,7 +2,7 @@ package org.project.healthMeter.presenter;
 
 import android.util.Log;
 
-import org.project.healthMeter.activity.ViewForScannerActivity;
+import org.project.healthMeter.activity.GetProductName;
 import org.project.healthMeter.db.DatabaseNewHandler;
 import org.project.healthMeter.db.FoodReading;
 import org.project.healthMeter.db.User;
@@ -32,8 +32,8 @@ public class ScannerPresenter {
     String foodUnsafe;
     String sugar;
 
-    public ScannerPresenter(ViewForScannerActivity scannertActivity) {
-        dB = new DatabaseNewHandler(scannertActivity);
+    public ScannerPresenter(GetProductName prodName) {
+        dB = new DatabaseNewHandler(prodName);
     }
 
     public ScannerPresenter(ScannerFragment scannerFragment) {

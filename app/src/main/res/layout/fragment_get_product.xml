@@ -1,0 +1,65 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="org.project.healthMeter.fragment.GetProductFragment">
+
+    <TextView android:layout_width="match_parent" android:layout_height="470dp"
+        android:text="@string/hello_blank_fragment" />
+
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dip"
+        android:weightSum="1">
+
+    <!-- View Title Label -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:text=""
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:id="@+id/textView" />
+
+
+
+    <EditText
+        android:id="@+id/note"
+        android:layout_width="fill_parent"
+        android:layout_height="38dp"
+        android:text="Enter the food"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/preScannerbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/scanBarcode"
+            android:onClick="SearchButton"
+            android:layout_gravity="right|bottom"
+            app:backgroundTint="@color/glucosio_accent"
+            android:src="@drawable/text"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignBottom="@+id/note"
+            android:layout_alignEnd="@+id/textView" />
+    <!-- FirstName Label -->
+    </RelativeLayout>
+
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="456dp"
+        android:id="@+id/listView"
+        android:layout_gravity="center_horizontal|bottom" />
+
+</FrameLayout>

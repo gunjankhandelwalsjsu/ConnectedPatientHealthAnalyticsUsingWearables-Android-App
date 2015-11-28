@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:background="#268496">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/linearLayout">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:text=""
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:id="@+id/textView" />
+
+
+    <!-- FirstName Label -->
+
+    <EditText
+        android:id="@+id/food"
+        android:layout_width="276dp"
+        android:layout_height="38dp"
+        android:hint="Enter the food"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_gravity="left|top" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/SearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|right|top"
+        app:backgroundTint="@color/glucosio_accent"
+        android:src="@drawable/text"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_alignBottom="@+id/note"
+        android:foregroundGravity="center_horizontal" />
+</LinearLayout>
+
+    <ListView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/listView"
+    android:layout_gravity="center_horizontal|bottom"
+        android:visibility="visible"
+        android:layout_below="@+id/linearLayout" />
+</RelativeLayout>
+
+

@@ -307,7 +307,7 @@ public void loginUser() throws JSONException, UnsupportedEncodingException {
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.post(this,"http://192.168.43.191:8080/webapp/login", entity,"application/json", new AsyncHttpResponseHandler() {
+        client.post(this,"http://10.0.0.18:8080/webapp/login", entity,"application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 prgDialog.hide();

@@ -61,7 +61,6 @@ public class ViewForScannerActivity extends ActionBarActivity {
 
         fetch_foodData();
 
-        presenter =new ScannerPresenter(this);
 
         //   etResponse.setText(barcode);
 
@@ -124,7 +123,7 @@ public class ViewForScannerActivity extends ActionBarActivity {
 
                 /***************************************************************************************/
 
-                        productNameText.setText("Brand : " + brand + "  Product Name: " + productName);
+                        productNameText.setText("Brand : " + brand + "  ProductFood Name: " + productName);
 //////////////////////////////////////////////////////////////////////////////////
                     if (((pAllergylist != null) && pAllergylist.length() != 0)) {
                         patientAllergyText.setText("allergy" + all.toString());

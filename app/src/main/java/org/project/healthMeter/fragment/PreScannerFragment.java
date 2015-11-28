@@ -1,6 +1,7 @@
 package org.project.healthMeter.fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import org.project.healthMeter.FirstPageFragmentListener;
 import org.project.healthMeter.R;
+import org.project.healthMeter.activity.GetProductName;
 import org.project.healthMeter.activity.MainActivity;
 import org.project.healthMeter.adapter.PreScannerAdapter;
 import org.project.healthMeter.db.DatabaseNewHandler;
@@ -40,7 +42,7 @@ public class PreScannerFragment extends Fragment implements View.OnClickListener
     FoodReading readingToRestore;
     FloatingActionButton scanButton;
     private Boolean isToolbarScrolling = true;
-    FloatingActionButton preScannerbutton;
+    FloatingActionButton preScannerbutton,productButton;
 
 
 
@@ -60,9 +62,24 @@ public class PreScannerFragment extends Fragment implements View.OnClickListener
         if (!presenter.isdbEmpty()) {
             mFragmentView = inflater.inflate(R.layout.fragment_pre_scanner, container, false);
             preScannerbutton = (FloatingActionButton) mFragmentView.findViewById(R.id.preScannerbutton);
-
-
             preScannerbutton.setOnClickListener(this);
+            productButton = (FloatingActionButton) mFragmentView.findViewById(R.id.productButton);
+            productButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent i=new Intent(getContext(), GetProductName.class);
+                    startActivity(i);
+                 /*   FragmentTransaction trans = getFragmentManager().beginTransaction();
+                    GetProductFragment f = GetProductFragment.newInstance();
+                    trans.replace(R.id.first_fragment_root_id, f);
+                    trans.addToBackStack(null);
+                    trans.commit();*/
+                }
+
+
+            });
+
 
             mRecyclerView = (RecyclerView) mFragmentView.findViewById(R.id.fragment_preScanner_recycler_view);
             mAdapter = new PreScannerAdapter(super.getActivity().getApplicationContext(), presenter);
@@ -153,6 +170,21 @@ public class PreScannerFragment extends Fragment implements View.OnClickListener
                 }
 
             });
+            productButton = (FloatingActionButton) mFragmentView.findViewById(R.id.productButton);
+            productButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent i=new Intent(getContext(), GetProductName.class);
+                    startActivity(i);
+
+                }
+
+
+            });
+
+
+
         }
 
 
@@ -170,6 +202,15 @@ public class PreScannerFragment extends Fragment implements View.OnClickListener
         trans.commit();
 
         }
+
+    public void clickGetProduct(View view){
+        FragmentTransaction trans = getFragmentManager().beginTransaction();
+        GetProductFragment f=GetProductFragment.newInstance();
+        trans.replace(R.id.first_fragment_root_id, f);
+        trans.addToBackStack(null);
+        trans.commit();
+
+    }
 
     public void notifyAdapter(){
         mAdapter.notifyDataSetChanged();

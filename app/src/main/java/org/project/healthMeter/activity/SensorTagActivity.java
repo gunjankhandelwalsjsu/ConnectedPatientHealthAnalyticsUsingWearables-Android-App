@@ -631,7 +631,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
         String email = sharedpreferences.getString("email", "NA");
 
-        client.get("http://192.168.43.191:8080/webapp/temperatureAnalytics/" + email+"/"+reading, new AsyncHttpResponseHandler() {
+        client.get("http://10.0.0.18:8080/webapp/temperatureAnalytics/" + email+"/"+reading, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (responseBody != null) {

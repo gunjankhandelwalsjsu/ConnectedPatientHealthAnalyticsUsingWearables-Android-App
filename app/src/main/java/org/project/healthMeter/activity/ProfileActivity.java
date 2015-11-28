@@ -109,7 +109,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://192.168.43.191:8080/webapp/login/profile/" + email, new AsyncHttpResponseHandler() {
+        client.get("http://10.0.0.18:8080/webapp/login/profile/" + email, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
