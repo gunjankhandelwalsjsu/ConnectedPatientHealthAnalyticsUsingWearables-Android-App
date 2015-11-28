@@ -203,14 +203,7 @@ public class PreScannerFragment extends Fragment implements View.OnClickListener
 
         }
 
-    public void clickGetProduct(View view){
-        FragmentTransaction trans = getFragmentManager().beginTransaction();
-        GetProductFragment f=GetProductFragment.newInstance();
-        trans.replace(R.id.first_fragment_root_id, f);
-        trans.addToBackStack(null);
-        trans.commit();
 
-    }
 
     public void notifyAdapter(){
         mAdapter.notifyDataSetChanged();

@@ -184,7 +184,7 @@ public class EditProfileActivity extends AppCompatActivity implements
         if(bitmap!=null){
             ImageView profile_pic_view = (ImageView) findViewById(R.id.profile_pic);
             profile_pic_view.setImageBitmap(bitmap);
-            if (gender.equals("F")) {
+            if (gender.equals("Female")) {
                 RadioButton r = (RadioButton) findViewById(R.id.female);
                 r.setChecked(true);
             } else {
@@ -194,7 +194,7 @@ public class EditProfileActivity extends AppCompatActivity implements
         }
         else {
             profile_pic_view = (ImageView) findViewById(R.id.profile_pic);
-            if (gender.equals("F")) {
+            if (gender.equals("Female")) {
                 RadioButton r = (RadioButton) findViewById(R.id.female);
                 profile_pic_view.setImageResource(R.drawable.female);
                 r.setChecked(true);
@@ -317,6 +317,7 @@ public class EditProfileActivity extends AppCompatActivity implements
                     }
 
                     if (!obj.has("dPhone")) {
+                        Log.d("dPhone","mis");
                     } else {
                         dPhone = obj.getString("dPhone");
 
@@ -486,9 +487,9 @@ public class EditProfileActivity extends AppCompatActivity implements
         String ch_gender;
         RadioButton gender = (RadioButton) findViewById(R.id.female);
         if(gender.isChecked())
-            ch_gender = "F";
+            ch_gender = "Female";
         else
-            ch_gender = "M";
+            ch_gender = "Male";
 
         DatePicker bdate = (DatePicker) findViewById(R.id.bdate);
         String str_bdate = bdate.getYear()+"/"+bdate.getDayOfMonth()+"/"+(bdate.getMonth()+1);
@@ -564,6 +565,7 @@ public class EditProfileActivity extends AppCompatActivity implements
         jsonParams.put("doctorMailId",doctorMailId);
         jsonParams.put("doctorName",doctorName);
         jsonParams.put("dPhone",dPhone);
+        Log.d("value of dPhoneee",dPhone);
         //          jsonParams.put("UserGender", ch_gender);
         //         jsonParams.put("UserBirthDate", str_bdate);
         //   jsonParams.put("notes", "Test api support");
@@ -589,7 +591,7 @@ public class EditProfileActivity extends AppCompatActivity implements
 
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post(this,"http://192.168.43.191:8080/webapp/login/editProfile", entity,"application/json", new AsyncHttpResponseHandler() {
+        client.post(this,"http://10.0.0.18:8080/webapp/login/editProfile", entity,"application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 // Hide Progress Dialog

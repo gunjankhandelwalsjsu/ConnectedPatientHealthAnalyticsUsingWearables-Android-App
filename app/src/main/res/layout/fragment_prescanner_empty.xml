@@ -24,33 +24,36 @@
                 android:text="@string/fragment_empty_text"
                 android:textSize="16sp" />
 
-            </RelativeLayout>
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/productButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/scanBarcode"
+            android:onClick="clickTakePhoto"
+            android:layout_gravity="left|bottom"
+            app:backgroundTint="@color/glucosio_accent"
+            android:src="@drawable/text"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="20dp"
+            android:layout_alignParentStart="true" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/preScanbutton"
-            android:layout_width="77dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/scanBarcode"
             android:onClick="onClicked"
             android:layout_gravity="bottom|right"
             app:backgroundTint="@color/glucosio_accent"
             android:src="@drawable/images"
             android:paddingBottom="20dp"
-            android:layout_marginBottom="60dp" />
+            android:layout_alignTop="@+id/productButton"
+            android:layout_alignParentEnd="true" />
 
+    </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/productButton"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/scanBarcode"
-        android:onClick="clickTakePhoto"
-        android:layout_alignStart="@+id/value_read"
-        android:layout_gravity="right|bottom"
-        android:layout_margin="16dp"
-        app:backgroundTint="@color/glucosio_accent"
-        android:src="@drawable/text"/>
 
 </FrameLayout>
 

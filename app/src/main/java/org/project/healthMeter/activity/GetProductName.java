@@ -69,17 +69,9 @@ public class GetProductName extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         email = sharedpreferences.getString("email", "NA");
-        FloatingActionButton button = (FloatingActionButton)findViewById(R.id.SearchButton);
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-        );
-
-
         presenter=new ScannerPresenter(this);
 
-
-        Log.d("foodString", foodString);
-
+        FloatingActionButton button = (FloatingActionButton)findViewById(R.id.SearchActButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DownloadWebPageTask task = new DownloadWebPageTask();
@@ -282,6 +274,8 @@ Log.d("re","here");
                             dis.add(pDiseaselist.get(i).toString());
                         }
                     }
+                    if(sugarConsumed.equals("null"))
+                        sugarConsumed=" Not available.";
                     presenter.addValueTodb(productName, all.toString(), dis.toString(), Allergyresult, sugarConsumed);
 
                 } catch (JSONException e) {

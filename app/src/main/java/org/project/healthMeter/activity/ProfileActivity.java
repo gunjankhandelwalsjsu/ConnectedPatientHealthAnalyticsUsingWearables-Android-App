@@ -25,7 +25,6 @@ import org.json.JSONObject;
 import org.project.healthMeter.R;
 
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -49,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
     String state = "";
     String zipcode = "";
     String birthDate = "";
-    String gender = "M";
+    String gender = "Male";
 
 
     String d_name;
@@ -112,15 +111,15 @@ public class ProfileActivity extends AppCompatActivity {
         client.get("http://10.0.0.18:8080/webapp/login/profile/" + email, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String responseStr="";
                 try {
                     if (responseBody != null) {
-                        String responseStr = new String(responseBody);
+                         responseStr = new String(responseBody);
                         Log.d("Response", responseStr);
 
                     }
-                    String json = new String(responseBody, "UTF8");
 
-                    JSONObject obj = new JSONObject(json);
+                    JSONObject obj = new JSONObject(responseStr);
                     intent.putExtra("id", obj.getString("id"));
                     if (!obj.has("firstName")) {
                         welcomeText.setText("NA");
@@ -150,33 +149,33 @@ public class ProfileActivity extends AppCompatActivity {
                     if (profile_pic_view == null) {
                         if (!obj.has("gender")) {
                             genderText.setText("Gender: Male");
-                            intent.putExtra("gender", "M");
+                            intent.putExtra("gender", "Male");
                         } else {
                             gender = obj.getString("gender");
                             if (gender.equals("F")) {
                                 genderText.setText("Gender: Female");
                                 profile_pic_view.setImageResource(R.drawable.female);
-                                intent.putExtra("gender", "F");
+                                intent.putExtra("gender", "Female");
 
                             } else {
                                 genderText.setText("Gender: Male");
                                 profile_pic_view.setImageResource(R.drawable.male);
-                                intent.putExtra("gender", "M");
+                                intent.putExtra("gender", "Male");
 
                             }
                         }
                     } else if (!obj.has("gender")) {
                         genderText.setText("Gender: Male");
-                        intent.putExtra("gender", "M");
+                        intent.putExtra("gender", "Male");
                     } else {
                         gender = obj.getString("gender");
                         if (gender.equals("F")) {
                             genderText.setText("Gender: Female");
-                            intent.putExtra("gender", "F");
+                            intent.putExtra("gender", "Female");
 
                         } else {
                             genderText.setText("Gender: Male");
-                            intent.putExtra("gender", "M");
+                            intent.putExtra("gender", "Male");
 
                         }
                     }
@@ -348,8 +347,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                 } catch (JSONException e1) {
                     e1.printStackTrace();
-                } catch (UnsupportedEncodingException e1) {
-                    e1.printStackTrace();
                 }
 
             }
@@ -397,7 +394,7 @@ public class ProfileActivity extends AppCompatActivity {
         @Override
         protected Bitmap doInBackground(Void... params) {
 
-            String url = "http://192.168.43.191:8080/webapp/patientImage/download/" + email;
+            String url = "http://10.0.0.18:8080/webapp/patientImage/download/" + email;
             try {
                 URLConnection connection = new URL(url).openConnection();
                 connection.setConnectTimeout(1000 * 30);

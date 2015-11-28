@@ -58,16 +58,16 @@ public class PreScannerAdapter  extends RecyclerView.Adapter<PreScannerAdapter.V
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         TextView ProductNameTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_ProductName);
-        TextView ExistingAllergyTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingAllergy);
+       // TextView ExistingAllergyTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingAllergy);
         TextView AllergyResultTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_AllergyResult);
-        TextView ExistingDiseaseTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingDisease);
+      //  TextView ExistingDiseaseTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingDisease);
         TextView sugarsConsumedTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_sugarsConsumed);
         TextView datetimeTextView = (TextView) holder.mView.findViewById(R.id.item_preScanner_time);
 
         TextView ProductNameTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_ProductName_title);
-        TextView ExistingAllergyTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingAllergy_title);
+     //   TextView ExistingAllergyTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingAllergy_title);
         TextView AllergyResultTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_AllergyResult_title);
-        TextView ExistingDiseaseTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingDisease_title);
+     //   TextView ExistingDiseaseTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_ExistingDisease_title);
         TextView sugarsConsumedTextViewTitle = (TextView) holder.mView.findViewById(R.id.item_preScanner_sugarsConsumed_title);
         Collections.addAll(presenter.getDatetime());
 
@@ -84,9 +84,9 @@ public class PreScannerAdapter  extends RecyclerView.Adapter<PreScannerAdapter.V
 
         idTextView.setText(presenter.getId().get(position).toString());
         ProductNameTextView.setText(presenter.getReading().get(position).getFoodName().toString());
-        ExistingAllergyTextView.setText(presenter.getReading().get(position).getExistingAllergy().toString());
+      //  ExistingAllergyTextView.setText(presenter.getReading().get(position).getExistingAllergy().toString());
         AllergyResultTextView.setText(presenter.getReading().get(position).getAllergyResult().toString());
-        ExistingDiseaseTextView.setText(presenter.getReading().get(position).getExistingDisease().toString());
+     //   ExistingDiseaseTextView.setText(presenter.getReading().get(position).getExistingDisease().toString());
         sugarsConsumedTextView.setText(presenter.getReading().get(position).getSugarsConsumed().toString());
         ArrayList<String> time=presenter.getDatetime();
         Log.d("positionString", String.valueOf(position));

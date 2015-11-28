@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,21 +74,7 @@
                 </TableRow>
 
 
-                <TableRow >
-                    <TextView
-                        android:id="@+id/item_preScanner_ExistingAllergy_title"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Allergy"
-                        android:textColor="@color/glucosio_text_green"/>
-                <TextView
-                    android:id="@+id/item_preScanner_ExistingAllergy"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Allergy Name"
-                    android:textColor="@color/glucosio_text_green"/>
 
-                </TableRow>
 
                 <TableRow  android:layout_height="1px" android:background="#F8BBD0">
 
@@ -118,21 +104,7 @@
             </TableRow>
 
 
-                <TableRow>
-                    <TextView
-                        android:id="@+id/item_preScanner_ExistingDisease_title"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Disease"
-                        android:textColor="@color/glucosio_text_green"/>
-                <TextView
-                    android:id="@+id/item_preScanner_ExistingDisease"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Disease"
-                    android:textColor="@color/glucosio_text_green"/>
 
-                </TableRow >
                 <TableRow  android:layout_height="1px" android:background="#F8BBD0">
                     <TextView
                         android:id="@+id/item_preScanner_sugarsConsumed_title"

@@ -124,7 +124,9 @@ dispatching on non-Google Play devices
             android:theme="@style/GlucosioSettings" >
         </activity>
         <activity android:name=".activity.GetProductName"
-            android:theme="@style/GlucosioSettings" >
+            android:theme="@style/GlucosioSettings"
+            android:parentActivityName=".activity.MainActivity"
+            >
 
         </activity>
     </application>

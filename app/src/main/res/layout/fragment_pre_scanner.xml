@@ -6,6 +6,7 @@
     tools:context="org.project.healthMeter.fragment.PreScannerFragment"
     android:id="@+id/first_fragment_root_id">
 
+
     <android.support.v7.widget.RecyclerView
 
         android:orientation="vertical"
@@ -17,6 +18,14 @@
         android:focusable="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="10dp"
+    android:layout_below="@+id/fragment_preScanner_recycler_view">
+
+</LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/preScannerbutton"
@@ -32,8 +41,8 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/productButton"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="53dp"
+        android:layout_height="47dp"
         android:text="@string/scanBarcode"
         android:onClick="clickTakePhoto"
         android:layout_alignStart="@+id/value_read"
@@ -41,6 +50,7 @@
         android:layout_margin="16dp"
         app:backgroundTint="@color/glucosio_accent"
         android:src="@drawable/text"/>
+
 </FrameLayout>
 
 
