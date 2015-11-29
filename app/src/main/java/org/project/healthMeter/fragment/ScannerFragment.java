@@ -324,15 +324,22 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
     }
 
-    public String callAllergyDialog(String Allergyresult, final String nutriments) {
+    public void callAllergyDialog(String Allergyresult, final String nutriments) {
 
         final String[] sugarConsumed = {" "};
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 getActivity());
         Log.d("allergyyyyyy", Allergyresult);
+        /**************When Scan is improper**************/
+        if(Allergyresult.equals("null")) {
+            Toast.makeText(this.getContext(), "Please scan again", Toast.LENGTH_LONG);
+            getFragmentManager().popBackStack();
+        }
 
+        /************AllergyResult could not be computed and ingredients not available but nutritiion is available******************/
         if (Allergyresult.equals("No information available")) {
+
 
             alertDialogBuilder.setTitle("Ingredient information is missing");
 
@@ -350,10 +357,11 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                                     nut[i] = nut[i].replace("\"", " ");
                                     nut[i] = nut[i].replace("{", " ");
                                     nut[i] = nut[i].replace("}", " ");
-                                    if (nut[i].equals("sugars"))
+                                    if (nut[i].equals("sugars")) {
                                         sugarConsumed[0] = nut[i];
-                                    //  builder.append(nut[i]+"\n");
-                                    Log.d(String.valueOf(i), nut[i]);
+                                        //  builder.append(nut[i]+"\n");
+                                        Log.d("r u nuts", nut[i]);
+                                    }
                                 }
 
                                 StringBuilder builder = new StringBuilder();
@@ -373,7 +381,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                                 getFragmentManager().popBackStack();
                             }
                         });
-            } else {
+            } else {/**********Nutrition not available, allergy result and ingredients too nA****/
                 alertDialogBuilder
                         .setMessage("Nutrition Information is not available")
                         .setCancelable(false)
@@ -387,12 +395,12 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                         });
             }
 
-        } else  // set title
+        } else  /*************************if Allergy result is available i.e ingredients are there/***********/
         {
             alertDialogBuilder.setTitle("Allergy Information");
-
+/*******************Nutrition is available**************/
             // set dialog message
-            if (!nutriments.equals("No information available")) {
+            if (!nutriments.equals("No information available")&&nutriments.length()>3) {
 
                 alertDialogBuilder
                         .setMessage(Allergyresult + "! Do you want to get Nutrition Information")
@@ -409,10 +417,11 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                                     nut[i] = nut[i].replace("\"", " ");
                                     nut[i] = nut[i].replace("{", " ");
                                     nut[i] = nut[i].replace("}", " ");
-                                    if (nut[i].equals("sugars"))
+                                    if (nut[i].contains("sugars\"")) {
                                         sugarConsumed[0] = nut[i];
-                                    //  builder.append(nut[i]+"\n");
-                                    Log.d(String.valueOf(i), nut[i]);
+                                        //  builder.append(nut[i]+"\n");
+                                        Log.d("r u nuts", nut[i]);
+                                    }
                                 }
                                 for (String s : nut) {
                                     StringBuilder builder = new StringBuilder();
@@ -432,7 +441,8 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                                 getFragmentManager().popBackStack();
                             }
                         });
-            } else {
+            } else {/*******************Nutrition is not available**************/
+
                 alertDialogBuilder
                         .setMessage(Allergyresult)
                         .setCancelable(false)
@@ -454,7 +464,6 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
         alertDialog.show();
 
 
-        return sugarConsumed[0];
     }
 
 
@@ -479,16 +488,16 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                     String productName = obj.getString("productName");
                     String sugarConsumed = " ";
 
-                    if (productName.equals("ProductFood not found")) {
+                    if (productName.equals("Product not found")) {
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                                 getActivity());
 
                         // set title
-                        alertDialogBuilder.setTitle("ProductFood Not Found ");
+                        alertDialogBuilder.setTitle("Product Not Found ");
 
                         // set dialog message
                         alertDialogBuilder
-                                .setMessage("ProductFood not found in database")
+                                .setMessage("ProductFood not found in database.")
                                 .setCancelable(false)
                                 .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
@@ -506,8 +515,33 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
                     }
 
-
+                    List<String> nuts=new ArrayList<String>();
                     final String nutriments = obj.getString("nutriments");
+                    if(!nutriments.equals("No information available")) {
+                        if (nutriments.length() > 4) {
+                            String[] nut = nutriments.toString().split(",");
+
+                            for (int i = 0; i < nuts.size(); i++) {
+
+                                if (nuts.get(i).contains("sugars\"")) {
+                                    sugarConsumed = nuts.get(i);
+                                    Log.d("r u nuts", nut[i]);
+                                    break;
+                                }
+                            }
+                            for (String s : nut) {
+                                StringBuilder builder = new StringBuilder();
+
+                                builder.append(s);
+                            }
+                        }else{
+                              sugarConsumed=" "+nutriments+"g";
+                        }
+                    }
+
+
+                    else
+                    sugarConsumed=" No information available";
 
 
                     /**************************************************************************************/
@@ -548,7 +582,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
 
                     } else {
-                        sugarConsumed = callAllergyDialog(Allergyresult, nutriments);
+                         callAllergyDialog(Allergyresult, nutriments);
                     }
 
                     JSONArray pAllergylist;
@@ -562,21 +596,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                             all.add(pAllergylist.get(i).toString());
                         }
                     }
-                    /******************************************************************************/
 
-
-                    /***************************************************************************************/
-
-//////////////////////////////////////////////////////////////////////////////////
-
-
-                    //     foodDiseaseInfoText.setText("Disease info: " + "need to fetch");
-                    //////////////////////////////////////////////////////////////////////////////////
-
-                  /*  if (!obj.has("nutriments"))
-                        nutritionInfoText.setText("Nutrition info: " + "NA");
-                    else
-                        nutritionInfoText.setText("Nutrition info: " + builder.toString());*/
 
 //////////////////////////////////////////////////////////////////////////////////
                     JSONArray pDiseaselist;
@@ -590,6 +610,13 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                             dis.add(pDiseaselist.get(i).toString());
                         }
                     }
+                    Log.d("sugarbeen",sugarConsumed);
+                    if(sugarConsumed.contains(":")||sugarConsumed.contains("\"")) {
+                        String[] sug = sugarConsumed.split(":");
+                        sugarConsumed = sug[1].replace("\"", " ") + "g";
+                    }
+                    Log.d("sugarbeen",sugarConsumed);
+
                     presenter.addValueTodb(productName, all.toString(), dis.toString(), Allergyresult, sugarConsumed);
 
                 } catch (JSONException e) {

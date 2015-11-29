@@ -53,7 +53,7 @@
                 android:stretchColumns="1"
                 android:gravity="left"
                 android:padding="16dp">
-                <TableRow  android:layout_height="1px" android:background="#F8BBD0">
+                <TableRow  android:layout_height="1px" >
                     <TextView
                         android:id="@+id/item_preScanner_ProductName_title"
                         android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
 
 
 
-                <TableRow  android:layout_height="1px" android:background="#F8BBD0">
+                <TableRow  android:layout_height="1px" >
 
 
                     <TextView
@@ -105,7 +105,7 @@
 
 
 
-                <TableRow  android:layout_height="1px" android:background="#F8BBD0">
+                <TableRow  android:layout_height="1px" >
                     <TextView
                         android:id="@+id/item_preScanner_sugarsConsumed_title"
                         android:layout_height="wrap_content"

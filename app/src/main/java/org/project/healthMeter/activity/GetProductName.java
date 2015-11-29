@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -105,7 +104,7 @@ public class GetProductName extends AppCompatActivity {
                             jsonParams.put("brand_name", products.get(position).getBrand_name());
                             jsonParams.put("nf_calories", products.get(position).getNf_calories());
                             jsonParams.put("nf_ingredient_statement", products.get(position).getNf_ingredient_statement());
-                            sugarConsumed = products.get(position).getNf_ingredient_statement();
+                            sugarConsumed = " "+products.get(position).getNf_sugars()+"g";
                             jsonParams.put("nf_sugars", products.get(position).getNf_sugars());
 
 
@@ -123,11 +122,7 @@ public class GetProductName extends AppCompatActivity {
 
                         entity.setContentType(String.valueOf(new BasicHeader(HTTP.CONTENT_TYPE, "application/json")));
 
-
-                        sendFoodData(entity);
-                        getWindow().setSoftInputMode(
-                                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                        );
+                        sendFoodData(entity,getApplicationContext());
                         Log.d("item", item);
                     }
 
@@ -142,7 +137,7 @@ public class GetProductName extends AppCompatActivity {
 
 
 
-    public void sendFoodData(StringEntity entity) {
+    public void sendFoodData(StringEntity entity, final Context context) {
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.post(this, "http://10.0.0.18:8080/webapp/nutritionixApi/" + email, entity, "application/json", new AsyncHttpResponseHandler() {
@@ -161,19 +156,19 @@ public class GetProductName extends AppCompatActivity {
 
                     JSONObject obj = new JSONObject(responseStr);
 
-Log.d("re","here");
+                    Log.d("re","here");
                     String productName = obj.getString("productName");
 
-                    if (productName.equals("ProductFood not found")) {
+                    if (productName.equals("Product not found")) {
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                                getApplication());
+                                GetProductName.this);
 
                         // set title
-                        alertDialogBuilder.setTitle("ProductFood Not Found ");
+                        alertDialogBuilder.setTitle("Product Not Found ");
 
                         // set dialog message
                         alertDialogBuilder
-                                .setMessage("ProductFood not found in database")
+                                .setMessage("Product not found in database")
                                 .setCancelable(false)
                                 .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
@@ -201,7 +196,7 @@ Log.d("re","here");
 
 
                     if (sugarResult.contains("Exceeded the daily intake")) {
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplication());
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(GetProductName.this);
 
                         // set title
                         alertDialogBuilder.setTitle("Sugar Alert");
@@ -293,7 +288,7 @@ Log.d("re","here");
     public void callAllergyDialog(String Allergyresult, final String nutriments) {
 
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(GetProductName.this);
         Log.d("allergyyyyyy", Allergyresult);
 
         if (Allergyresult.equals("No information available")) {

@@ -28,7 +28,6 @@
             android:id="@+id/productButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/scanBarcode"
             android:onClick="clickTakePhoto"
             android:layout_gravity="left|bottom"
             app:backgroundTint="@color/glucosio_accent"
