@@ -108,7 +108,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://10.0.0.18:8080/webapp/login/profile/" + email, new AsyncHttpResponseHandler() {
+        client.get("http://52.6.111.205:8080/webapp-master/profile/" + email, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String responseStr="";
@@ -394,7 +394,7 @@ public class ProfileActivity extends AppCompatActivity {
         @Override
         protected Bitmap doInBackground(Void... params) {
 
-            String url = "http://10.0.0.18:8080/webapp/patientImage/download/" + email;
+            String url = "http://52.6.111.205:8080/webapp-master/patientImage/download/" + email;
             try {
                 URLConnection connection = new URL(url).openConnection();
                 connection.setConnectTimeout(1000 * 30);

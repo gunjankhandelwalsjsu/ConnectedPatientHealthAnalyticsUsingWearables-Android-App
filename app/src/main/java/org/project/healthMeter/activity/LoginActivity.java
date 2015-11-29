@@ -260,36 +260,25 @@ public class LoginActivity extends AppCompatActivity {
 
 /********************************************************************************/
 public void loginUser() throws JSONException, UnsupportedEncodingException {
-    // Get Email Edit View Value
     email = ed1.getText().toString();
-    Log.d("email",email);
-    // Get Password Edit View Value
-    password = ed2.getText().toString();
-    // Instantiate Http Request Param Object
+        password = ed2.getText().toString();
     RequestParams params = new RequestParams();
-    // When Email Edit View and Password Edit View have values other than Null
     if(Utility.isNotNull(email) && Utility.isNotNull(password)){
-        // When Emp
-        // ail entered is Valid
+
         if(Utility.validate(email)){
-            // Put Http parameter username with value of Email Edit View control
             JSONObject jsonParams = new JSONObject();
 
             jsonParams.put("email", email);
-            // Put Http parameter password with value of Password Edit Value control
             jsonParams.put("password", password);
-            // Invoke RESTful Web Service with Http parameters
             StringEntity entity = new StringEntity(String.valueOf(jsonParams));
             Log.d("json", String.valueOf(jsonParams));
             entity.setContentType(String.valueOf(new BasicHeader(HTTP.CONTENT_TYPE, "application/json")));
             invokeWS(entity);
         }
-        // When Email is invalid
         else{
             Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_LONG).show();
         }
     }
-    // When any of the Edit View control left blank
     else{
         Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
     }
@@ -307,7 +296,7 @@ public void loginUser() throws JSONException, UnsupportedEncodingException {
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.post(this,"http://10.0.0.18:8080/webapp/login", entity,"application/json", new AsyncHttpResponseHandler() {
+        client.post(this,"http://52.6.111.205:8080/webapp-master/login", entity,"application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 prgDialog.hide();
@@ -322,15 +311,12 @@ public void loginUser() throws JSONException, UnsupportedEncodingException {
                         id=obj.getString("id");
                         navigatetoMainActivity();
                     }
-                    // Else display error message
                     else {
                         errorMsg.setText(obj.getString("error_msg"));
                         Toast.makeText(getApplicationContext(), obj.getString("error_msg"), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     navigatetoMainActivity();
-                 //   Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
 
                 }
@@ -362,11 +348,7 @@ public void loginUser() throws JSONException, UnsupportedEncodingException {
         mainIntent.putExtra("email", email);
         startActivity(mainIntent);
     }
-    /**
-     * Method gets triggered when Register button is clicked
-     *
-     * @param view
-     */
+
 
 
 

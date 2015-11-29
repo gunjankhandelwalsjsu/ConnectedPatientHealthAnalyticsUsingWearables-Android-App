@@ -85,10 +85,10 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
     private CheckBox hwAcceleratedCb;
     private CheckBox showFpsCb;
     private SimpleXYSeries patientHistorySeries = null;
-    private static int i=0;
-     SensorPresenter presenter;
+    private static int i = 0;
+    SensorPresenter presenter;
     SharedPreferences sharedpreferences;
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +98,6 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         setProgressBarIndeterminate(true);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        //.setElevation(0);
-
-
         /*
          * We are going to display the results in some text fields
          */
@@ -121,13 +118,10 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         mProgress = new ProgressDialog(this);
         mProgress.setIndeterminate(true);
         mProgress.setCancelable(false);
-
-
         aprHistoryPlot = (XYPlot) findViewById(R.id.aprHistoryPlot);
-
         patientHistorySeries = new SimpleXYSeries("Time");
         patientHistorySeries.useImplicitXVals();
-        aprHistoryPlot.setRangeBoundaries(85,105, BoundaryMode.FIXED);
+        aprHistoryPlot.setRangeBoundaries(85, 105, BoundaryMode.FIXED);
         aprHistoryPlot.setDomainBoundaries(0, 30, BoundaryMode.FIXED);
         aprHistoryPlot.addSeries(patientHistorySeries, new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null));
         aprHistoryPlot.setDomainStepValue(5);
@@ -136,35 +130,9 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         aprHistoryPlot.getDomainLabelWidget().pack();
         aprHistoryPlot.setRangeLabel("Temperature(deg C)");
         aprHistoryPlot.getRangeLabelWidget().pack();
-        // setup checkboxes:
-       // hwAcceleratedCb = (CheckBox) findViewById(R.id.hwAccelerationCb);
         final PlotStatistics histStats = new PlotStatistics(1000, false);
-
         aprHistoryPlot.addListener(histStats);
-     /*   hwAcceleratedCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    aprHistoryPlot.setLayerType(View.LAYER_TYPE_NONE, null);
-                } else {
-                    aprHistoryPlot.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-                }
-            }
-        });
-
-        //showFpsCb = (CheckBox) findViewById(R.id.showFpsCb);
-        showFpsCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                histStats.setAnnotatePlotEnabled(b);
-            }
-        });
-
-*/
-
-       presenter =new SensorPresenter(this);
-
-
+        presenter = new SensorPresenter(this);
     }
 
     @Override
@@ -221,7 +189,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         // Add the "scan" option to the menu
         getMenuInflater().inflate(R.menu.main, menu);
         //Add any device elements we've discovered to the overflow menu
-        for (int i=0; i < mDevices.size(); i++) {
+        for (int i = 0; i < mDevices.size(); i++) {
             BluetoothDevice device = mDevices.valueAt(i);
             menu.add(0, mDevices.keyAt(i), 0, device.getName());
         }
@@ -242,18 +210,17 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
             default:
                 //Obtain the discovered device to connect with
                 BluetoothDevice device = mDevices.get(item.getItemId());
-                Log.i(TAG, "Connecting to "+device.getName());
+                Log.i(TAG, "Connecting to " + device.getName());
                 /*
                  * Make a connection with the device using the special LE-specific
                  * connectGatt() method, passing in a callback for GATT events
                  */
                 mConnectedGatt = device.connectGatt(this, false, mGattCallback);
                 //Display progress UI
-                mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Connecting to "+device.getName()+"..."));
+                mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Connecting to " + device.getName() + "..."));
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
     private Runnable mStopRunnable = new Runnable() {
@@ -306,9 +273,13 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         /* State Machine Tracking */
         private int mState = 0;
 
-        private void reset() { mState = 0; }
+        private void reset() {
+            mState = 0;
+        }
 
-        private void advance() { mState++; }
+        private void advance() {
+            mState++;
+        }
 
         /*
          * Send an enable command to each sensor by writing a configuration
@@ -322,19 +293,19 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
                     Log.d(TAG, "Enabling pressure cal");
                     characteristic = gatt.getService(PRESSURE_SERVICE)
                             .getCharacteristic(PRESSURE_CONFIG_CHAR);
-                    characteristic.setValue(new byte[] {0x02});
+                    characteristic.setValue(new byte[]{0x02});
                     break;
                 case 1:
                     Log.d(TAG, "Enabling pressure");
                     characteristic = gatt.getService(PRESSURE_SERVICE)
                             .getCharacteristic(PRESSURE_CONFIG_CHAR);
-                    characteristic.setValue(new byte[] {0x01});
+                    characteristic.setValue(new byte[]{0x01});
                     break;
                 case 2:
                     Log.d(TAG, "Enabling humidity");
                     characteristic = gatt.getService(HUMIDITY_SERVICE)
                             .getCharacteristic(HUMIDITY_CONFIG_CHAR);
-                    characteristic.setValue(new byte[] {0x01});
+                    characteristic.setValue(new byte[]{0x01});
                     break;
                 default:
                     mHandler.sendEmptyMessage(MSG_DISMISS);
@@ -414,7 +385,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-            Log.d(TAG, "Connection State Change: "+status+" -> "+connectionState(newState));
+            Log.d(TAG, "Connection State Change: " + status + " -> " + connectionState(newState));
             if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
                 /*
                  * Once successfully connected, we must next discover all the services on the
@@ -438,7 +409,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-            Log.d(TAG, "Services Discovered: "+status);
+            Log.d(TAG, "Services Discovered: " + status);
             mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Enabling Sensors..."));
             /*
              * With services discovered, we are going to reset our state machine and start
@@ -498,7 +469,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
         @Override
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
-            Log.d(TAG, "Remote RSSI: "+rssi);
+            Log.d(TAG, "Remote RSSI: " + rssi);
         }
 
         private String connectionState(int status) {
@@ -579,6 +550,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
     }
 
     private int[] mPressureCals;
+
     private void updatePressureCals(BluetoothGattCharacteristic characteristic) {
         mPressureCals = SensorTagData.extractCalibrationCoefficients(characteristic);
     }
@@ -587,14 +559,12 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
         if (mPressureCals == null) return;
         double pressure = SensorTagData.extractBarometer(characteristic, mPressureCals);
         double temp = SensorTagData.extractBarTemperature(characteristic, mPressureCals);
-        if(i==0){
-             Log.d("report", Double.toString(temp));
-            double fTemp=9*temp/5 + 32;
+        if (i == 0) {
+            Log.d("report", Double.toString(temp));
+            double fTemp = 9 * temp / 5 + 32;
             double roundOff = Math.round(fTemp * 100.0) / 100.0;
             sendToServer(roundOff);
             presenter.addValueTodb(roundOff);
-
-     //       presenter.updateSpinnerTypeTime();
 
         }
         i++;
@@ -603,7 +573,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
             patientHistorySeries.removeFirst();
         }
-        double fTemp=9*temp/5 + 32;
+        double fTemp = 9 * temp / 5 + 32;
 
         // add the latest history sample:
         double roundOff = Math.round(fTemp * 100.0) / 100.0;
@@ -621,8 +591,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
     }
 
 
-
-    public void sendToServer(double reading){
+    public void sendToServer(double reading) {
 
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -631,7 +600,7 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
 
         String email = sharedpreferences.getString("email", "NA");
 
-        client.get("http://10.0.0.18:8080/webapp/temperatureAnalytics/" + email+"/"+reading, new AsyncHttpResponseHandler() {
+        client.get("http://52.6.111.205:8080/webapp-master/temperatureAnalytics/" + email + "/" + reading, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (responseBody != null) {
@@ -639,27 +608,25 @@ public class SensorTagActivity extends ActionBarActivity implements BluetoothAda
                     Log.d("Response", responseStr);
 
                 }
-                else
-                    Log.d("rec","recorded");
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Log.d("statusCode", String.valueOf(statusCode));
-                        // When Http response code is '404'
-                        if (statusCode == 404 || statusCode == 405) {
-                            Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
-                        }
-                        // When Http response code is '500'
-                        else if (statusCode == 500) {
-                            Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
-                        }
-                        // When Http response code other than 404, 500
-                        else {
-                            Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                Log.d("statusCode", String.valueOf(statusCode));
+                // When Http response code is '404'
+                if (statusCode == 404 || statusCode == 405) {
+                    Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                }
+                // When Http response code is '500'
+                else if (statusCode == 500) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                }
+                // When Http response code other than 404, 500
+                else {
+                    Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+                }
             }
-        }
+        });
+    }
+}

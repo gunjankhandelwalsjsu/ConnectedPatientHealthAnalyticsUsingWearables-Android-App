@@ -140,7 +140,7 @@ public class GetProductName extends AppCompatActivity {
     public void sendFoodData(StringEntity entity, final Context context) {
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post(this, "http://10.0.0.18:8080/webapp/nutritionixApi/" + email, entity, "application/json", new AsyncHttpResponseHandler() {
+        client.post(this, "http://52.6.111.205:8080/webapp-master/nutritionixApi/" + email, entity, "application/json", new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

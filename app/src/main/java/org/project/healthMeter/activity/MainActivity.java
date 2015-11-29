@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
     private Tracker mTracker;
 
 
-
-
     private MainPresenter presenter;
     static final String RESULT_KEY = "RESULT_KEY";
     TextView tvResult;
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     TextView etResponse;
     String email;
     DatabaseNewHandler db;
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
 
 
     @Override
@@ -114,12 +112,12 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 2) {
 
 
-                   hideFabAnimation();
+                    hideFabAnimation();
                     LinearLayout emptyLayout = (LinearLayout) findViewById(R.id.mainactivity_empty_layout);
                     ViewPager pager = (ViewPager) findViewById(R.id.pager);
                     if (pager.getVisibility() == View.GONE) {
                         pager.setVisibility(View.VISIBLE);
-                       emptyLayout.setVisibility(View.INVISIBLE);
+                        emptyLayout.setVisibility(View.INVISIBLE);
                     }
                 } else {
                     showFabAnimation();
@@ -207,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void onFabClicked(View v) {
         Intent intent = new Intent(this, SensorTagActivity.class);
         startActivity(intent);
@@ -281,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
         appBarLayout.setLayoutParams(appBarLayoutParams);
     }
 
-    public Toolbar getToolbar(){
+    public Toolbar getToolbar() {
         return (Toolbar) findViewById(R.id.toolbar);
     }
 
@@ -319,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
             // probably swiping from OVERVIEW to HISTORY tab
         }
     }
+
     public void showInviteDialog() {
         Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invitation_title))
                 .setMessage(getString(R.string.invitation_message))
@@ -328,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void checkIfEmptyLayout(){
+    public void checkIfEmptyLayout() {
         LinearLayout emptyLayout = (LinearLayout) findViewById(R.id.mainactivity_empty_layout);
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
 
@@ -352,15 +350,17 @@ public class MainActivity extends AppCompatActivity {
             emptyLayout.setVisibility(View.INVISIBLE);
         }
     }
+
     private boolean isPlayServicesAvailable() {
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
-        if(status == ConnectionResult.SUCCESS)
+        if (status == ConnectionResult.SUCCESS)
             return true;
         else {
             Log.d("STATUS", "Error connecting with Google Play services. Code: " + String.valueOf(status));
             return false;
         }
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

@@ -238,7 +238,7 @@ public class EditProfileActivity extends AppCompatActivity implements
         Log.d("msg", email);
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(this, "http://10.0.0.18:8080/webapp/addDoctorToPatientProfile/list", new AsyncHttpResponseHandler() {
+        client.get(this, "http://http://52.6.111.205:8080/webapp-master/addDoctorToPatientProfile/list", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
@@ -285,7 +285,7 @@ public class EditProfileActivity extends AppCompatActivity implements
     void addDoctor(StringEntity entity) {
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post(this, "http://10.0.0.18:8080/webapp/addDoctorToPatientProfile", entity, "application/json", new AsyncHttpResponseHandler() {
+        client.post(this, "http://52.6.111.205:8080/webapp-master/addDoctorToPatientProfile", entity, "application/json", new AsyncHttpResponseHandler() {
 
 
             @Override
@@ -591,7 +591,7 @@ public class EditProfileActivity extends AppCompatActivity implements
 
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
-        client.post(this,"http://10.0.0.18:8080/webapp/login/editProfile", entity,"application/json", new AsyncHttpResponseHandler() {
+        client.post(this,"http://52.6.111.205:8080/webapp-master/login/editProfile", entity,"application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 // Hide Progress Dialog
@@ -739,7 +739,7 @@ public class EditProfileActivity extends AppCompatActivity implements
             try {
                 Log.d("posting....","postt");
                 HttpPost httppost = new HttpPost(
-                        "http://10.0.0.18:8080/webapp/patientImage/upload"); // server
+                        "http://52.6.111.205:8080/webapp-master/patientImage/upload"); // server
 
                 MultipartEntity reqEntity = new MultipartEntity();
                 Log.d("m","I hereeeeessss");

@@ -203,17 +203,9 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
             r.play();
         } catch (Exception e) {
         }
-        //  showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
         Log.i("Contentsssssss =", rawResult.getContents());
         barcode = rawResult.getContents();
-       /* Intent intent = new Intent(getActivity(), ViewForScannerActivity.class);
-        intent.putExtra("barcode", barcode);
-        startActivity(intent);*/
         fetch_foodData();
-
-
-        // new HttpAsyncTask().execute("http://world.openfoodfacts.org/api/v0/product/"+rawResult.getContents()+".json");
-
     }
 
     public void showMessageDialog(String message) {
@@ -332,7 +324,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                 getActivity());
         Log.d("allergyyyyyy", Allergyresult);
         /**************When Scan is improper**************/
-        if(Allergyresult.equals("null")) {
+        if (Allergyresult.equals("null")) {
             Toast.makeText(this.getContext(), "Please scan again", Toast.LENGTH_LONG);
             getFragmentManager().popBackStack();
         }
@@ -351,8 +343,6 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                             public void onClick(DialogInterface dialog, int id) {
 
                                 String[] nut = nutriments.toString().split(",");
-                                // StringBuilder builder=new StringBuilder();
-
                                 for (int i = 0; i < nut.length; i++) {
                                     nut[i] = nut[i].replace("\"", " ");
                                     nut[i] = nut[i].replace("{", " ");
@@ -395,12 +385,11 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                         });
             }
 
-        } else  /*************************if Allergy result is available i.e ingredients are there/***********/
-        {
+        } else  /*************************if Allergy result is available i.e ingredients are there/***********/ {
             alertDialogBuilder.setTitle("Allergy Information");
 /*******************Nutrition is available**************/
             // set dialog message
-            if (!nutriments.equals("No information available")&&nutriments.length()>3) {
+            if (!nutriments.equals("No information available") && nutriments.length() > 3) {
 
                 alertDialogBuilder
                         .setMessage(Allergyresult + "! Do you want to get Nutrition Information")
@@ -469,9 +458,8 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
     public void fetch_foodData() {
 
-        ScannerPresenter presentert;
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://10.0.0.18:8080/webapp/food/" + email + "/" + barcode, new AsyncHttpResponseHandler() {
+        client.get("http://52.6.111.205:8080/webapp-master/food/" + email + "/" + barcode, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -515,9 +503,9 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
                     }
 
-                    List<String> nuts=new ArrayList<String>();
+                    List<String> nuts = new ArrayList<String>();
                     final String nutriments = obj.getString("nutriments");
-                    if(!nutriments.equals("No information available")) {
+                    if (!nutriments.equals("No information available")) {
                         if (nutriments.length() > 4) {
                             String[] nut = nutriments.toString().split(",");
 
@@ -534,14 +522,11 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
                                 builder.append(s);
                             }
-                        }else{
-                              sugarConsumed=" "+nutriments+"g";
+                        } else {
+                            sugarConsumed = " " + nutriments + "g";
                         }
-                    }
-
-
-                    else
-                    sugarConsumed=" No information available";
+                    } else
+                        sugarConsumed = " No information available";
 
 
                     /**************************************************************************************/
@@ -582,7 +567,7 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
 
                     } else {
-                         callAllergyDialog(Allergyresult, nutriments);
+                        callAllergyDialog(Allergyresult, nutriments);
                     }
 
                     JSONArray pAllergylist;
@@ -600,8 +585,6 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
 
 //////////////////////////////////////////////////////////////////////////////////
                     JSONArray pDiseaselist;
-
-
                     pDiseaselist = obj.getJSONArray("patientDisease");
                     List<String> dis = new ArrayList<String>();
                     if (pDiseaselist != null && pDiseaselist.length() != 0) {
@@ -610,12 +593,12 @@ public class ScannerFragment extends Fragment implements MessageDialogFragment.M
                             dis.add(pDiseaselist.get(i).toString());
                         }
                     }
-                    Log.d("sugarbeen",sugarConsumed);
-                    if(sugarConsumed.contains(":")||sugarConsumed.contains("\"")) {
+                    Log.d("sugarbeen", sugarConsumed);
+                    if (sugarConsumed.contains(":") || sugarConsumed.contains("\"")) {
                         String[] sug = sugarConsumed.split(":");
                         sugarConsumed = sug[1].replace("\"", " ") + "g";
                     }
-                    Log.d("sugarbeen",sugarConsumed);
+                    Log.d("sugarbeen", sugarConsumed);
 
                     presenter.addValueTodb(productName, all.toString(), dis.toString(), Allergyresult, sugarConsumed);
 

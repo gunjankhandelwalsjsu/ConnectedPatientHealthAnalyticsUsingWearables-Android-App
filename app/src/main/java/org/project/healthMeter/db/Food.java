@@ -57,8 +57,4 @@ public class Food {
     public void setSugarsConsumed(String sugarsConsumed) {
         this.sugarsConsumed = sugarsConsumed;
     }
-
-
-
-
 }
